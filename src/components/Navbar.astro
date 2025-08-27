@@ -1,0 +1,358 @@
+---
+// Navbar component
+---
+
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Left side - Hamburger (mobile) -->
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" aria-haspopup="menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    
+    <!-- Left side - Logo centered -->
+    <div class="nav-logo">
+      <a href="/" class="logo-link">
+        <img src="/Logo_dark.svg" alt="Logo" class="logo" />
+      </a>
+    </div>
+    
+    <!-- Center Navigation Group -->
+    <div class="nav-content">
+      <a href="/" class="nav-link">Shop</a>
+      <a href="/about" class="nav-link">About</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-link dropdown-trigger">Collections</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-container">
+            <!-- Left Section - Jewellery Collections -->
+            <div class="collections-section">
+              <h3 class="collections-title">Our Collections</h3>
+              <div class="collections-grid">
+                <div class="collection-item">
+                  <h4>Talisman Calligraphy</h4>
+                  <p>Unique pieces inspired by ancient calligraphic traditions</p>
+                </div>
+                <div class="collection-item">
+                  <h4>Kaleidoscope Collection</h4>
+                  <p>Vibrant and colorful designs that reflect life's diversity</p>
+                </div>
+                <div class="collection-item">
+                  <h4>Heritage Collection</h4>
+                  <p>Timeless pieces that honor traditional craftsmanship</p>
+                </div>
+                <div class="collection-item">
+                  <h4>Forever Collection</h4>
+                  <p>Classic designs that never go out of style</p>
+                </div>
+              </div>
+              <div class="view-all-collections">
+                <a href="/collections" class="view-all-link">View All Collections →</a>
+              </div>
+            </div>
+            
+            <!-- Right Section - All Collections Grid -->
+            <div class="all-collections-section">
+              <h3 class="all-collections-title">All Collections</h3>
+              <div class="all-collections-grid">
+                <div class="collection-card">
+                  <h4>Talisman Calligraphy</h4>
+                  <p>Unique pieces inspired by ancient calligraphic traditions</p>
+                </div>
+                <div class="collection-card">
+                  <h4>Kaleidoscope Collection</h4>
+                  <p>Vibrant and colorful designs that reflect life's diversity</p>
+                </div>
+                <div class="collection-card">
+                  <h4>Heritage Collection</h4>
+                  <p>Timeless pieces that honor traditional craftsmanship</p>
+                </div>
+                <div class="collection-card">
+                  <h4>Forever Collection</h4>
+                  <p>Classic designs that never go out of style</p>
+                </div>
+                <div class="collection-card">
+                  <h4>Bespoke Pieces</h4>
+                  <p>Custom designs created especially for you</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="/contact" class="nav-link">Contact</a>
+      <a href="/contact" class="nav-link">Shipping</a>
+    </div>
+    
+    <!-- Right side - Search and Cart -->
+    <div class="nav-actions">
+      <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-input" />
+        <button type="button" class="search-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <button class="cart-btn" id="cart-btn" aria-label="Open cart" aria-controls="cart-drawer" aria-expanded="false" aria-haspopup="dialog">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Main menu" tabindex="-1">
+    <div class="mobile-menu-content" role="document">
+      <div class="mobile-menu-links">
+        <div class="mobile-accordion-item">
+          <button class="mobile-accordion-trigger" id="mobile-collections-trigger" aria-expanded="false" aria-controls="mobile-collections-panel">
+            Collections
+          </button>
+          <div class="mobile-submenu" id="mobile-collections-panel" role="region" aria-labelledby="mobile-collections-trigger">
+            <a href="/collections/talisman-calligraphy" class="mobile-submenu-link">Talisman Calligraphy</a>
+            <a href="/collections/kaleidoscope" class="mobile-submenu-link">Kaleidoscope Collection</a>
+            <a href="/collections/heritage" class="mobile-submenu-link">Heritage Collection</a>
+            <a href="/collections/forever" class="mobile-submenu-link">Forever Collection</a>
+            <a href="/collections/bespoke" class="mobile-submenu-link">Bespoke Pieces</a>
+            <a href="/collections" class="mobile-submenu-link view-all">View All Collections</a>
+          </div>
+        </div>
+        <a href="/" class="mobile-nav-link">Shop</a>
+        <a href="/about" class="mobile-nav-link">About</a>
+        <a href="/contact" class="mobile-nav-link">Contact</a>
+        <a href="/contact" class="mobile-nav-link">Shipping</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer Overlay -->
+  <div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
+    <div class="cart-drawer-content" role="document">
+      <header class="cart-header">
+        <div class="cart-title-group">
+          <svg class="cart-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 7V5.77273C6 4.2263 6.644 2.75317 7.77399 1.67454C8.9024 0.597427 10.4233 0 12 0C13.5767 0 15.0976 0.597427 16.226 1.67454C17.356 2.75317 18 4.2263 18 5.77273V7H19C20.1046 7 21 7.89543 21 9V18C21 20.7614 18.7614 23 16 23H8C5.23858 23 3 20.7614 3 18V9C3 7.89543 3.89543 7 5 7H6ZM9.15494 3.12126C9.9019 2.40825 10.9245 2 12 2C13.0755 2 14.0981 2.40825 14.8451 3.12126C15.5904 3.83275 16 4.78754 16 5.77273V7H8V5.77273C8 4.78755 8.40957 3.83275 9.15494 3.12126ZM5 18V9H19V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18Z" fill="currentColor" />
+          </svg>
+          <h2 class="cart-title">Shopping Cart</h2>
+        </div>
+        <button class="cart-close-btn" id="cart-close-btn" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </header>
+      <div class="cart-items" id="cart-items" role="region" aria-live="polite">
+        <div class="cart-empty">Your cart is empty.</div>
+      </div>
+      <footer class="cart-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span class="cart-subtotal-amount">£0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkout-btn">Checkout</button>
+      </footer>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu functionality
+  const hamburgerBtn = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
+  // Cart drawer elements
+  const cartBtn = document.getElementById('cart-btn') as HTMLButtonElement | null;
+  const cartDrawer = document.getElementById('cart-drawer') as HTMLElement | null;
+  const cartCloseBtn = document.getElementById('cart-close-btn') as HTMLButtonElement | null;
+  
+  const navbarEl = document.querySelector('.navbar') as HTMLElement | null;
+  let lastFocusedElement: Element | null = null;
+  const focusSelectors = 'a[href], button:not([disabled]), textarea, input[type="text"], input[type="search"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])';
+  const updateNavbarBottomVar = () => {
+    if (!navbarEl) return;
+    const rect = navbarEl.getBoundingClientRect();
+    document.documentElement.style.setProperty('--navbar-bottom', `${rect.bottom}px`);
+  };
+  updateNavbarBottomVar();
+  window.addEventListener('resize', updateNavbarBottomVar);
+  window.addEventListener('scroll', updateNavbarBottomVar, { passive: true });
+  
+  if (hamburgerBtn && mobileMenu) {
+    function openMobileMenu() {
+      lastFocusedElement = document.activeElement;
+      mobileMenu!.classList.add('active');
+      document.body.classList.add('mobile-menu-open');
+      hamburgerBtn!.classList.add('is-active');
+      hamburgerBtn!.setAttribute('aria-expanded', 'true');
+      hamburgerBtn!.setAttribute('aria-label', 'Close menu');
+      // Focus first focusable element in the menu
+      const focusable = mobileMenu!.querySelectorAll(focusSelectors);
+      if (focusable.length > 0) {
+        (focusable[0] as HTMLElement).focus();
+      } else {
+        mobileMenu!.focus();
+      }
+    }
+
+    function closeMobileMenu() {
+      mobileMenu!.classList.remove('active');
+      document.body.classList.remove('mobile-menu-open');
+      hamburgerBtn!.classList.remove('is-active');
+      hamburgerBtn!.setAttribute('aria-expanded', 'false');
+      hamburgerBtn!.setAttribute('aria-label', 'Open menu');
+      if (lastFocusedElement && (lastFocusedElement as HTMLElement).focus) {
+        (lastFocusedElement as HTMLElement).focus();
+      } else {
+        hamburgerBtn!.focus();
+      }
+    }
+
+    function toggleMobileMenu() {
+      if (mobileMenu!.classList.contains('active')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+
+    hamburgerBtn!.addEventListener('click', toggleMobileMenu);
+
+    // Close mobile menu when clicking backdrop (outside panel)
+    mobileMenu!.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        closeMobileMenu();
+      }
+    });
+
+    // Focus trap inside the menu
+    mobileMenu!.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(mobileMenu!.querySelectorAll(focusSelectors)).filter((el) => !(el as HTMLElement).hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1') as HTMLElement[];
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        (last as HTMLElement).focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        (first as HTMLElement).focus();
+      }
+    });
+
+    // Close mobile menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu!.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Mobile collections accordion toggle
+    const collectionsTrigger = document.getElementById('mobile-collections-trigger') as HTMLButtonElement | null;
+    const collectionsPanel = document.getElementById('mobile-collections-panel') as HTMLElement | null;
+    if (collectionsTrigger && collectionsPanel) {
+      const trigger = collectionsTrigger as HTMLButtonElement;
+      const panel = collectionsPanel as HTMLElement;
+      function toggleCollections() {
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', String(!expanded));
+        trigger.classList.toggle('expanded', !expanded);
+        panel.classList.toggle('expanded', !expanded);
+      }
+      trigger.addEventListener('click', toggleCollections);
+
+      // Close accordion when menu closes
+      mobileMenu!.addEventListener('transitionend', () => {
+        if (!mobileMenu!.classList.contains('active')) {
+          trigger.setAttribute('aria-expanded', 'false');
+          trigger.classList.remove('expanded');
+          panel.classList.remove('expanded');
+        }
+      });
+    }
+  }
+
+  // Cart drawer functionality
+  if (cartBtn && cartDrawer) {
+    function openCart() {
+      lastFocusedElement = document.activeElement;
+      cartDrawer!.classList.add('active');
+      document.body.classList.add('cart-drawer-open');
+      cartBtn!.setAttribute('aria-expanded', 'true');
+      cartBtn!.setAttribute('aria-label', 'Close cart');
+      const focusable = cartDrawer!.querySelectorAll(focusSelectors);
+      if (focusable.length > 0) {
+        (focusable[0] as HTMLElement).focus();
+      } else {
+        cartDrawer!.focus();
+      }
+    }
+
+    function closeCart() {
+      cartDrawer!.classList.remove('active');
+      document.body.classList.remove('cart-drawer-open');
+      cartBtn!.setAttribute('aria-expanded', 'false');
+      cartBtn!.setAttribute('aria-label', 'Open cart');
+      if (lastFocusedElement && (lastFocusedElement as HTMLElement).focus) {
+        (lastFocusedElement as HTMLElement).focus();
+      } else {
+        cartBtn!.focus();
+      }
+    }
+
+    function toggleCart() {
+      if (cartDrawer!.classList.contains('active')) {
+        closeCart();
+      } else {
+        openCart();
+      }
+    }
+
+    cartBtn!.addEventListener('click', toggleCart);
+    cartCloseBtn && cartCloseBtn.addEventListener('click', closeCart);
+
+    // Close when clicking backdrop (outside panel)
+    cartDrawer!.addEventListener('click', (e) => {
+      if (e.target === cartDrawer) {
+        closeCart();
+      }
+    });
+
+    // Focus trap
+    cartDrawer!.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(cartDrawer!.querySelectorAll(focusSelectors)).filter((el) => !(el as HTMLElement).hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1') as HTMLElement[];
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        (last as HTMLElement).focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        (first as HTMLElement).focus();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && cartDrawer!.classList.contains('active')) {
+        closeCart();
+      }
+    });
+  }
+</script>
