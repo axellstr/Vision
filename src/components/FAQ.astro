@@ -1,0 +1,270 @@
+---
+// FAQ Component
+---
+
+<section class="faq-section" aria-label="Frequently Asked Questions">
+  <div class="container">
+    <div class="faq-header">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      <p class="faq-subtitle">Find answers to common questions about our jewellery, shipping, and services.</p>
+    </div>
+    
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+          <span>How long does shipping take?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-1">
+          <p>We offer complimentary worldwide shipping. UK orders typically arrive within 2-3 business days, while international orders take 5-10 business days.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+          <span>Can I return or exchange my order?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-2">
+          <p>Yes, we offer a 30-day return policy for all unworn items in their original packaging. Custom pieces are non-returnable.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+          <span>Do you offer custom designs?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-3">
+          <p>Absolutely! We love creating bespoke pieces. Please contact us with your ideas and we'll schedule a consultation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+          <span>What materials do you use?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-4">
+          <p>We use only ethically sourced materials including recycled gold, conflict-free diamonds, and responsibly mined gemstones. All our pieces are crafted with the highest quality standards.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+          <span>Do you offer gift wrapping?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-5">
+          <p>Yes, we offer complimentary gift wrapping on all orders. You can add a personal message during checkout.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
+          <span>How do I care for my jewellery?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-answer-6">
+          <p>Store your jewellery in a cool, dry place away from direct sunlight. Clean gently with a soft cloth and avoid contact with chemicals, perfumes, and lotions. We recommend professional cleaning annually.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // FAQ Accordion functionality
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const isExpanded = question.getAttribute('aria-expanded') === 'true';
+      const answerId = question.getAttribute('aria-controls');
+      const answer = answerId ? document.getElementById(answerId) : null;
+      const icon = question.querySelector('.faq-icon');
+      
+      // Close all other FAQ items
+      faqQuestions.forEach(otherQuestion => {
+        if (otherQuestion !== question) {
+          otherQuestion.setAttribute('aria-expanded', 'false');
+          const otherAnswerId = otherQuestion.getAttribute('aria-controls');
+          const otherAnswer = otherAnswerId ? document.getElementById(otherAnswerId) : null;
+          const otherIcon = otherQuestion.querySelector('.faq-icon');
+          
+          if (otherAnswer && otherAnswer instanceof HTMLElement) {
+            otherAnswer.style.maxHeight = '0px';
+          }
+          if (otherIcon && otherIcon instanceof HTMLElement) {
+            otherIcon.style.transform = 'rotate(0deg)';
+          }
+        }
+      });
+      
+      // Toggle current FAQ item
+      if (isExpanded) {
+        question.setAttribute('aria-expanded', 'false');
+        if (answer && answer instanceof HTMLElement) {
+          answer.style.maxHeight = '0px';
+        }
+        if (icon && icon instanceof HTMLElement) {
+          icon.style.transform = 'rotate(0deg)';
+        }
+      } else {
+        question.setAttribute('aria-expanded', 'true');
+        if (answer && answer instanceof HTMLElement) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+        if (icon && icon instanceof HTMLElement) {
+          icon.style.transform = 'rotate(180deg)';
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  /* FAQ Section */
+  .faq-section {
+    padding: 4rem 0;
+    background: color-mix(in srgb, var(--background) 98%, white 2%);
+    border-top: 1px solid color-mix(in srgb, var(--primary) 10%, transparent 90%);
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .faq-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .faq-subtitle {
+    font-size: 1.125rem;
+    color: color-mix(in srgb, var(--text-dark) 70%, transparent 30%);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid color-mix(in srgb, var(--primary) 8%, transparent 92%);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+  }
+
+  .faq-question:hover {
+    color: var(--primary);
+  }
+
+  .faq-question:focus {
+    outline: none;
+    color: var(--primary);
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    transition: transform 0.3s ease;
+    color: var(--primary);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-answer p {
+    padding: 0 0 1.5rem 0;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--text-dark) 70%, transparent 30%);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 880px) {
+    .faq-section {
+      padding: 3rem 0;
+    }
+
+    .faq-title {
+      font-size: 2rem;
+    }
+
+    .faq-subtitle {
+      font-size: 1rem;
+    }
+
+    .faq-question {
+      padding: 1.25rem 0;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .faq-section {
+      padding: 2rem 0;
+    }
+
+    .faq-title {
+      font-size: 1.75rem;
+    }
+
+    .faq-question {
+      padding: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .faq-answer p {
+      font-size: 0.875rem;
+    }
+  }
+</style>

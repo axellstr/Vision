@@ -1,0 +1,181 @@
+---
+import '../styles/global.css';
+import '../components/Navbar.css';
+import '../components/Marquee.css';
+import Navbar from '../components/Navbar.astro';
+import Marquee from '../components/Marquee.astro';
+import '../components/Footer.css';
+import Footer from '../components/Footer.astro';
+import '../components/AboutPage.css';
+import ScrollToTop from '../components/ScrollToTop.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>The Brand | Parisa London</title>
+		<meta name="description" content="Discover the story behind Parisa London - where tradition meets innovation in fine jewellery craftsmanship." />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Marquee text="Free shipping on all orders • Limited time offer • New collection coming soon" />
+		<Navbar />
+		<main class="container">
+			<!-- Hero Section -->
+			<section class="about-hero">
+				<div class="about-hero__content">
+					<h1 class="about-hero__title">The Brand</h1>
+					<p class="about-hero__subtitle">Where tradition meets innovation in fine jewellery craftsmanship</p>
+				</div>
+			</section>
+
+			<!-- Story Section -->
+			<section class="about-story">
+				<div class="about-story__grid">
+					<div class="about-story__content">
+						<h2 class="about-story__title">Our Story</h2>
+						<p class="about-story__text">
+							Founded with a passion for exceptional craftsmanship and timeless design, Parisa London has been creating 
+							beautiful jewellery pieces that tell stories and celebrate life's most precious moments since our inception.
+						</p>
+						<p class="about-story__text">
+							We believe that jewellery should be more than just an accessory – it should be a reflection of the wearer's 
+							personality, a celebration of their journey, and a connection to something greater than themselves.
+						</p>
+					</div>
+					<div class="about-story__image">
+						<img src="/hero.jpg" alt="Parisa London workshop" class="about-story__img" />
+					</div>
+				</div>
+			</section>
+
+			<!-- Values Section -->
+			<section class="about-values">
+				<h2 class="about-values__title">Our Values</h2>
+				<div class="about-values__grid">
+					<div class="value-card">
+						<div class="value-card__icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+							</svg>
+						</div>
+						<h3 class="value-card__title">Craftsmanship</h3>
+						<p class="value-card__text">
+							Every piece is meticulously crafted by skilled artisans who bring decades of experience and passion to their work.
+						</p>
+					</div>
+					<div class="value-card">
+						<div class="value-card__icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+								<polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+								<line x1="12" y1="22.08" x2="12" y2="12"/>
+							</svg>
+						</div>
+						<h3 class="value-card__title">Heritage</h3>
+						<p class="value-card__text">
+							We honour traditional techniques while embracing modern innovation to create pieces that stand the test of time.
+						</p>
+					</div>
+					<div class="value-card">
+						<div class="value-card__icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+							</svg>
+						</div>
+						<h3 class="value-card__title">Sustainability</h3>
+						<p class="value-card__text">
+							We are committed to responsible sourcing and ethical practices, ensuring our jewellery is as beautiful for the planet as it is for you.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Process Section -->
+			<section class="about-process">
+				<div class="about-process__content">
+					<h2 class="about-process__title">Our Process</h2>
+					<div class="about-process__steps">
+						<div class="process-step">
+							<span class="process-step__number">01</span>
+							<h3 class="process-step__title">Design</h3>
+							<p class="process-step__text">
+								Each piece begins with inspiration – from nature's beauty to architectural marvels, we draw from the world around us.
+							</p>
+						</div>
+						<div class="process-step">
+							<span class="process-step__number">02</span>
+							<h3 class="process-step__title">Craft</h3>
+							<p class="process-step__text">
+								Our master craftsmen bring designs to life using traditional techniques combined with modern precision.
+							</p>
+						</div>
+						<div class="process-step">
+							<span class="process-step__number">03</span>
+							<h3 class="process-step__title">Perfect</h3>
+							<p class="process-step__text">
+								Every piece undergoes rigorous quality control to ensure it meets our exacting standards before reaching you.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Team Section -->
+			<section class="about-team">
+				<div class="about-team__content">
+					<h2 class="about-team__title">Meet Our Team</h2>
+					<p class="about-team__intro">
+						Behind every piece of Parisa London jewellery is a team of passionate individuals dedicated to creating 
+						exceptional experiences for our customers.
+					</p>
+					<div class="about-team__grid">
+						<div class="team-member">
+							<div class="team-member__image">
+								<img src="/grid_one.jpg" alt="Design Director" class="team-member__img" />
+							</div>
+							<h3 class="team-member__name">Sarah Chen</h3>
+							<p class="team-member__role">Design Director</p>
+							<p class="team-member__bio">
+								With over 15 years in luxury jewellery design, Sarah brings her unique vision and passion for 
+								contemporary aesthetics to every collection.
+							</p>
+						</div>
+						<div class="team-member">
+							<div class="team-member__image">
+								<img src="/grid_two.jpg" alt="Master Craftsman" class="team-member__img" />
+							</div>
+							<h3 class="team-member__name">Marcus Rodriguez</h3>
+							<p class="team-member__role">Master Craftsman</p>
+							<p class="team-member__bio">
+								A third-generation jeweller, Marcus combines traditional techniques with innovative approaches 
+								to create truly exceptional pieces.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- CTA Section -->
+			<section class="about-cta">
+				<div class="about-cta__content">
+					<h2 class="about-cta__title">Ready to Discover Your Perfect Piece?</h2>
+					<p class="about-cta__text">
+						Explore our collections and find the jewellery that speaks to your unique story.
+					</p>
+					<div class="about-cta__actions">
+						<a href="/" class="btn btn--primary">Shop Collections</a>
+						<a href="/contact" class="btn btn--secondary">Get in Touch</a>
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+		<ScrollToTop />
+	</body>
+</html>

@@ -1,0 +1,47 @@
+/* Global CSS Variables and Base Styles */
+:root {
+  --primary: #0D1716;
+  --secondary: #368f8b;
+  --background: #f3f3f3;
+  --text-dark: #0D1716;
+  /* Global corner radius (slightly tighter than 1rem) */
+  --radius: 0.5rem;
+  /* Typography */
+  --font-primary: 'Montserrat', sans-serif;
+}
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color: var(--text-dark);
+  scroll-behavior: smooth;
+  font-family: var(--font-primary);
+  
+}
+
+body {
+  min-height: 200vh;
+  line-height: 1.6;
+  background-color: var(--background);
+  font-family: var(--font-primary);
+  z-index: -1;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  line-height: 1.2;
+  font-family: var(--font-primary);
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

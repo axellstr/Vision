@@ -1,0 +1,82 @@
+/* Showcase Grid Component */
+.showcase-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+	margin-top: 3rem;
+}
+
+.showcase-grid__item {
+	aspect-ratio: 16 / 9;
+	border-radius: var(--radius);
+	overflow: hidden;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+/* Tiles use hero image (with color fallback) */
+.showcase-grid__item--a {
+	background-color: color-mix(in srgb, var(--primary) 12%, var(--background) 88%);
+	background-image: image-set(
+		url('/grid_one.jpg') type('image/jpeg')
+	);
+}
+.showcase-grid__item--c {
+	background-color: color-mix(in srgb, var(--primary) 6%, white 94%);
+	background-image: image-set(
+		url('/grid_two.jpg') type('image/jpeg')
+	);
+}
+
+/* Text tiles */
+.showcase-grid__item--text,
+.showcase-grid__item--text-secondary {
+	display: grid;
+	align-content: center;
+	padding: 1.5rem;
+}
+
+
+.showcase-grid__title {
+	margin: 0 0 0.5rem 0;
+	font-size: clamp(1.25rem, 1.2vw + 2rem, 1.75rem);
+	font-weight: 400;
+	color: var(--text-dark);
+}
+
+.showcase-grid__desc {
+	margin: 0;
+	font-size: 1.1rem;
+	line-height: 1.5;
+	color: color-mix(in srgb, var(--text-dark) 70%, transparent 30%);
+}
+
+/* Responsiveness */
+@media (max-width: 880px) {
+	.showcase-grid {
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		/* Enforce mobile order: image A → text → image C → text-secondary */
+		grid-template-areas:
+			"a"
+			"text"
+			"c"
+			"text2";
+	}
+	/* Map items to areas */
+	.showcase-grid__item--a { grid-area: a; }
+	.showcase-grid__item--text { grid-area: text; }
+	.showcase-grid__item--c { grid-area: c; }
+	.showcase-grid__item--text-secondary { grid-area: text2; }
+
+	/* Make text tiles half the height of image tiles */
+	.showcase-grid__item--text,
+	.showcase-grid__item--text-secondary { aspect-ratio: 2 / 1; padding: 0.75rem;}
+}
+
+@media (min-width: 1200px) {
+	/* Squares scale naturally with container width */
+	.showcase-grid__title { font-size: clamp(1.75rem, 1vw + 1.75rem, 2.5rem); }
+	.showcase-grid__desc { font-size: 1.2rem; }
+} 

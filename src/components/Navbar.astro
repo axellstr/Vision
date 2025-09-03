@@ -1,0 +1,553 @@
+---
+// Navbar component
+---
+
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-container">
+      <!-- Left side - Hamburger (mobile) -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" aria-haspopup="menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      
+      <!-- Left side  -->
+      <div class="nav-logo">
+        <button id="region-btn" class="region-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="region-popover">UK / GBP</button>
+        <a href="/contact" class="region-desktop-icon" aria-label="Contact us">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M2 6a1.5 1.5 0 0 1 1.5-1.5h17A1.5 1.5 0 0 1 22 6v12a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18V6Z"/>
+            <path stroke="currentColor" stroke-width="2" d="m2 5.5 9.045 7.463a1.5 1.5 0 0 0 1.91 0L22 5.5"/>
+          </svg>
+        </a>
+        <div id="region-popover" class="region-popover" role="listbox" aria-label="Select region and currency" hidden>
+          <select id="region-select" class="region-select" aria-label="Region selector"></select>
+        </div>
+      </div>
+      
+      <!-- Center Navigation Group -->
+      <div class="nav-content">
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-trigger">Collections</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-container">
+              <!-- Left Section - Jewellery Collections -->
+              <div class="collections-section">
+                <h3 class="collections-title">Our Collections</h3>
+                <div class="collections-grid">
+                  <div class="collection-item">
+                    <div class="collection-image">
+                      <img src="/Product.jpg" alt="Talisman Calligraphy" class="collection-item-image" />
+                      <div class="collection-overlay"></div>
+                      <h4 class="collection-title">Talisman Calligraphy</h4>
+                    </div>
+                  </div>
+                  <div class="collection-item">
+                    <div class="collection-image">
+                      <img src="/grid_one.jpg" alt="Kaleidoscope Collection" class="collection-item-image" />
+                      <div class="collection-overlay"></div>
+                      <h4 class="collection-title">Kaleidoscope Collection</h4>
+                    </div>
+                  </div>
+                  <div class="collection-item">
+                    <div class="collection-image">
+                      <img src="/grid_two.jpg" alt="Heritage Collection" class="collection-item-image" />
+                      <div class="collection-overlay"></div>
+                      <h4 class="collection-title">Heritage Collection</h4>
+                    </div>
+                  </div>
+                  <div class="collection-item">
+                    <div class="collection-image">
+                      <img src="/hero.jpg" alt="Forever Collection" class="collection-item-image" />
+                      <div class="collection-overlay"></div>
+                      <h4 class="collection-title">Forever Collection</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Right Section - All Collections Grid -->
+              <div class="all-collections-section">
+                <h3 class="all-collections-title">All Collections</h3>
+                <div class="all-collections-grid">
+                  <div class="collection-card">
+                    <h4>Talisman Calligraphy</h4>
+                    <p>Unique pieces inspired by ancient calligraphic traditions</p>
+                  </div>
+                  <div class="collection-card">
+                    <h4>Kaleidoscope Collection</h4>
+                    <p>Vibrant and colorful designs that reflect life's diversity</p>
+                  </div>
+                  <div class="collection-card">
+                    <h4>Heritage Collection</h4>
+                    <p>Timeless pieces that honor traditional craftsmanship</p>
+                  </div>
+                  <div class="collection-card">
+                    <h4>Forever Collection</h4>
+                    <p>Classic designs that never go out of style</p>
+                  </div>
+                  <div class="collection-card">
+                    <h4>Bespoke Pieces</h4>
+                    <p>Custom designs created especially for you</p>
+                  </div>
+                  <div class="collection-card view-all-card">
+                    <a href="/collections" class="view-all-link">View All Collections →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="/" class="logo-link">
+          <img src="/Logo_dark.svg" alt="Logo" class="logo" />
+        </a>
+        <a href="/about" class="nav-link">The Brand</a>
+  
+      </div>
+      
+      <!-- Right side - Search and Cart -->
+      <div class="nav-actions">
+        <div class="search-container">
+          <input type="text" placeholder="Search..." class="search-input" />
+          <button type="button" class="search-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <button class="cart-btn" id="cart-btn" aria-label="Open cart" aria-controls="cart-drawer" aria-expanded="false" aria-haspopup="dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 7V5.77273C6 4.2263 6.644 2.75317 7.77399 1.67454C8.9024 0.597427 10.4233 0 12 0C13.5767 0 15.0976 0.597427 16.226 1.67454C17.356 2.75317 18 4.2263 18 5.77273V7H19C20.1046 7 21 7.89543 21 9V18C21 20.7614 18.7614 23 16 23H8C5.23858 23 3 20.7614 3 18V9C3 7.89543 3.89543 7 5 7H6ZM9.15494 3.12126C9.9019 2.40825 10.9245 2 12 2C13.0755 2 14.0981 2.40825 14.8451 3.12126C15.5904 3.83275 16 4.78754 16 5.77273V7H8V5.77273C8 4.78755 8.40957 3.83275 9.15494 3.12126ZM5 18V9H19V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18Z" fill="currentColor" />
+          </svg>
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Main menu" tabindex="-1">
+    <div class="mobile-menu-content" role="document">
+      <!-- Mobile Menu Header -->
+      <header class="mobile-menu-header">
+        <button id="mobile-region-btn" class="mobile-region-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="mobile-region-popover">UK / GBP</button>
+        <div class="mobile-menu-brand">
+          <img src="/Logo_dark.svg" alt="Logo" class="mobile-logo" />
+        </div>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+        <div id="mobile-region-popover" class="mobile-region-popover" role="listbox" aria-label="Select region and currency" hidden>
+          <select id="mobile-region-select" class="mobile-region-select" aria-label="Region selector"></select>
+        </div>
+      </header>
+
+      <!-- Mobile Menu Navigation -->
+      <nav class="mobile-menu-nav">
+        <!-- Collections Section -->
+        <div class="mobile-menu-section">
+          <h3 class="mobile-section-title">Collections</h3>
+          <div class="mobile-collections-grid">
+            <a href="/collections/talisman-calligraphy" class="mobile-collection-item">
+              <div class="mobile-collection-image">
+                <img src="/Product.jpg" alt="Talisman Calligraphy" />
+              </div>
+              <span class="mobile-collection-name">Talisman Calligraphy</span>
+            </a>
+            <a href="/collections/kaleidoscope" class="mobile-collection-item">
+              <div class="mobile-collection-image">
+                <img src="/grid_one.jpg" alt="Kaleidoscope Collection" />
+              </div>
+              <span class="mobile-collection-name">Kaleidoscope</span>
+            </a>
+            <a href="/collections/heritage" class="mobile-collection-item">
+              <div class="mobile-collection-image">
+                <img src="/grid_two.jpg" alt="Heritage Collection" />
+              </div>
+              <span class="mobile-collection-name">Heritage</span>
+            </a>
+            <a href="/collections/forever" class="mobile-collection-item">
+              <div class="mobile-collection-image">
+                <img src="/hero.jpg" alt="Forever Collection" />
+              </div>
+              <span class="mobile-collection-name">Forever</span>
+            </a>
+            <a href="/collections/bespoke" class="mobile-collection-item">
+              <div class="mobile-collection-image">
+                <div class="mobile-collection-placeholder">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                </div>
+              </div>
+              <span class="mobile-collection-name">Bespoke</span>
+            </a>
+            <a href="/collections/limited" class="mobile-collection-item">
+              <div class="mobile-collection-image">
+                <div class="mobile-collection-placeholder">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M2 12h20"/>
+                  </svg>
+                </div>
+              </div>
+              <span class="mobile-collection-name">Limited</span>
+            </a>
+          </div>
+          <div class="mobile-view-all">
+            <a href="/collections" class="mobile-view-all-link">
+              View All Collections
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- All Navigation Links -->
+        <div class="mobile-menu-section mobile-nav-section">
+          <a href="/" class="mobile-nav-link">
+            <span class="mobile-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9,22 9,12 15,12 15,22"/>
+              </svg>
+            </span>
+            <span class="mobile-nav-text">Shop</span>
+          </a>
+          <a href="/about" class="mobile-nav-link">
+            <span class="mobile-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+            <span class="mobile-nav-text">The Brand</span>
+          </a>
+          <a href="/contact" class="mobile-nav-link">
+            <span class="mobile-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <span class="mobile-nav-text">Contact</span>
+          </a>
+          <a href="/shipping" class="mobile-nav-link">
+            <span class="mobile-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="3" width="15" height="13"/>
+                <polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/>
+                <circle cx="5.5" cy="18.5" r="2.5"/>
+                <circle cx="18.5" cy="18.5" r="2.5"/>
+              </svg>
+            </span>
+            <span class="mobile-nav-text">Shipping & Returns</span>
+          </a>
+          <a href="/faq" class="mobile-nav-link">
+            <span class="mobile-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </span>
+            <span class="mobile-nav-text">FAQ</span>
+          </a>
+        </div>
+
+      </nav>
+
+
+    </div>
+  </div>
+
+  <!-- Cart Drawer Overlay -->
+  <div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
+    <div class="cart-drawer-content" role="document">
+      <header class="cart-header">
+        <div class="cart-title-group">
+          <svg class="cart-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 7V5.77273C6 4.2263 6.644 2.75317 7.77399 1.67454C8.9024 0.597427 10.4233 0 12 0C13.5767 0 15.0976 0.597427 16.226 1.67454C17.356 2.75317 18 4.2263 18 5.77273V7H19C20.1046 7 21 7.89543 21 9V18C21 20.7614 18.7614 23 16 23H8C5.23858 23 3 20.7614 3 18V9C3 7.89543 3.89543 7 5 7H6ZM9.15494 3.12126C9.9019 2.40825 10.9245 2 12 2C13.0755 2 14.0981 2.40825 14.8451 3.12126C15.5904 3.83275 16 4.78754 16 5.77273V7H8V5.77273C8 4.78755 8.40957 3.83275 9.15494 3.12126ZM5 18V9H19V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18Z" fill="currentColor" />
+          </svg>
+          <h2 class="cart-title">Shopping Cart</h2>
+        </div>
+        <button class="cart-close-btn" id="cart-close-btn" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </header>
+      <div class="cart-items" id="cart-items" role="region" aria-live="polite">
+        <div class="cart-empty">Your cart is empty.</div>
+      </div>
+      <footer class="cart-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span class="cart-subtotal-amount">£0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkout-btn">Checkout</button>
+      </footer>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // @ts-nocheck
+  // Mobile menu functionality
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  // Cart drawer elements
+  const cartBtn = document.getElementById('cart-btn');
+  const cartDrawer = document.getElementById('cart-drawer');
+  const cartCloseBtn = document.getElementById('cart-close-btn');
+  
+  const navbarEl = document.querySelector('.navbar');
+  let lastFocusedElement = null;
+  const focusSelectors = 'a[href], button:not([disabled]), textarea, input[type="text"], input[type="search"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])';
+  const updateNavbarBottomVar = () => {
+    if (!navbarEl) return;
+    const rect = navbarEl.getBoundingClientRect();
+    document.documentElement.style.setProperty('--navbar-bottom', `${rect.bottom}px`);
+  };
+
+  updateNavbarBottomVar();
+  window.addEventListener('resize', updateNavbarBottomVar);
+  window.addEventListener('scroll', updateNavbarBottomVar, { passive: true });
+
+  // Removed region/currency logic for now; UI remains in markup
+
+  if (hamburgerBtn && mobileMenu) {
+    function openMobileMenu() {
+      lastFocusedElement = document.activeElement;
+      // Hint browser to promote layer before animating to avoid first-open jank
+      mobileMenu.style.willChange = 'opacity';
+      const content = mobileMenu.querySelector('.mobile-menu-content');
+      if (content) {
+        content.style.willChange = 'transform';
+        content.getBoundingClientRect();
+      }
+      mobileMenu.classList.add('active');
+      document.body.classList.add('mobile-menu-open');
+      hamburgerBtn.classList.add('is-active');
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      hamburgerBtn.setAttribute('aria-label', 'Close menu');
+      // Focus first focusable element in the menu
+      const focusable = mobileMenu.querySelectorAll(focusSelectors);
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        mobileMenu.focus();
+      }
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      document.body.classList.remove('mobile-menu-open');
+      hamburgerBtn.classList.remove('is-active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      hamburgerBtn.setAttribute('aria-label', 'Open menu');
+      // Cleanup performance hints after transition ends
+      const content = mobileMenu.querySelector('.mobile-menu-content');
+      const onEnd = () => {
+        mobileMenu.style.willChange = '';
+        if (content) content.style.willChange = '';
+        mobileMenu.removeEventListener('transitionend', onEnd);
+      };
+      mobileMenu.addEventListener('transitionend', onEnd);
+      if (lastFocusedElement && lastFocusedElement.focus) {
+        lastFocusedElement.focus();
+      } else {
+        hamburgerBtn.focus();
+      }
+    }
+
+    function toggleMobileMenu() {
+      if (mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+
+    // Use pointerdown for immediate response on touch, with click as fallback
+    let menuRecentlyHandled = false;
+    const guardHandle = (handler) => (e) => {
+      if (menuRecentlyHandled) return;
+      menuRecentlyHandled = true;
+      handler(e);
+      setTimeout(() => { menuRecentlyHandled = false; }, 250);
+    };
+
+    if (window.PointerEvent) {
+      hamburgerBtn.addEventListener('pointerdown', guardHandle(toggleMobileMenu), { passive: true });
+      if (mobileMenuClose) mobileMenuClose.addEventListener('pointerdown', guardHandle(closeMobileMenu), { passive: true });
+    }
+    // Fallback for non-PointerEvent environments
+    hamburgerBtn.addEventListener('click', guardHandle(toggleMobileMenu));
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', guardHandle(closeMobileMenu));
+
+    // Close mobile menu when clicking backdrop (outside panel)
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        closeMobileMenu();
+      }
+    });
+
+    // Focus trap inside the menu
+    mobileMenu.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(mobileMenu.querySelectorAll(focusSelectors)).filter((el) => !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1');
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    // Close mobile menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+
+  }
+
+  // Cart drawer functionality
+  if (cartBtn && cartDrawer) {
+    function openCart() {
+      lastFocusedElement = document.activeElement;
+      cartDrawer.classList.add('active');
+      document.body.classList.add('cart-drawer-open');
+      cartBtn.setAttribute('aria-expanded', 'true');
+      cartBtn.setAttribute('aria-label', 'Close cart');
+      const focusable = cartDrawer.querySelectorAll(focusSelectors);
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        cartDrawer.focus();
+      }
+    }
+
+    function closeCart() {
+      cartDrawer.classList.remove('active');
+      document.body.classList.remove('cart-drawer-open');
+      cartBtn.setAttribute('aria-expanded', 'false');
+      cartBtn.setAttribute('aria-label', 'Open cart');
+      if (lastFocusedElement && lastFocusedElement.focus) {
+        lastFocusedElement.focus();
+      } else {
+        cartBtn.focus();
+      }
+    }
+
+    function toggleCart() {
+      if (cartDrawer.classList.contains('active')) {
+        closeCart();
+      } else {
+        openCart();
+      }
+    }
+
+    cartBtn.addEventListener('click', toggleCart);
+    if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCart);
+
+    // Close when clicking backdrop (outside panel)
+    cartDrawer.addEventListener('click', (e) => {
+      if (e.target === cartDrawer) {
+        closeCart();
+      }
+    });
+
+    // Focus trap
+    cartDrawer.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(cartDrawer.querySelectorAll(focusSelectors)).filter((el) => !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1');
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && cartDrawer.classList.contains('active')) {
+        closeCart();
+      }
+    });
+  }
+
+  // Mobile region selector functionality (matches desktop)
+  const mobileRegionBtn = document.getElementById('mobile-region-btn');
+  const mobileRegionPopover = document.getElementById('mobile-region-popover');
+  
+  if (mobileRegionBtn && mobileRegionPopover) {
+    function toggleRegionPopover() {
+      const expanded = mobileRegionBtn.getAttribute('aria-expanded') === 'true';
+      mobileRegionBtn.setAttribute('aria-expanded', String(!expanded));
+      
+      if (!expanded) {
+        mobileRegionPopover.hidden = false;
+        mobileRegionPopover.classList.add('active');
+      } else {
+        mobileRegionPopover.classList.remove('active');
+        setTimeout(() => {
+          mobileRegionPopover.hidden = true;
+        }, 200);
+      }
+    }
+
+    function closeRegionPopover() {
+      mobileRegionBtn.setAttribute('aria-expanded', 'false');
+      mobileRegionPopover.classList.remove('active');
+      setTimeout(() => {
+        mobileRegionPopover.hidden = true;
+      }, 200);
+    }
+
+    mobileRegionBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleRegionPopover();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileRegionBtn.contains(e.target) && !mobileRegionPopover.contains(e.target)) {
+        closeRegionPopover();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileRegionPopover.classList.contains('active')) {
+        closeRegionPopover();
+      }
+    });
+  }
+</script>

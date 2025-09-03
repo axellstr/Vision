@@ -1,0 +1,84 @@
+.ethics {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    border-radius: var(--radius);
+    position: relative;
+    border: 0.1px dashed var(--primary);
+}
+
+
+.ethics__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.ethics__content {
+    text-align: center;
+}
+
+.ethics__title {
+    margin: 0 0 1.5rem 0;
+    font-size: clamp(1.5rem, 1.2vw + 1.5rem, 2.25rem);
+    font-weight: 400;
+    color: var(--text-dark);
+    letter-spacing: 0.02em;
+}
+
+.ethics__description {
+    margin: 0;
+    font-size: clamp(1rem, 0.8vw + 0.9rem, 1.25rem);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--text-dark) 80%, transparent 20%);
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ethics {
+        margin-top: 3rem;
+        padding: 3.5rem 0;
+    }
+    
+    .ethics__container {
+        padding: 0 2rem;
+    }
+    
+    .ethics__title {
+        margin-bottom: 1.5rem;
+        font-size: 1.75rem;
+    }
+    
+    .ethics__description {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .ethics {
+        margin-top: 3rem;
+        padding: 4rem 0;
+        min-height: 50vh;
+    }
+    
+    .ethics__container {
+        padding: 0 1.5rem;
+    }
+    
+    .ethics__title {
+        margin-bottom: 2rem;
+        font-size: 1.6rem;
+    }
+    
+    .ethics__description {
+        font-size: 1rem;
+        line-height: 1.8;
+        max-width: 100%;
+    }
+}

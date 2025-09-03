@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import '../components/Navbar.css';
+import '../components/Marquee.css';
+import Navbar from '../components/Navbar.astro';
+import Marquee from '../components/Marquee.astro';
+import '../components/Hero.css';
+import Hero from '../components/Hero.astro';
+import '../components/GalleryCarousel.css';
+import GalleryCarousel from '../components/GalleryCarousel.astro';
+import '../components/ShowcaseGrid.css';
+import ShowcaseGrid from '../components/ShowcaseGrid.astro';
+import '../components/EthicsSection.css';
+import EthicsSection from '../components/EthicsSection.astro';
+import '../components/Footer.css';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import InfoSection from '../components/InfoSection.astro';
+import BrowseByCategory from '../components/BrowseByCategory.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Parisa London | Jewellery</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Marquee text="Free shipping on all orders • Limited time offer • New collection coming soon" />
+		<Navbar />
+		<main class="container">
+			<Hero />
+			<GalleryCarousel />
+			<ShowcaseGrid />
+			<EthicsSection />
+			<BrowseByCategory />
+		</main>
+		<InfoSection />
+		<Footer />
+		<ScrollToTop />
+	</body>
+</html>

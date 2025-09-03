@@ -1,0 +1,105 @@
+---
+---
+
+<button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top" aria-hidden="true">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+  <span class="visually-hidden">Back to top</span>
+  </button>
+
+<script>
+  // @ts-nocheck
+  const btn = document.getElementById('scroll-to-top');
+  const showAfter = 300;
+
+  function updateVisibility() {
+    const shouldShow = window.scrollY > showAfter;
+    if (!btn) return;
+    if (shouldShow) {
+      btn.classList.add('visible');
+      btn.removeAttribute('aria-hidden');
+    } else {
+      btn.classList.remove('visible');
+      btn.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  function scrollToTop() {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+  }
+
+  if (btn) {
+    btn.addEventListener('click', scrollToTop);
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+    // Initial state
+    updateVisibility();
+  }
+</script>
+
+<style>
+  .scroll-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1.5rem;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent 80%);
+    background: color-mix(in srgb, var(--background) 85%, white 15%);
+    color: var(--primary);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+  }
+
+  .scroll-to-top:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.16);
+    background: color-mix(in srgb, var(--background) 80%, white 20%);
+    border-color: color-mix(in srgb, var(--primary) 35%, transparent 65%);
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Respect when drawers/menus might overlap; keep above most UI */
+  :global(.mobile-menu.active) ~ .scroll-to-top,
+  :global(.cart-drawer.active) ~ .scroll-to-top {
+    z-index: 1001;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 480px) {
+    .scroll-to-top {
+      right: 0.75rem;
+      bottom: 1rem;
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+
+
