@@ -1,4 +1,15 @@
 ---
+import { Image } from 'astro:assets';
+
+// Import product images
+import product1 from '../assets/images/products/Product_1.png';
+import product2 from '../assets/images/products/Product_2.png';
+import product3 from '../assets/images/products/Product_3.png';
+import product4 from '../assets/images/products/Product_4.png';
+import product5 from '../assets/images/products/Product_5.png';
+import product6 from '../assets/images/products/Product.jpg';
+import gridTwo from '../assets/images/products/grid_two.jpg';
+import heroImage from '../assets/images/products/hero.jpg';
 ---
 
 <section class="gallery-carousel" aria-label="Featured products carousel">
@@ -31,7 +42,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product _1.png" alt="Pendant Necklace" loading="lazy" />
+                            <Image
+                                src={product1}
+                                alt="Pendant Necklace"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Pendant Necklace">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +73,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_2.png" alt="Stacking Rings" loading="lazy" />
+                            <Image
+                                src={product2}
+                                alt="Stacking Rings"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Stacking Rings">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +104,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_3.png" alt="Everyday Hoop" loading="lazy" />
+                            <Image
+                                src={product3}
+                                alt="Everyday Hoop"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Everyday Hoop">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +135,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_4.png" alt="Signet Ring" loading="lazy" />
+                            <Image
+                                src={product4}
+                                alt="Signet Ring"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Signet Ring">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +166,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_5.png" alt="Chain Bracelet" loading="lazy" />
+                            <Image
+                                src={product5}
+                                alt="Chain Bracelet"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Chain Bracelet">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,7 +197,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/grid_two.jpg" alt="Pearl Studs" loading="lazy" />
+                            <Image
+                                src={gridTwo}
+                                alt="Pearl Studs"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Pearl Studs">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +228,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/hero.jpg" alt="Minimal Cuff" loading="lazy" />
+                            <Image
+                                src={heroImage}
+                                alt="Minimal Cuff"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Minimal Cuff">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,7 +259,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product.jpg" alt="Stone Pendant" loading="lazy" />
+                            <Image
+                                src={product6}
+                                alt="Stone Pendant"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Stone Pendant">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

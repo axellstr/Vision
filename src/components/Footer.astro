@@ -1,4 +1,12 @@
 ---
+// Import SVG assets
+import logoLight from '../assets/images/ui/Logo_light.svg';
+import visaLogo from '../assets/images/ui/payment/visa.svg';
+import mastercardLogo from '../assets/images/ui/payment/mastercard.svg';
+import amexLogo from '../assets/images/ui/payment/amex.svg';
+import appleLogo from '../assets/images/ui/payment/apple.svg';
+import googlePayLogo from '../assets/images/ui/payment/googlepay.svg';
+import stripeLogo from '../assets/images/ui/payment/stripe.svg';
 ---
 
 <footer class="site-footer" aria-label="Site footer">
@@ -7,7 +15,7 @@
 		<div class="container footer-main__container">
 			<div class="footer-brand">
 				<a href="/" class="footer-brand__logo" aria-label="Parisa London home">
-					<img src="/Logo_light.svg" alt="Parisa London" />
+					<img src={logoLight.src} alt="Parisa London" />
 				</a>
 				<p class="footer-brand__desc">Luxury fine jewellery featuring handcrafted 18K gold pieces with rare Persian turquoise and gemstones.</p>
 				<ul class="footer-social" aria-label="Social links">
@@ -76,12 +84,12 @@
 		<div class="container footer-bottom__container">
 			<p class="footer-copy">© 2025 Parisa London. All rights reserved.</p>
 			<div class="payment-methods" aria-label="Payment method logos">
-				<img src="/Payment/visa.svg" alt="Visa" class="payment-logo" />
-				<img src="/Payment/mastercard.svg" alt="Mastercard" class="payment-logo" />
-				<img src="/Payment/amex.svg" alt="American Express" class="payment-logo" />
-				<img src="/Payment/apple.svg" alt="Apple Pay" class="payment-logo" />
-				<img src="/Payment/googlepay.svg" alt="Google Pay" class="payment-logo" />
-				<img src="/Payment/stripe.svg" alt="Stripe" class="payment-logo" />
+				<img src={visaLogo.src} alt="Visa" class="payment-logo" />
+				<img src={mastercardLogo.src} alt="Mastercard" class="payment-logo" />
+				<img src={amexLogo.src} alt="American Express" class="payment-logo" />
+				<img src={appleLogo.src} alt="Apple Pay" class="payment-logo" />
+				<img src={googlePayLogo.src} alt="Google Pay" class="payment-logo" />
+				<img src={stripeLogo.src} alt="Stripe" class="payment-logo" />
 			</div>
 		</div>
 	</div>

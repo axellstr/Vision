@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/global.css';
 import '../components/Navbar.css';
 import '../components/Marquee.css';
@@ -8,6 +9,11 @@ import '../components/Footer.css';
 import Footer from '../components/Footer.astro';
 import '../components/AboutPage.css';
 import ScrollToTop from '../components/ScrollToTop.astro';
+
+// Import images
+import heroImage from '../assets/images/ui/hero.jpg';
+import designDirectorImage from '../assets/images/team/grid_one.jpg';
+import masterCraftsmanImage from '../assets/images/team/grid_two.jpg';
 ---
 
 <html lang="en">
@@ -49,7 +55,19 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 						</p>
 					</div>
 					<div class="about-story__image">
-						<img src="/hero.jpg" alt="Parisa London workshop" class="about-story__img" />
+						<Image
+							src={heroImage}
+							alt="Parisa London workshop"
+							class="about-story__img"
+							width={600}
+							height={400}
+							format="webp"
+							quality={95}
+							loading="eager"
+							decoding="async"
+							sizes="(max-width: 768px) 100vw, 50vw"
+							densities={[1, 1.5, 2]}
+						/>
 					</div>
 				</div>
 			</section>
@@ -137,7 +155,19 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 					<div class="about-team__grid">
 						<div class="team-member">
 							<div class="team-member__image">
-								<img src="/grid_one.jpg" alt="Design Director" class="team-member__img" />
+								<Image
+									src={designDirectorImage}
+									alt="Design Director"
+									class="team-member__img"
+									width={300}
+									height={300}
+									format="webp"
+									quality={90}
+									loading="lazy"
+									decoding="async"
+									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+									densities={[1, 1.5, 2]}
+								/>
 							</div>
 							<h3 class="team-member__name">Sarah Chen</h3>
 							<p class="team-member__role">Design Director</p>
@@ -148,7 +178,19 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 						</div>
 						<div class="team-member">
 							<div class="team-member__image">
-								<img src="/grid_two.jpg" alt="Master Craftsman" class="team-member__img" />
+								<Image
+									src={masterCraftsmanImage}
+									alt="Master Craftsman"
+									class="team-member__img"
+									width={300}
+									height={300}
+									format="webp"
+									quality={90}
+									loading="lazy"
+									decoding="async"
+									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+									densities={[1, 1.5, 2]}
+								/>
 							</div>
 							<h3 class="team-member__name">Marcus Rodriguez</h3>
 							<p class="team-member__role">Master Craftsman</p>

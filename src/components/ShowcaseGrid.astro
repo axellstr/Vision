@@ -1,8 +1,27 @@
 ---
+import { Image } from 'astro:assets';
+
+// Import background images for showcase grid
+import gridOneImage from '../assets/images/ui/grid_one.jpg';
+import gridTwoImage from '../assets/images/ui/grid_two.jpg';
 ---
 
 <section class="showcase-grid" aria-label="Showcase grid">
-	<div class="showcase-grid__item showcase-grid__item--a" aria-hidden="true"></div>
+	<div class="showcase-grid__item showcase-grid__item--a" aria-hidden="true">
+		<Image
+			src={gridOneImage}
+			alt=""
+			class="showcase-grid__image"
+			width={800}
+			height={450}
+			format="webp"
+			quality={90}
+			loading="lazy"
+			decoding="async"
+			sizes="(max-width: 880px) 100vw, 50vw"
+			densities={[1, 1.5, 2]}
+		/>
+	</div>
 	<div class="showcase-grid__item showcase-grid__item--text">
 		<h2 class="showcase-grid__title">Crafted with purpose</h2>
 		<p class="showcase-grid__desc">Timeless pieces designed for everyday wear. Ethically made, responsibly sourced.</p>
@@ -12,5 +31,19 @@
 		<h2 class="showcase-grid__title">Design that lasts</h2>
 		<p class="showcase-grid__desc">Considered details and enduring materials for a life well worn. <br>And something else here that could fit for the content.</p>
 	</div>
-	<div class="showcase-grid__item showcase-grid__item--c" aria-hidden="true"></div>
+	<div class="showcase-grid__item showcase-grid__item--c" aria-hidden="true">
+		<Image
+			src={gridTwoImage}
+			alt=""
+			class="showcase-grid__image"
+			width={800}
+			height={450}
+			format="webp"
+			quality={90}
+			loading="lazy"
+			decoding="async"
+			sizes="(max-width: 880px) 100vw, 50vw"
+			densities={[1, 1.5, 2]}
+		/>
+	</div>
 </section> 

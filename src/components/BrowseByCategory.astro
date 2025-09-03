@@ -1,4 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+
+// Import product images
+import product2 from '../assets/images/products/Product_2.png';
+import product3 from '../assets/images/products/Product_3.png';
+import product5 from '../assets/images/products/Product_5.png';
+import product6 from '../assets/images/products/Product.jpg';
 ---
 
 <section id="browse-by-category" class="gallery-carousel" aria-label="Browse by category carousel">
@@ -29,7 +36,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_5.png" alt="Necklaces" loading="lazy" />
+                            <Image
+                                src={product5}
+                                alt="Necklaces"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="View category Necklaces">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +67,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_2.png" alt="Rings" loading="lazy" />
+                            <Image
+                                src={product2}
+                                alt="Rings"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="View category Rings">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +98,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_1.png" alt="Earrings" loading="lazy" />
+                            <Image
+                                src={product3}
+                                alt="Earrings"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="View category Earrings">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +129,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_2.png" alt="Bracelets" loading="lazy" />
+                            <Image
+                                src={product2}
+                                alt="Bracelets"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="View category Bracelets">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +160,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product_5.png" alt="Anklets" loading="lazy" />
+                            <Image
+                                src={product5}
+                                alt="Anklets"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="View category Anklets">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +191,19 @@
                 <div class="swiper-slide">
                     <figure class="gallery-carousel__item" role="listitem">
                         <div class="gallery-carousel__image-container">
-                            <img class="gallery-carousel__image" src="/Product.jpg" alt="View All" loading="lazy" />
+                            <Image
+                                src={product6}
+                                alt="View All"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
                             <div class="gallery-carousel__overlay">
                                 <button class="gallery-carousel__quick-view-btn" aria-label="View category View All">
                                     <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

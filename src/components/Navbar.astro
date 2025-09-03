@@ -1,5 +1,14 @@
 ---
-// Navbar component
+import { Image } from 'astro:assets';
+
+// Import collection images
+import talismanImage from '../assets/images/products/Product.jpg';
+import kaleidoscopeImage from '../assets/images/collections/grid_one.jpg';
+import heritageImage from '../assets/images/products/grid_two.jpg';
+import foreverImage from '../assets/images/products/hero.jpg';
+
+// Import logo
+import logoDark from '../assets/images/ui/Logo_dark.svg';
 ---
 
 <nav class="navbar">
@@ -38,28 +47,76 @@
                 <div class="collections-grid">
                   <div class="collection-item">
                     <div class="collection-image">
-                      <img src="/Product.jpg" alt="Talisman Calligraphy" class="collection-item-image" />
+                      <Image
+                        src={talismanImage}
+                        alt="Talisman Calligraphy"
+                        class="collection-item-image"
+                        width={300}
+                        height={300}
+                        format="webp"
+                        quality={85}
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 768px) 25vw, 20vw"
+                        densities={[1, 1.5]}
+                      />
                       <div class="collection-overlay"></div>
                       <h4 class="collection-title">Talisman Calligraphy</h4>
                     </div>
                   </div>
                   <div class="collection-item">
                     <div class="collection-image">
-                      <img src="/grid_one.jpg" alt="Kaleidoscope Collection" class="collection-item-image" />
+                      <Image
+                        src={kaleidoscopeImage}
+                        alt="Kaleidoscope Collection"
+                        class="collection-item-image"
+                        width={300}
+                        height={300}
+                        format="webp"
+                        quality={85}
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 768px) 25vw, 20vw"
+                        densities={[1, 1.5]}
+                      />
                       <div class="collection-overlay"></div>
                       <h4 class="collection-title">Kaleidoscope Collection</h4>
                     </div>
                   </div>
                   <div class="collection-item">
                     <div class="collection-image">
-                      <img src="/grid_two.jpg" alt="Heritage Collection" class="collection-item-image" />
+                      <Image
+                        src={heritageImage}
+                        alt="Heritage Collection"
+                        class="collection-item-image"
+                        width={300}
+                        height={300}
+                        format="webp"
+                        quality={85}
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 768px) 25vw, 20vw"
+                        densities={[1, 1.5]}
+                      />
                       <div class="collection-overlay"></div>
                       <h4 class="collection-title">Heritage Collection</h4>
                     </div>
                   </div>
                   <div class="collection-item">
                     <div class="collection-image">
-                      <img src="/hero.jpg" alt="Forever Collection" class="collection-item-image" />
+                      <Image
+                        src={foreverImage}
+                        alt="Forever Collection"
+                        class="collection-item-image"
+                        width={300}
+                        height={300}
+                        format="webp"
+                        quality={85}
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 768px) 25vw, 20vw"
+                        densities={[1, 1.5]}
+                      />
                       <div class="collection-overlay"></div>
                       <h4 class="collection-title">Forever Collection</h4>
                     </div>
@@ -100,7 +157,7 @@
           </div>
         </div>
         <a href="/" class="logo-link">
-          <img src="/Logo_dark.svg" alt="Logo" class="logo" />
+          <img src={logoDark.src} alt="Logo" class="logo" />
         </a>
         <a href="/about" class="nav-link">The Brand</a>
   
@@ -135,7 +192,7 @@
       <header class="mobile-menu-header">
         <button id="mobile-region-btn" class="mobile-region-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="mobile-region-popover">UK / GBP</button>
         <div class="mobile-menu-brand">
-          <img src="/Logo_dark.svg" alt="Logo" class="mobile-logo" />
+          <img src={logoDark.src} alt="Logo" class="mobile-logo" />
         </div>
         <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

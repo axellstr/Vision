@@ -10,23 +10,29 @@
 	aspect-ratio: 16 / 9;
 	border-radius: var(--radius);
 	overflow: hidden;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+	position: relative;
 }
 
-/* Tiles use hero image (with color fallback) */
+/* Optimized Image styling */
+.showcase-grid__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: var(--radius);
+	transition: transform 0.3s ease;
+}
+
+.showcase-grid__item:hover .showcase-grid__image {
+	transform: scale(1.05);
+}
+
+/* Fallback colors for when images are loading */
 .showcase-grid__item--a {
 	background-color: color-mix(in srgb, var(--primary) 12%, var(--background) 88%);
-	background-image: image-set(
-		url('/grid_one.jpg') type('image/jpeg')
-	);
 }
 .showcase-grid__item--c {
 	background-color: color-mix(in srgb, var(--primary) 6%, white 94%);
-	background-image: image-set(
-		url('/grid_two.jpg') type('image/jpeg')
-	);
 }
 
 /* Text tiles */

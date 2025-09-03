@@ -1,7 +1,25 @@
 ---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/ui/hero.jpg';
 ---
 
-<section class="hero" aria-label="Brand hero">
+<section class="hero" aria-label="Parisa London luxury jewelry">
+	<div class="hero__background">
+		<Image
+			src={heroImage}
+			alt="Parisa London luxury jewelry craftsmanship"
+			class="hero__image"
+			width={1920}
+			height={1080}
+			format="webp"
+			quality={95}
+			loading="eager"
+			priority={true}
+			decoding="async"
+			sizes="100vw"
+			densities={[1, 1.5, 2]}
+		/>
+	</div>
 	<div class="hero__overlay"></div>
 	<div class="hero__content">
 		<h1 class="hero__title">Ethically made, responsibly sourced — handcrafted in London.</h1>
