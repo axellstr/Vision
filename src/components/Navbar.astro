@@ -362,8 +362,52 @@
       }
     }
 
-    hamburgerBtn.addEventListener('click', toggleMobileMenu);
-    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+    // Input handling: prefer pointer events for immediate touch response
+    let ignoreNextClick = false;
+
+    const onHamburgerPointerUp = (e) => {
+      // Trigger immediately on touch/pen; avoid duplicate synthetic click
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        ignoreNextClick = true;
+        toggleMobileMenu();
+        // Allow future clicks after a brief window
+        setTimeout(() => { ignoreNextClick = false; }, 400);
+      }
+    };
+
+    const onHamburgerClick = (e) => {
+      if (ignoreNextClick) return;
+      toggleMobileMenu();
+    };
+
+    const onHamburgerKeyDown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMobileMenu();
+      }
+    };
+
+    hamburgerBtn.addEventListener('pointerup', onHamburgerPointerUp);
+    hamburgerBtn.addEventListener('click', onHamburgerClick);
+    hamburgerBtn.addEventListener('keydown', onHamburgerKeyDown);
+
+    if (mobileMenuClose) {
+      let ignoreCloseNextClick = false;
+      const onClosePointerUp = (e) => {
+        if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+          ignoreCloseNextClick = true;
+          closeMobileMenu();
+          setTimeout(() => { ignoreCloseNextClick = false; }, 400);
+        }
+      };
+      const onCloseClick = () => { if (!ignoreCloseNextClick) closeMobileMenu(); };
+      const onCloseKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeMobileMenu(); }
+      };
+      mobileMenuClose.addEventListener('pointerup', onClosePointerUp);
+      mobileMenuClose.addEventListener('click', onCloseClick);
+      mobileMenuClose.addEventListener('keydown', onCloseKeyDown);
+    }
 
     // Close mobile menu when clicking backdrop (outside panel)
     mobileMenu.addEventListener('click', (e) => {

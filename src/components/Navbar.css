@@ -33,6 +33,8 @@
   cursor: pointer;
   padding: 0;
   z-index: 1002;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hamburger-line {
@@ -144,6 +146,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-menu-close:hover {
