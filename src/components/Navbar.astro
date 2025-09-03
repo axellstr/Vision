@@ -327,13 +327,6 @@
   if (hamburgerBtn && mobileMenu) {
     function openMobileMenu() {
       lastFocusedElement = document.activeElement;
-      // Hint browser to promote layer before animating to avoid first-open jank
-      mobileMenu.style.willChange = 'opacity';
-      const content = mobileMenu.querySelector('.mobile-menu-content');
-      if (content) {
-        content.style.willChange = 'transform';
-        content.getBoundingClientRect();
-      }
       mobileMenu.classList.add('active');
       document.body.classList.add('mobile-menu-open');
       hamburgerBtn.classList.add('is-active');
@@ -354,14 +347,6 @@
       hamburgerBtn.classList.remove('is-active');
       hamburgerBtn.setAttribute('aria-expanded', 'false');
       hamburgerBtn.setAttribute('aria-label', 'Open menu');
-      // Cleanup performance hints after transition ends
-      const content = mobileMenu.querySelector('.mobile-menu-content');
-      const onEnd = () => {
-        mobileMenu.style.willChange = '';
-        if (content) content.style.willChange = '';
-        mobileMenu.removeEventListener('transitionend', onEnd);
-      };
-      mobileMenu.addEventListener('transitionend', onEnd);
       if (lastFocusedElement && lastFocusedElement.focus) {
         lastFocusedElement.focus();
       } else {
@@ -377,22 +362,8 @@
       }
     }
 
-    // Use pointerdown for immediate response on touch, with click as fallback
-    let menuRecentlyHandled = false;
-    const guardHandle = (handler) => (e) => {
-      if (menuRecentlyHandled) return;
-      menuRecentlyHandled = true;
-      handler(e);
-      setTimeout(() => { menuRecentlyHandled = false; }, 250);
-    };
-
-    if (window.PointerEvent) {
-      hamburgerBtn.addEventListener('pointerdown', guardHandle(toggleMobileMenu), { passive: true });
-      if (mobileMenuClose) mobileMenuClose.addEventListener('pointerdown', guardHandle(closeMobileMenu), { passive: true });
-    }
-    // Fallback for non-PointerEvent environments
-    hamburgerBtn.addEventListener('click', guardHandle(toggleMobileMenu));
-    if (mobileMenuClose) mobileMenuClose.addEventListener('click', guardHandle(closeMobileMenu));
+    hamburgerBtn.addEventListener('click', toggleMobileMenu);
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
 
     // Close mobile menu when clicking backdrop (outside panel)
     mobileMenu.addEventListener('click', (e) => {

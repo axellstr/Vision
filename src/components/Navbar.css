@@ -54,8 +54,7 @@
   z-index: 1001;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s ease-out;
-  will-change: opacity;
+  transition: opacity 0.3s ease;
   display: flex;
   align-items: stretch;
 }
@@ -73,10 +72,8 @@
   height: 100vh;
   background-color: var(--background);
   transform: translate3d(-100%, 0, 0);
-  transition: transform 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
-  backface-visibility: hidden;
-  contain: content;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -197,8 +194,6 @@
   gap: 2rem;
   min-height: 0; /* Allow flex item to shrink */
   justify-content: flex-start;
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 600px;
 }
 
 .mobile-menu-section {
@@ -245,17 +240,9 @@
   border-radius: var(--radius);
 }
 
-/* Keep hover effects off for touch devices */
-@media (hover: none) {
-  .mobile-collection-item:hover,
-  .mobile-nav-link:hover,
-  .mobile-view-all-link:hover,
-  .mobile-menu-close:hover,
-  .mobile-region-btn:hover {
-    background: transparent;
-    color: inherit;
-    transform: none;
-  }
+.mobile-collection-item:hover {
+  background: color-mix(in srgb, var(--primary) 3%, transparent 97%);
+  transform: translateY(-2px);
 }
 
 .mobile-collection-image {
@@ -318,7 +305,9 @@
   transition: all 0.2s ease;
 }
 
-.mobile-view-all-link:hover { color: var(--secondary); }
+.mobile-view-all-link:hover {
+  color: var(--secondary);
+}
 
 /* Mobile Navigation Links */
 .mobile-nav-link {
@@ -347,7 +336,9 @@
   color: color-mix(in srgb, var(--text-dark) 80%, transparent 20%);
 }
 
-.mobile-nav-link.secondary:hover { color: var(--text-dark); }
+.mobile-nav-link.secondary:hover {
+  color: var(--text-dark);
+}
 
 .mobile-nav-icon {
   display: flex;
@@ -1109,7 +1100,6 @@ body.mobile-menu-open {
 /* Hamburger animation toggled by button state */
 .hamburger-btn.is-active .hamburger-line:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
-  will-change: transform;
 }
 
 .hamburger-btn.is-active .hamburger-line:nth-child(2) {
@@ -1118,7 +1108,6 @@ body.mobile-menu-open {
 
 .hamburger-btn.is-active .hamburger-line:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1126,22 +1115,6 @@ body.mobile-menu-open {
   .mobile-menu-content,
   .hamburger-line {
     transition: none;
-  }
-}
-
-/* Remove hover-driven styles for touch devices across navbar */
-@media (hover: none) {
-  .region-desktop-icon:hover,
-  .collection-item:hover .collection-item-image,
-  .collection-item:hover .collection-title,
-  .view-all-link:hover,
-  .cart-btn:hover,
-  .checkout-btn:hover,
-  .quantity-btn:hover {
-    transform: none;
-    background: inherit;
-    color: inherit;
-    box-shadow: none;
   }
 }
 
