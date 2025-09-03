@@ -365,14 +365,19 @@
     // Input handling: prefer pointer events for immediate touch response
     let ignoreNextClick = false;
 
-    const onHamburgerPointerUp = (e) => {
-      // Trigger immediately on touch/pen; avoid duplicate synthetic click
+    const onHamburgerPointerDown = (e) => {
       if (e.pointerType === 'touch' || e.pointerType === 'pen') {
         ignoreNextClick = true;
+        e.preventDefault();
         toggleMobileMenu();
-        // Allow future clicks after a brief window
-        setTimeout(() => { ignoreNextClick = false; }, 400);
+        setTimeout(() => { ignoreNextClick = false; }, 600);
       }
+    };
+    const onHamburgerTouchStart = (e) => {
+      ignoreNextClick = true;
+      e.preventDefault();
+      toggleMobileMenu();
+      setTimeout(() => { ignoreNextClick = false; }, 600);
     };
 
     const onHamburgerClick = (e) => {
@@ -387,24 +392,33 @@
       }
     };
 
-    hamburgerBtn.addEventListener('pointerup', onHamburgerPointerUp);
+    hamburgerBtn.addEventListener('pointerdown', onHamburgerPointerDown, { passive: false });
+    hamburgerBtn.addEventListener('touchstart', onHamburgerTouchStart, { passive: false });
     hamburgerBtn.addEventListener('click', onHamburgerClick);
     hamburgerBtn.addEventListener('keydown', onHamburgerKeyDown);
 
     if (mobileMenuClose) {
       let ignoreCloseNextClick = false;
-      const onClosePointerUp = (e) => {
+      const onClosePointerDown = (e) => {
         if (e.pointerType === 'touch' || e.pointerType === 'pen') {
           ignoreCloseNextClick = true;
+          e.preventDefault();
           closeMobileMenu();
-          setTimeout(() => { ignoreCloseNextClick = false; }, 400);
+          setTimeout(() => { ignoreCloseNextClick = false; }, 600);
         }
+      };
+      const onCloseTouchStart = (e) => {
+        ignoreCloseNextClick = true;
+        e.preventDefault();
+        closeMobileMenu();
+        setTimeout(() => { ignoreCloseNextClick = false; }, 600);
       };
       const onCloseClick = () => { if (!ignoreCloseNextClick) closeMobileMenu(); };
       const onCloseKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeMobileMenu(); }
       };
-      mobileMenuClose.addEventListener('pointerup', onClosePointerUp);
+      mobileMenuClose.addEventListener('pointerdown', onClosePointerDown, { passive: false });
+      mobileMenuClose.addEventListener('touchstart', onCloseTouchStart, { passive: false });
       mobileMenuClose.addEventListener('click', onCloseClick);
       mobileMenuClose.addEventListener('keydown', onCloseKeyDown);
     }

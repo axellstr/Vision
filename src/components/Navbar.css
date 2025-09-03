@@ -35,6 +35,7 @@
   z-index: 1002;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 .hamburger-line {
@@ -148,6 +149,7 @@
   flex-shrink: 0;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 .mobile-menu-close:hover {
