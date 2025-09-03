@@ -340,6 +340,61 @@ import logoDark from '../assets/images/ui/Logo_dark.svg';
     </div>
   </div>
 
+  <!-- Mobile Search Drawer -->
+  <div class="mobile-search-drawer" id="mobile-search-drawer" role="dialog" aria-modal="true" aria-label="Search" tabindex="-1">
+    <div class="mobile-search-drawer-content" role="document">
+      <div class="mobile-search-content">
+      <header class="mobile-search-header">
+        <div class="mobile-search-input-wrapper">
+          <input
+            type="search"
+            id="mobile-search-input"
+            class="mobile-search-input"
+            placeholder="Search products, collections..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search"
+            role="searchbox"
+          />
+          <button
+            type="button"
+            class="mobile-search-clear-btn"
+            id="mobile-search-clear-btn"
+            aria-label="Clear search"
+            hidden
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6 6 18"/>
+              <path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </div>
+        <button class="mobile-search-back-btn" id="mobile-search-back-btn" aria-label="Close search">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18"/>
+            <path d="m6 6 12 12"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="mobile-search-body">
+        <!-- Popular Searches -->
+        <div class="mobile-search-section" id="popular-searches-section">
+          <h3 class="mobile-search-section-title">Popular searches</h3>
+          <div class="mobile-search-popular-list">
+            <button class="mobile-search-popular-item" data-search="necklaces">Necklaces</button>
+            <button class="mobile-search-popular-item" data-search="rings">Rings</button>
+            <button class="mobile-search-popular-item" data-search="bracelets">Bracelets</button>
+            <button class="mobile-search-popular-item" data-search="earrings">Earrings</button>
+            <button class="mobile-search-popular-item" data-search="talisman">Talisman</button>
+            <button class="mobile-search-popular-item" data-search="heritage">Heritage</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
   <!-- Cart Drawer Overlay -->
   <div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
     <div class="cart-drawer-content" role="document">
@@ -373,6 +428,126 @@ import logoDark from '../assets/images/ui/Logo_dark.svg';
 
 <script>
   // @ts-nocheck
+  // Mobile search functionality
+  const mobileSearchBtn = document.querySelector('.search-btn');
+  const mobileSearchDrawer = document.getElementById('mobile-search-drawer');
+  const mobileSearchBackBtn = document.getElementById('mobile-search-back-btn');
+  const mobileSearchInput = document.getElementById('mobile-search-input');
+  const mobileSearchClearBtn = document.getElementById('mobile-search-clear-btn');
+
+  let lastFocusedElementSearch = null;
+  let searchTimeout = null;
+
+
+
+  // Open mobile search drawer
+  function openMobileSearch() {
+    lastFocusedElementSearch = document.activeElement;
+    mobileSearchDrawer.classList.add('active');
+    document.body.classList.add('mobile-search-open');
+
+    // Focus the search input
+    setTimeout(() => {
+      mobileSearchInput.focus();
+    }, 100);
+  }
+
+  // Close mobile search drawer
+  function closeMobileSearch() {
+    mobileSearchDrawer.classList.remove('active');
+    document.body.classList.remove('mobile-search-open');
+
+    // Clear search input
+    mobileSearchInput.value = '';
+
+    // Hide clear button
+    mobileSearchClearBtn.hidden = true;
+
+    // Return focus
+    if (lastFocusedElementSearch && lastFocusedElementSearch.focus) {
+      lastFocusedElementSearch.focus();
+    }
+  }
+
+  // Clear search input
+  function clearSearch() {
+    mobileSearchInput.value = '';
+    mobileSearchClearBtn.hidden = true;
+  }
+
+  // Handle search input
+  function handleSearchInput() {
+    const query = mobileSearchInput.value.trim();
+
+    // Show/hide clear button
+    mobileSearchClearBtn.hidden = query.length === 0;
+  }
+
+
+
+  // Handle search submission
+  function handleSearchSubmit(query) {
+    if (query.trim()) {
+      // Here you would typically navigate to search results page
+      console.log('Searching for:', query);
+      // For now, just close the overlay
+      closeMobileSearch();
+    }
+  }
+
+  // Event listeners for mobile search
+  if (mobileSearchBtn && mobileSearchDrawer) {
+    // Open search overlay
+    mobileSearchBtn.addEventListener('click', (e) => {
+      // Only trigger on mobile/tablet
+      if (window.innerWidth <= 1024) {
+        e.preventDefault();
+        openMobileSearch();
+      }
+    });
+
+    // Close search overlay
+    mobileSearchBackBtn.addEventListener('click', closeMobileSearch);
+
+    // Clear search
+    mobileSearchClearBtn.addEventListener('click', clearSearch);
+
+    // Search input handling
+    mobileSearchInput.addEventListener('input', handleSearchInput);
+    mobileSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        handleSearchSubmit(mobileSearchInput.value);
+      }
+    });
+
+    // Handle popular search clicks
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('mobile-search-popular-item')) {
+        const query = e.target.dataset.search;
+        mobileSearchInput.value = query;
+        handleSearchSubmit(query);
+      }
+    });
+
+
+
+    // Close on drawer backdrop click
+    mobileSearchDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileSearchDrawer) {
+        closeMobileSearch();
+      }
+    });
+
+    // Keyboard navigation
+    mobileSearchDrawer.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileSearch();
+      }
+    });
+
+    // Initialize
+  }
+
   // Mobile menu functionality
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const mobileMenu = document.getElementById('mobile-menu');
