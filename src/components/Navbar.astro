@@ -362,49 +362,11 @@
       }
     }
 
-    // Input handling: prefer pointer events for immediate touch response
-    let lastTouchTs = 0;
-
-    const onHamburgerPointerDown = (e) => {
-      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
-        lastTouchTs = Date.now();
-        e.preventDefault();
-        toggleMobileMenu();
-      }
-    };
-
-    const onHamburgerClick = () => {
-      if (Date.now() - lastTouchTs < 350) return; // ignore synthetic click after touch
-      toggleMobileMenu();
-    };
-
-    const onHamburgerKeyDown = (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleMobileMenu();
-      }
-    };
-
-    hamburgerBtn.addEventListener('pointerdown', onHamburgerPointerDown, { passive: false });
-    hamburgerBtn.addEventListener('click', onHamburgerClick);
-    hamburgerBtn.addEventListener('keydown', onHamburgerKeyDown);
+    // Click-only handling (mirror cart behavior)
+    hamburgerBtn.addEventListener('click', toggleMobileMenu);
 
     if (mobileMenuClose) {
-      let lastCloseTouchTs = 0;
-      const onClosePointerDown = (e) => {
-        if (e.pointerType === 'touch' || e.pointerType === 'pen') {
-          lastCloseTouchTs = Date.now();
-          e.preventDefault();
-          closeMobileMenu();
-        }
-      };
-      const onCloseClick = () => { if (Date.now() - lastCloseTouchTs < 350) return; closeMobileMenu(); };
-      const onCloseKeyDown = (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeMobileMenu(); }
-      };
-      mobileMenuClose.addEventListener('pointerdown', onClosePointerDown, { passive: false });
-      mobileMenuClose.addEventListener('click', onCloseClick);
-      mobileMenuClose.addEventListener('keydown', onCloseKeyDown);
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
     }
 
     // Close mobile menu when clicking backdrop (outside panel)
