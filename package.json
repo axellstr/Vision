@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/vercel": "^10.0.6",
+    "@astrojs/vercel": "^9.0.5",
     "@stripe/stripe-js": "^7.9.0",
     "astro": "^5.13.10",
     "dotenv": "^17.2.2",
