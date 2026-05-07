@@ -1,0 +1,70 @@
+/* Marquee Component Styles */
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: var(--secondary);
+  color: white;
+  padding: 0.5rem 0;
+  position: relative;
+  z-index: var(--z-base);
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-flex;
+  animation: marquee linear infinite;
+  animation-duration: 4s; /* Default, overridden by inline style */
+  white-space: nowrap;
+}
+
+.marquee-content span {
+  display: inline-block;
+  padding-right: 4rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 880px) {
+  .marquee {
+    padding: 0.5rem 0;
+  }
+  
+  .marquee-content span {
+    font-size: 0.8rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .marquee-content span {
+    font-size: 0.75rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-content {
+    animation: none;
+  }
+  
+  .marquee {
+    text-align: center;
+  }
+  
+  .marquee-content span:not(:first-child) {
+    display: none;
+  }
+}

@@ -1,0 +1,571 @@
+.hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 85vh;
+  background: var(--surface-white);
+}
+
+/* Ensure smooth transition for hero container */
+.hero:not(.hero-animate) {
+  background: var(--surface-white);
+}
+
+/* Animation: Set initial hidden state immediately */
+.hero-image {
+  opacity: 0;
+  transform: scale(0.5);
+  will-change: opacity, transform;
+}
+
+.product-card {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+
+.hero-title {
+  opacity: 0;
+  transform: translateX(30px);
+  will-change: opacity, transform;
+}
+
+.hero-buttons {
+  opacity: 0;
+  transform: scale(0.95);
+  will-change: opacity, transform;
+}
+
+/* Apply animations when hero-animate class is present */
+.hero-animate .hero-image {
+  animation: heroImageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-animate .product-card {
+  animation: heroCardFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-animate .product-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.hero-animate .product-card:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.hero-animate .hero-title {
+  animation: heroTitleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.4s;
+}
+
+.hero-animate .hero-buttons {
+  animation: heroButtonsFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+/* Remove will-change after animations complete to free resources */
+.hero-animate .hero-image,
+.hero-animate .product-card,
+.hero-animate .hero-title,
+.hero-animate .hero-buttons {
+  animation-fill-mode: forwards;
+}
+
+@media (min-width: 1024px) {
+  .hero-animate .hero-image {
+    animation-delay: 0s;
+  }
+}
+
+/* Keyframe animations */
+@keyframes heroImageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroCardFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroTitleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroButtonsFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile: Adjust title animation direction */
+@media (max-width: 1023px) {
+  .hero-title {
+    transform: translateY(20px);
+  }
+  
+  @keyframes heroTitleFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Fallback: Ensure elements are visible if JavaScript fails (no-js scenario) */
+.no-js .hero .hero-image,
+.no-js .hero .product-card,
+.no-js .hero .hero-title,
+.no-js .hero .hero-buttons {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Hardware acceleration for smoother animations */
+.hero-image,
+.product-card,
+.hero-title,
+.hero-buttons {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate .hero-image,
+  .hero-animate .product-card,
+  .hero-animate .hero-title,
+  .hero-animate .hero-buttons {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  align-items: stretch;
+}
+
+.hero-image-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-text-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2.5rem, 5vw, 5rem);
+  overflow: visible;
+}
+
+.hero-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  gap: clamp(1.25rem, 2vw, 3rem);
+}
+
+.hero-products {
+  display: flex;
+  gap: clamp(1.25rem, 1.5vw, 1.5rem);
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.product-card {
+  flex: 1;
+  max-width: clamp(200px, 20vw, 300px);
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-white);
+  border: 1px solid color-mix(in srgb, var(--text-dark) 40%, transparent 90%);
+  transition: all var(--transition-slow);
+  text-decoration: none;
+}
+
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-title {
+  font-size: 1.75rem;
+  font-weight: 300;
+  margin: 0;
+  color: var(--text-dark);
+  text-align: right;
+  line-height: 1.4;
+}
+
+.hero-title span {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.hero-title-italic {
+  font-style: italic;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: clamp(1.75rem, 2vw, 2rem);
+  position: relative;
+  z-index: 10;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hero-buttons .cta-button {
+  flex: 1;
+  max-width: clamp(180px, 15vw, 220px);
+  white-space: nowrap;
+  height: 50px;
+  padding: 0.75rem clamp(1rem, 1.5vw, 1.5rem);
+}
+
+/* Override global button animation for primary button only */
+.hero-buttons .cta-button:not(.cta-square)::before {
+  display: none;
+}
+
+.hero-buttons .cta-button:not(.cta-square) {
+  background-color: var(--text-dark);
+  color: var(--surface-white);
+  border-color: var(--text-dark);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-buttons .cta-button:not(.cta-square):hover {
+  background-color: transparent;
+  color: var(--text-dark);
+  border-color: color-mix(in srgb, var(--text-dark) 30%, transparent 70%);
+}
+
+.hero-buttons .cta-button.cta-square {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-buttons .cta-button.cta-square svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Ensure buttons are visible */
+.hero .cta-button {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Laptop */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .hero-buttons .cta-button {
+    padding: 0.75rem 1.25rem;
+    max-width: clamp(200px, 18vw, 240px);
+  }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .hero {
+    height: auto;
+    min-height: 85vh;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .hero-container {
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-image-box {
+    height: 50vh;
+    min-height: 450px;
+    flex-shrink: 0;
+  }
+
+  .hero-text-box {
+    padding: 0;
+    margin-top: -2.5rem;
+    position: relative;
+    z-index: 5;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hero-content-wrapper {
+    justify-content: space-between;
+    padding: 0 2rem 2rem 2rem;
+    width: 100%;
+  }
+
+  .hero-buttons {
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+
+  .hero-buttons .cta-button {
+    max-width: 200px;
+    font-size: 0.8125rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .hero-products {
+    gap: 1.25rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-card {
+    max-width: 220px;
+  }
+}
+
+/* Mobile - Landscape and Portrait */
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-image-box {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 55vh;
+    min-height: 400px;
+    flex-shrink: 0;
+  }
+
+  .hero-text-box {
+    aspect-ratio: auto;
+    min-height: auto;
+    padding: 0;
+    margin-top: -2rem;
+    position: relative;
+    z-index: 5;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hero-content-wrapper {
+    gap: 1rem;
+    padding: 0 1.5rem 2rem 1.5rem;
+    width: 100%;
+  }
+
+  .hero-products {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .product-card {
+    flex: 1;
+    max-width: 160px;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .hero-title span {
+    margin-top: 0.35rem !important;
+    font-size: 0.9em;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .hero-buttons .cta-button {
+    width: auto;
+    padding: 0.875rem 1.25rem;
+    height: 50px;
+  }
+
+  .hero-buttons .cta-button:not(.cta-square) {
+    flex: 1;
+    max-width: none;
+  }
+
+  .hero-buttons .cta-button.cta-square {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-buttons .cta-button.cta-square svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero {
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .hero-image-box {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  .hero-text-box {
+    margin-top: -1.5rem;
+  }
+
+  .hero-content-wrapper {
+    gap: 0.875rem;
+    padding: 0 1rem 1.5rem 1rem;
+  }
+
+  .hero-products {
+    gap: 0.625rem;
+    justify-content: center;
+  }
+
+  .product-card {
+    flex: 1;
+    max-width: 140px;
+  }
+
+  .hero-title {
+    font-size: 1.175rem;
+    text-align: center;
+  }
+
+  .hero-title span {
+    font-size: 0.85em;
+  }
+
+  .hero-buttons {
+    gap: 0.625rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero-buttons .cta-button {
+    padding: 0.8rem 1.25rem;
+    font-size: 0.8125rem;
+    height: 46px;
+  }
+
+  .hero-buttons .cta-button.cta-square {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+  }
+
+  .hero-buttons .cta-button.cta-square svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+

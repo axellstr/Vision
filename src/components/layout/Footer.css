@@ -1,0 +1,483 @@
+/* ==================================================================
+   FOOTER COMPONENT STYLES
+   ================================================================== */
+
+/* ------------------------------------------------------------------
+   CSS Variables & Theme Configuration
+   ------------------------------------------------------------------ */
+.site-footer {
+	margin-top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	
+	/* Footer color scheme */
+	--footer-bg: var(--primary);
+	--footer-fg: #eef1ef;
+	--footer-fg-muted: color-mix(in srgb, var(--footer-fg) 80%, transparent 20%);
+	--footer-border: color-mix(in srgb, var(--footer-fg) 10%, transparent 90%);
+}
+
+/* ------------------------------------------------------------------
+   Main Footer Section
+   ------------------------------------------------------------------ */
+.footer-main {
+	background: var(--footer-bg);
+	color: var(--footer-fg);
+	border-radius: 0;
+}
+
+/* Main footer container layout */
+.footer-main__container {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 3rem;
+	padding: 2.5rem 1rem;
+}
+
+/* Link styles for footer */
+.footer-main a {
+	color: var(--footer-fg);
+	text-decoration: none;
+}
+
+.footer-main a:hover {
+	color: color-mix(in srgb, var(--footer-fg) 86%, white 14%);
+}
+
+.footer-main a:focus-visible {
+	outline: 2px solid var(--footer-fg);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------
+   Brand Section (Logo, Description, Social)
+   ------------------------------------------------------------------ */
+.footer-brand__logo img {
+	height: 56px;
+	width: auto;
+	display: block;
+}
+
+.footer-brand__desc {
+	margin: 1rem 0 1.25rem;
+	color: var(--footer-fg-muted);
+	max-width: 32ch;
+}
+
+/* Social media links */
+.footer-social {
+	list-style: none;
+	display: flex;
+	gap: 0.75rem;
+	padding: 0;
+	margin: 0.5rem 0 0;
+	justify-content: flex-start;
+}
+
+.footer-social__link {
+	display: grid;
+	place-items: center;
+	width: 38px;
+	height: 38px;
+	background: color-mix(in srgb, var(--footer-fg) 10%, transparent 90%);
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social__link:hover {
+	background: color-mix(in srgb, var(--footer-fg) 16%, transparent 84%);
+	transform: translateY(-1px);
+}
+
+.footer-social__link:focus-visible {
+	outline: 2px solid var(--footer-fg);
+	outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Footer Content Layout (Links & Newsletter)
+   ------------------------------------------------------------------ */
+.footer-content {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+}
+
+/* Navigation links section */
+.footer-links {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2rem;
+}
+
+.footer-col__title {
+	margin: 0 0 0.75rem 0;
+	font-weight: 500;
+	color: var(--footer-fg);
+}
+
+.footer-col__list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 0.5rem;
+}
+
+.footer-col__list a {
+	color: color-mix(in srgb, var(--footer-fg) 80%, transparent 20%);
+	font-size: 0.95rem;
+}
+
+.footer-col__list a:hover {
+	color: var(--footer-fg);
+}
+
+.footer-col__list a:focus-visible {
+	outline: 2px solid var(--footer-fg);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------
+   Newsletter Subscription Section
+   ------------------------------------------------------------------ */
+.footer-newsletter {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	max-width: 400px;
+}
+
+.newsletter-title {
+	margin: 0;
+	font-weight: 500;
+	color: var(--footer-fg);
+	font-size: 1.1rem;
+}
+
+.newsletter-desc {
+	margin: 0;
+	color: color-mix(in srgb, var(--footer-fg) 80%, transparent 20%);
+	font-size: 0.95rem;
+	line-height: 1.4;
+}
+
+/* Newsletter form layout */
+.newsletter-form {
+	margin-top: 0.5rem;
+}
+
+.newsletter-input-group {
+	display: flex;
+	gap: 0.75rem;
+	align-items: stretch;
+}
+
+/* Newsletter input field */
+.newsletter-input {
+	flex: 1;
+	padding: 0.75rem 1rem;
+	border: 1px solid color-mix(in srgb, var(--footer-fg) 20%, transparent 80%);
+	border-radius: var(--radius);
+	background: color-mix(in srgb, var(--footer-fg) 5%, transparent 95%);
+	color: var(--footer-fg);
+	font-size: 0.95rem;
+	outline: none;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletter-input::placeholder {
+	color: color-mix(in srgb, var(--footer-fg) 60%, transparent 40%);
+}
+
+.newsletter-input:focus {
+	border-color: color-mix(in srgb, var(--footer-fg) 40%, transparent 60%);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--footer-fg) 20%, transparent 80%);
+}
+
+/* Newsletter submit button */
+.newsletter-button {
+	padding: 0.75rem 1.5rem;
+	background: color-mix(in srgb, var(--footer-fg) 10%, transparent 90%);
+	border: 1px solid color-mix(in srgb, var(--footer-fg) 20%, transparent 80%);
+	border-radius: var(--radius);
+	color: var(--footer-fg);
+	font-size: 0.95rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	white-space: nowrap;
+}
+
+.newsletter-button:hover {
+	background: color-mix(in srgb, var(--footer-fg) 16%, transparent 84%);
+	border-color: color-mix(in srgb, var(--footer-fg) 30%, transparent 70%);
+}
+
+.newsletter-button:focus-visible {
+	outline: 2px solid var(--footer-fg);
+	outline-offset: 2px;
+}
+
+/* Disabled state (after subscription) */
+.newsletter-button:disabled,
+.newsletter-input:disabled {
+	cursor: not-allowed;
+	opacity: 0.7;
+	transition: all 0.3s ease;
+}
+
+.newsletter-button:disabled {
+	background: color-mix(in srgb, var(--footer-fg) 12%, transparent 88%) !important;
+	border-color: color-mix(in srgb, var(--footer-fg) 18%, transparent 82%) !important;
+}
+
+.newsletter-input:disabled {
+	background: color-mix(in srgb, var(--footer-fg) 8%, transparent 92%) !important;
+	border-color: color-mix(in srgb, var(--footer-fg) 15%, transparent 85%) !important;
+}
+
+/* ------------------------------------------------------------------
+   Bottom Bar (Copyright & Payment Methods)
+   ------------------------------------------------------------------ */
+.footer-bottom {
+	background: color-mix(in srgb, var(--primary) 94%, black 6%);
+	border-top: 1px solid var(--footer-border);
+}
+
+.footer-bottom__container {
+	padding: 0.85rem 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+/* Legal section (copyright and links) */
+.footer-legal {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.footer-copy {
+	margin: 0;
+	color: color-mix(in srgb, var(--footer-fg) 70%, transparent 30%);
+	font-size: 0.9rem;
+	font-family: var(--font-primary);
+}
+
+/* Legal links */
+.footer-legal-links {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.85rem;
+}
+
+.footer-legal-link {
+	color: color-mix(in srgb, var(--footer-fg) 80%, transparent 20%);
+	text-decoration: none;
+	transition: color 0.2s ease;
+	cursor: pointer;
+}
+
+.footer-legal-link:hover {
+	color: var(--footer-fg);
+	text-decoration: underline;
+}
+
+.footer-legal-separator {
+	color: color-mix(in srgb, var(--footer-fg) 50%, transparent 50%);
+}
+
+/* Payment method logos */
+.payment-methods {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.payment-logo {
+	height: 32px;
+	width: auto;
+	opacity: 0.85;
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.payment-logo:hover {
+	opacity: 1;
+	transform: translateY(-1px);
+}
+
+/* ==================================================================
+   RESPONSIVE DESIGN
+   ================================================================== */
+
+/* ------------------------------------------------------------------
+   Mobile & Tablet (max-width: 880px)
+   ------------------------------------------------------------------ */
+@media (max-width: 880px) {
+	/* Main footer layout */
+	.footer-main__container {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		padding: 2rem 1rem;
+	}
+	
+	/* Brand section centered on mobile */
+	.footer-brand {
+		text-align: center;
+	}
+	
+	.footer-brand__logo img {
+		height: 72px;
+		margin: 0 auto;
+	}
+	
+	.footer-brand__desc {
+		max-width: 40ch;
+		margin: 1rem auto 1.25rem;
+	}
+	
+	.footer-social {
+		justify-content: center;
+	}
+	
+	/* Footer content stacked */
+	.footer-content {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+	
+	.footer-links {
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+	}
+	
+	/* Newsletter full width */
+	.footer-newsletter {
+		max-width: 100%;
+		text-align: center;
+	}
+	
+	.newsletter-input-group {
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	
+	.newsletter-button {
+		width: 100%;
+	}
+	
+	/* Bottom bar stacked */
+	.footer-bottom__container {
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		gap: 1rem;
+	}
+	
+	.footer-legal {
+		width: 100%;
+		align-items: center;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	
+	.footer-copy {
+		width: 100%;
+	}
+	
+	.footer-legal-links {
+		justify-content: center;
+	}
+	
+	/* Payment methods mobile */
+	.payment-methods {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+	
+	.payment-logo {
+		height: 28px;
+	}
+}
+
+/* ------------------------------------------------------------------
+   Desktop (min-width: 881px)
+   ------------------------------------------------------------------ */
+@media (min-width: 881px) {
+	/* Brand section */
+	.footer-brand {
+		text-align: center;
+	}
+	
+	.footer-brand__logo img {
+		height: 84px;
+		margin: 0 auto;
+	}
+	
+	.footer-brand__desc {
+		max-width: 42ch;
+		margin: 1rem auto 1.25rem;
+	}
+	
+	.footer-social {
+		justify-content: flex-start;
+	}
+	
+	/* Footer content */
+	.footer-content {
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+	}
+	
+	.footer-newsletter {
+		max-width: 450px;
+	}
+	
+	/* Payment methods */
+	.payment-methods {
+		display: flex;
+		flex-direction: row;
+		gap: 1.5rem;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.payment-logo {
+		height: 24px;
+	}
+}
+
+/* ------------------------------------------------------------------
+   Large Desktop (min-width: 1200px)
+   ------------------------------------------------------------------ */
+@media (min-width: 1200px) {
+	.footer-main__container {
+		gap: 4rem;
+	}
+	
+	.footer-content {
+		gap: 5rem;
+	}
+	
+	.footer-newsletter {
+		max-width: 500px;
+	}
+	
+	/* Payment methods on large screens */
+	.payment-methods {
+		flex-direction: row;
+		gap: 2rem;
+	}
+	
+	.payment-logo {
+		height: 28px;
+	}
+}

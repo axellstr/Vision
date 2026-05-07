@@ -1,0 +1,69 @@
+---
+/**
+ * Cart Thumbnail Generator
+ * This component generates optimized thumbnails at build time
+ * and exports them as a JSON mapping for use in client-side cart rendering
+ */
+
+import { getImage } from 'astro:assets';
+import { getAllProducts } from '../data/products';
+
+// Generate optimized thumbnails for all products
+const thumbnailMap: Record<string, string> = {};
+const allProducts = getAllProducts();
+
+for (const product of allProducts) {
+  try {
+    // Generate thumbnail from main image
+    const mainImage = product.images.main;
+    
+    if (mainImage && typeof mainImage !== 'string') {
+      const optimized = await getImage({
+        src: mainImage,
+        width: 200,
+        height: 200,
+        format: 'webp',
+        quality: 85,
+      });
+      
+      thumbnailMap[product.id] = optimized.src;
+      
+      // Also generate for thumbnail image if different
+      if (product.images.thumbnail && product.images.thumbnail !== mainImage) {
+        const thumbOptimized = await getImage({
+          src: product.images.thumbnail,
+          width: 200,
+          height: 200,
+          format: 'webp',
+          quality: 85,
+        });
+        thumbnailMap[`${product.id}-thumb`] = thumbOptimized.src;
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to generate thumbnail for ${product.id}:`, error);
+  }
+}
+
+// Export as JSON for client-side use
+const thumbnailMapJson = JSON.stringify(thumbnailMap);
+---
+
+<!-- Inject thumbnail mapping into page -->
+<script id="cart-thumbnail-map" type="application/json" set:html={thumbnailMapJson}></script>
+
+<script is:inline>
+  // Make thumbnail map available globally
+  if (typeof window !== 'undefined') {
+    try {
+      const scriptEl = document.getElementById('cart-thumbnail-map');
+      if (scriptEl) {
+        window.__CART_THUMBNAIL_MAP__ = JSON.parse(scriptEl.textContent || '{}');
+      }
+    } catch (error) {
+      console.error('Failed to parse cart thumbnail map:', error);
+      window.__CART_THUMBNAIL_MAP__ = {};
+    }
+  }
+</script>
+

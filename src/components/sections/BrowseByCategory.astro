@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+
+// Import category images
+import product1 from '../../assets/images/products/Product_1.jpg';
+import product2 from '../../assets/images/products/Product_2.png';
+import product3 from '../../assets/images/products/Product_3.png';
+import product4 from '../../assets/images/products/Product_4.png';
+---
+
+<section class="browse-by-category">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Browse by Category</h2>
+      <p class="section-subtitle">Discover our curated collections</p>
+    </div>
+    
+    <div class="categories-grid">
+      <a href="/shop?category=rings" class="category-card">
+        <div class="category-image">
+          <Image 
+            src={product1} 
+            alt="Rings Collection" 
+            width={400}
+            height={400}
+            format="webp"
+            quality={90}
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            densities={[1, 1.5, 2]}
+          />
+        </div>
+        <div class="category-content">
+          <h3 class="category-title">Rings</h3>
+          <p class="category-description">Elegant rings for every occasion</p>
+        </div>
+      </a>
+      
+      <a href="/shop?category=necklaces" class="category-card">
+        <div class="category-image">
+          <Image 
+            src={product2} 
+            alt="Necklaces Collection" 
+            width={400}
+            height={400}
+            format="webp"
+            quality={90}
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            densities={[1, 1.5, 2]}
+          />
+        </div>
+        <div class="category-content">
+          <h3 class="category-title">Necklaces</h3>
+          <p class="category-description">Statement pieces that define your style</p>
+        </div>
+      </a>
+      
+      <a href="/shop?category=earrings" class="category-card">
+        <div class="category-image">
+          <Image 
+            src={product3} 
+            alt="Earrings Collection" 
+            width={400}
+            height={400}
+            format="webp"
+            quality={90}
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            densities={[1, 1.5, 2]}
+          />
+        </div>
+        <div class="category-content">
+          <h3 class="category-title">Earrings</h3>
+          <p class="category-description">Delicate and bold designs</p>
+        </div>
+      </a>
+      
+      <a href="/shop?category=bracelets" class="category-card">
+        <div class="category-image">
+          <Image 
+            src={product4} 
+            alt="Bracelets Collection" 
+            width={400}
+            height={400}
+            format="webp"
+            quality={90}
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            densities={[1, 1.5, 2]}
+          />
+        </div>
+        <div class="category-content">
+          <h3 class="category-title">Bracelets</h3>
+          <p class="category-description">Timeless elegance for your wrist</p>
+        </div>
+      </a>
+    </div>
+    
+    <div class="section-footer">
+      <a href="/shop" class="view-all-btn btn btn-outline">
+        View All Collections
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,146 @@
+---
+import '../styles/global.css';
+import '../components/navigation/Navbar.css';
+import Navbar from '../components/navigation/Navbar.astro';
+import '../components/layout/Footer.css';
+import Footer from '../components/layout/Footer.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Page Not Found | Parisa London</title>
+		<meta name="description" content="The page you're looking for doesn't exist. Return to Parisa London to explore our exquisite jewellery collections." />
+		<meta name="robots" content="noindex, nofollow" />
+		
+		<!-- Google Analytics 4 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-2K38T0Y3XN');
+		</script>
+		
+		<!-- Preconnect for fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+		
+		<style>
+			.error-page {
+				min-height: calc(100vh - var(--navbar-height) - 200px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: var(--spacing-4xl) var(--spacing-xl);
+				text-align: center;
+			}
+			
+			.error-content {
+				max-width: 600px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: var(--spacing-xl);
+			}
+			
+			.error-code {
+				font-size: clamp(6rem, 15vw, 10rem);
+				font-weight: var(--font-light);
+				line-height: 1;
+				color: var(--text-dark);
+				letter-spacing: -0.02em;
+				margin: 0;
+			}
+			
+			.error-title {
+				font-size: clamp(1.5rem, 3vw, 2rem);
+				font-weight: var(--font-light);
+				color: var(--text-dark);
+				margin: 0;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+			}
+			
+			.error-message {
+				font-size: var(--font-size-base);
+				color: var(--text-muted);
+				line-height: 1.7;
+				margin: 0;
+			}
+			
+			.error-divider {
+				width: 60px;
+				height: 1px;
+				background: var(--text-dark);
+				opacity: 0.2;
+			}
+			
+			.error-actions {
+				display: flex;
+				flex-direction: column;
+				gap: var(--spacing-lg);
+				align-items: center;
+				margin-top: var(--spacing-lg);
+			}
+			
+			.error-links {
+				display: flex;
+				gap: var(--spacing-xl);
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			
+			.error-link {
+				font-size: var(--font-size-sm);
+				color: var(--text-muted);
+				text-decoration: none;
+				transition: color var(--transition-normal);
+				letter-spacing: 0.02em;
+			}
+			
+			.error-link:hover {
+				color: var(--text-dark);
+			}
+			
+			@media (max-width: 768px) {
+				.error-page {
+					padding: var(--spacing-3xl) var(--spacing-lg);
+				}
+				
+				.error-links {
+					flex-direction: column;
+					gap: var(--spacing-md);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Navbar />
+		<main class="error-page">
+			<div class="error-content">
+				<h1 class="error-code">404</h1>
+				<div class="error-divider"></div>
+				<h2 class="error-title">Page Not Found</h2>
+				<p class="error-message">
+					The page you're looking for seems to have wandered off. 
+					Perhaps it's admiring our collections elsewhere.
+				</p>
+				<div class="error-actions">
+					<a href="/" class="cta-button">Return Home</a>
+					<div class="error-links">
+						<a href="/collections" class="error-link">View Collections</a>
+						<a href="/shop" class="error-link">Shop All</a>
+						<a href="/contact" class="error-link">Contact Us</a>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+

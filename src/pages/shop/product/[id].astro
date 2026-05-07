@@ -1,0 +1,221 @@
+---
+import '../../../styles/global.css';
+import '../../../components/navigation/Navbar.css';
+import '../../../components/ui/Marquee.css';
+import '../../../components/layout/Footer.css';
+import './_product.css';
+import Navbar from '../../../components/navigation/Navbar.astro';
+import Marquee from '../../../components/ui/Marquee.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import ScrollToTop from '../../../components/common/ScrollToTop.astro';
+import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
+import ProductGallery from '../../../components/product/ProductGallery.astro';
+import ProductInfo from '../../../components/product/ProductInfo.astro';
+import ProductTabs from '../../../components/product/ProductTabs.astro';
+import RelatedProducts from '../../../components/product/RelatedProducts.astro';
+import CartDrawer from '../../../components/ui/CartDrawer.astro';
+import { getProductById, getAllProducts } from '../../../data/products';
+import { initialImagesMap } from '../../../data/products/forever';
+import type { Product } from '../../../data/types';
+
+export async function getStaticPaths() {
+  const products = getAllProducts();
+  return products.map(product => ({
+    params: { id: product.id }
+  }));
+}
+
+const { id } = Astro.params;
+const product = getProductById(id as string);
+
+if (!product) {
+  return Astro.redirect('/shop');
+}
+
+// Get variant images map if this is the initial necklace
+const variantImagesMap = product.id === 'forever-initial-necklace' ? initialImagesMap : null;
+
+// Get related products from different collections
+const allProducts = getAllProducts();
+const availableCollections = ['talisman', 'kaleidoscope', 'heritage', 'forever'];
+const relatedProducts: Product[] = [];
+
+// Get one product from each collection (excluding current product's collection)
+const otherCollections = availableCollections.filter(col => col !== product.collection);
+
+// Add one product from each other collection
+otherCollections.forEach(collection => {
+  const collectionProducts = allProducts.filter(p => p.collection === collection && p.id !== product.id);
+  if (collectionProducts.length > 0) {
+    let selectedProduct;
+    
+    // Special handling for forever collection - prefer high-quality items over initial necklace
+    if (collection === 'forever') {
+      const highQualityForever = collectionProducts.filter(p => 
+        p.id === 'forever-bracelet-gold' || p.id === 'forever-bracelet-silver'
+      );
+      selectedProduct = highQualityForever.length > 0 
+        ? highQualityForever[Math.floor(Math.random() * highQualityForever.length)]
+        : collectionProducts[Math.floor(Math.random() * collectionProducts.length)];
+    } else {
+      selectedProduct = collectionProducts[Math.floor(Math.random() * collectionProducts.length)];
+    }
+    
+    relatedProducts.push(selectedProduct);
+  }
+});
+
+// If we don't have enough products from different collections, fill with random products
+while (relatedProducts.length < 5 && relatedProducts.length < allProducts.length - 1) {
+  const remainingProducts = allProducts.filter(p => p.id !== product.id && !relatedProducts.some(rp => rp.id === p.id));
+  if (remainingProducts.length > 0) {
+    const randomProduct = remainingProducts[Math.floor(Math.random() * remainingProducts.length)];
+    relatedProducts.push(randomProduct);
+  } else {
+    break;
+  }
+}
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Shop', href: '/shop' },
+  { label: product.name, current: true }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{product.seo.title}</title>
+    <meta name="description" content={product.seo.description} />
+    <meta name="keywords" content={product.seo.keywords.join(', ')} />
+    <link rel="canonical" href={`https://parisajewellery.com/shop/product/${product.id}`} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0D1716" />
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2K38T0Y3XN');
+    </script>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content={`https://parisajewellery.com/shop/product/${product.id}`} />
+    <meta property="og:title" content={product.seo.title} />
+    <meta property="og:description" content={product.seo.description} />
+    <meta property="og:image" content={typeof product.images.main === 'string' ? `https://parisajewellery.com${product.images.main}` : `https://parisajewellery.com${product.images.main.src}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Parisa London" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="product:price:amount" content={product.price.current.toString()} />
+    <meta property="product:price:currency" content="GBP" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={product.seo.title} />
+    <meta name="twitter:description" content={product.seo.description} />
+    <meta name="twitter:image" content={typeof product.images.main === 'string' ? `https://parisajewellery.com${product.images.main}` : `https://parisajewellery.com${product.images.main.src}`} />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Product Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "description": product.seo.description,
+      "image": typeof product.images.main === 'string' ? `https://parisajewellery.com${product.images.main}` : `https://parisajewellery.com${product.images.main.src}`,
+      "sku": product.sku,
+      "brand": {
+        "@type": "Brand",
+        "name": "Parisa London"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": `https://parisajewellery.com/shop/product/${product.id}`,
+        "priceCurrency": "GBP",
+        "price": product.price.current,
+        "availability": product.inventory.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "Parisa London"
+        }
+      },
+      "category": product.category,
+      "material": product.specifications.metalType
+    })} />
+    
+    <!-- JSON-LD BreadcrumbList -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://parisajewellery.com" },
+        { "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://parisajewellery.com/shop" },
+        { "@type": "ListItem", "position": 3, "name": product.name, "item": `https://parisajewellery.com/shop/product/${product.id}` }
+      ]
+    })} />
+    
+    <!-- Load global cart manager for fallback support -->
+    <script src="/cart-manager.js" is:inline></script>
+  </head>
+  <body>
+    <Navbar />
+
+    <!-- Breadcrumb Navigation -->
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Product Detail -->
+    <main class="product-container">
+      <div class="container">
+        <div class="product-layout">
+          <!-- Product Gallery -->
+          <ProductGallery product={product} variantImagesMap={variantImagesMap} />
+
+          <!-- Product Information -->
+          <ProductInfo product={product} variantImagesMap={variantImagesMap} />
+        </div>
+
+        <!-- Product Details Tabs -->
+        <ProductTabs product={product} />
+
+        <!-- Related Products -->
+        <RelatedProducts products={relatedProducts} />
+      </div>
+    </main>
+
+    <Footer />
+    <ScrollToTop />
+    
+    <!-- Cart Drawer rendered globally in Navbar to avoid duplicates -->
+
+    <!-- Styles now extracted to component files -->
+
+    <!-- JavaScript functionality now moved to individual components -->
+    
+    <!-- Set up product data for global cart manager -->
+    <script define:vars={{ product }}>
+      // Make product data available globally for cart manager
+      window.currentProduct = {
+        id: product.id,
+        name: product.name,
+        price: product.price.current,
+        image: product.images.main,
+        category: product.category,
+        collection: product.collection,
+        sku: product.sku
+      };
+    </script>
+  </body>
+</html>

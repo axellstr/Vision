@@ -1,0 +1,337 @@
+---
+// Import the dedicated CSS module
+import './CartDrawer.css';
+---
+
+<!-- Cart Drawer Overlay -->
+<div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
+  <div class="cart-drawer-content" role="document">
+    <header class="cart-header">
+      <div class="cart-title-group">
+        <svg class="cart-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M6 7V5.77273C6 4.2263 6.644 2.75317 7.77399 1.67454C8.9024 0.597427 10.4233 0 12 0C13.5767 0 15.0976 0.597427 16.226 1.67454C17.356 2.75317 18 4.2263 18 5.77273V7H19C20.1046 7 21 7.89543 21 9V18C21 20.7614 18.7614 23 16 23H8C5.23858 23 3 20.7614 3 18V9C3 7.89543 3.89543 7 5 7H6ZM9.15494 3.12126C9.9019 2.40825 10.9245 2 12 2C13.0755 2 14.0981 2.40825 14.8451 3.12126C15.5904 3.83275 16 4.78754 16 5.77273V7H8V5.77273C8 4.78755 8.40957 3.83275 9.15494 3.12126ZM5 18V9H19V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18Z" fill="currentColor" />
+        </svg>
+        <h2 class="cart-title">Shopping Cart</h2>
+      </div>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="Close cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </header>
+    
+    <div class="cart-items" id="cart-items" role="region" aria-live="polite">
+      <div class="cart-empty" id="cart-empty">
+        <h3 class="cart-empty-title">Your cart is empty</h3>
+        <a href="/shop" class="cart-empty-link">Continue Shopping</a>
+      </div>
+      
+      <div class="cart-items-list" id="cart-items-list" style="display: none;">
+        <!-- Cart items will be dynamically inserted here -->
+      </div>
+    </div>
+    
+    <footer class="cart-footer" id="cart-footer" style="display: none;">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span class="cart-subtotal-amount" id="cart-subtotal-amount">£0.00</span>
+      </div>
+        <button class="checkout-btn" id="cart-checkout-btn">Checkout</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Styles now imported from CartDrawer.css -->
+
+<script>
+  // @ts-nocheck
+  // Prefer global cart manager when available to avoid multiple store instances across islands
+  let useGlobal = false;
+  /** @type {null | (() => void)} */
+  let unsubscribe = null;
+  /** @type {(id: string, size?: string) => void} */
+  let removeFn = (_id, _size) => {};
+  /** @type {(id: string, qty: number, size?: string) => void} */
+  let updateQtyFn = (_id, _qty, _size) => {};
+  /** @type {() => void} */
+  let closeFn = () => {};
+  /** @type {(listener: (state: any) => void) => (() => void)} */
+  let subscribeFn = (_listener) => () => {};
+  /** @type {any} */
+  let initialState = null;
+  
+  try {
+    if (window.globalCartManager) {
+      useGlobal = true;
+      subscribeFn = window.globalCartManager.subscribe.bind(window.globalCartManager);
+      removeFn = window.globalCartManager.removeFromCart.bind(window.globalCartManager);
+      updateQtyFn = window.globalCartManager.updateQuantity.bind(window.globalCartManager);
+      closeFn = window.globalCartManager.closeCartDrawer.bind(window.globalCartManager);
+      initialState = window.globalCartManager.getCartState();
+    }
+  } catch {}
+
+  if (!useGlobal) {
+    // Import module store as fallback
+    const mod = await import('../../data/cart');
+    subscribeFn = mod.subscribeToCart;
+    removeFn = mod.removeFromCart;
+    updateQtyFn = mod.updateCartQuantity;
+    closeFn = mod.closeCartDrawer;
+    initialState = mod.getCartState();
+  }
+
+  // DOM elements
+  const cartDrawer = document.getElementById('cart-drawer');
+  const cartCloseBtn = document.getElementById('cart-close-btn');
+  const cartEmpty = document.getElementById('cart-empty');
+  const cartItemsList = document.getElementById('cart-items-list');
+  const cartFooter = document.getElementById('cart-footer');
+  const cartSubtotalAmount = document.getElementById('cart-subtotal-amount');
+  const checkoutBtn = document.getElementById('cart-checkout-btn');
+
+  // Subscribe to cart changes
+  unsubscribe = subscribeFn((state) => {
+    updateCartUI(state);
+  });
+
+  // Also initialize UI with initial state
+  if (initialState) {
+    updateCartUI(initialState);
+  }
+
+  // Update cart UI
+  /** @param {any} state */
+  function updateCartUI(state) {
+    if (!cartEmpty || !cartItemsList || !cartFooter || !cartSubtotalAmount) return;
+
+    // Update drawer visibility
+    if (cartDrawer) {
+      if (state.isOpen) {
+        cartDrawer.classList.add('active');
+        document.body.classList.add('cart-drawer-open');
+      } else {
+        cartDrawer.classList.remove('active');
+        document.body.classList.remove('cart-drawer-open');
+      }
+    }
+
+    // Show/hide empty state vs items
+    if (state.items.length === 0) {
+      cartEmpty.style.display = 'flex';
+      cartItemsList.style.display = 'none';
+      cartFooter.style.display = 'none';
+    } else {
+      cartEmpty.style.display = 'none';
+      cartItemsList.style.display = 'block';
+      cartFooter.style.display = 'block';
+    }
+
+    // Update subtotal
+    cartSubtotalAmount.textContent = state.formattedTotal;
+
+    // Render cart items
+    try {
+      const cartItemsHTML = state.items.map(item => createCartItemHTML(item)).join('');
+      cartItemsList.innerHTML = cartItemsHTML;
+    } catch (error) {
+      console.error('Error rendering cart items:', error);
+    }
+
+    // Attach event listeners to new elements
+    attachCartItemListeners();
+  }
+
+  // Generate optimized image URL for cart items
+  /** @param {string} imagePath @param {string} productId @param {number} [width] @param {number} [height] */
+  function getOptimizedImageUrl(imagePath, productId, width = 90, height = 90) {
+    if (!imagePath) return '';
+    
+    // Try to get optimized thumbnail from the thumbnail map
+    try {
+      if (window.__CART_THUMBNAIL_MAP__ && productId) {
+        // Handle variant products (format: productId::variantId)
+        const baseProductId = productId.includes('::') ? productId.split('::')[0] : productId;
+        const thumbnail = window.__CART_THUMBNAIL_MAP__[baseProductId];
+        if (thumbnail) {
+          return thumbnail;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to get optimized thumbnail from map:', error);
+    }
+    
+    if (typeof imagePath !== 'string') {
+      try {
+        // Astro Image object case
+        const src = imagePath?.src || '';
+        if (typeof src === 'string') return src;
+      } catch {}
+      return '';
+    }
+    // If it's already a processed URL, return as is
+    if (imagePath.includes('_astro/') || imagePath.startsWith('http')) {
+      return imagePath;
+    }
+    
+    // Handle Astro asset paths
+    if (imagePath.startsWith('/src/assets/')) {
+      // In production, these will be processed by Astro
+      return imagePath;
+    }
+    
+    // For other local asset paths, ensure they work properly
+    return imagePath;
+  }
+
+  // Create HTML for cart item with luxury design elements
+  /** @param {any} item */
+  function createCartItemHTML(item) {
+    const optimizedImageUrl = getOptimizedImageUrl(item.image, item.id, 80, 80);
+    
+    return `
+      <div class="cart-item" data-id="${item.id}" data-size="${item.size || ''}">
+        <div class="cart-item-image-container">
+          <img 
+            src="${optimizedImageUrl}" 
+            alt="${item.name}" 
+            class="cart-item-image"
+            width="100"
+            loading="lazy"
+            decoding="async"
+            onerror="console.error('Failed to load cart item image:', this.src); this.style.display='none';"
+          />
+        </div>
+        <div class="cart-item-details">
+          <div class="cart-item-header">
+            <div class="cart-item-info">
+              <h4 class="cart-item-name">${item.name}</h4>
+              <div class="cart-item-meta">
+                <p class="cart-item-collection">${item.collection.charAt(0).toUpperCase() + item.collection.slice(1)} Collection</p>
+                ${item.size ? `<p class="cart-item-size">Size: ${item.size}</p>` : ''}
+                ${item.variant && item.variant.label ? `<p class=\"cart-item-size\">${item.variant.name || 'Variant'}: ${item.variant.label}</p>` : ''}
+              </div>
+            </div>
+            <div class="cart-item-price">${item.formattedPrice}</div>
+          </div>
+          <div class="cart-item-controls">
+            <div class="quantity-controls">
+              <button class="quantity-btn decrease-btn" data-id="${item.id}" data-size="${item.size || ''}" aria-label="Decrease quantity">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+              <span class="quantity-display">${item.quantity}</span>
+              <button class="quantity-btn increase-btn" data-id="${item.id}" data-size="${item.size || ''}" aria-label="Increase quantity">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+            <button class="remove-btn" data-id="${item.id}" data-size="${item.size || ''}" aria-label="Remove item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Attach event listeners to cart item controls
+  function attachCartItemListeners() {
+    // Quantity controls
+    const decreaseBtns = document.querySelectorAll('.decrease-btn');
+    const increaseBtns = document.querySelectorAll('.increase-btn');
+    const removeBtns = document.querySelectorAll('.remove-btn');
+
+    decreaseBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const target = e.currentTarget as HTMLElement;
+        const id = target.getAttribute('data-id');
+        const size = target.getAttribute('data-size') || undefined;
+        if (id) {
+          const cartItem = target.closest('.cart-item');
+          const quantityDisplay = cartItem?.querySelector('.quantity-display');
+          const currentQuantity = parseInt(quantityDisplay?.textContent || '1');
+          const newQuantity = Math.max(0, currentQuantity - 1);
+          updateQtyFn(id, newQuantity, size);
+        }
+      });
+    });
+
+    increaseBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const target = e.currentTarget as HTMLElement;
+        const id = target.getAttribute('data-id');
+        const size = target.getAttribute('data-size') || undefined;
+        if (id) {
+          const cartItem = target.closest('.cart-item');
+          const quantityDisplay = cartItem?.querySelector('.quantity-display');
+          const currentQuantity = parseInt(quantityDisplay?.textContent || '1');
+          const newQuantity = currentQuantity + 1;
+          updateQtyFn(id, newQuantity, size);
+        }
+      });
+    });
+
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const target = e.currentTarget as HTMLElement;
+        const id = target.getAttribute('data-id');
+        const size = target.getAttribute('data-size') || undefined;
+        if (id) {
+          removeFn(id, size);
+        }
+      });
+    });
+  }
+
+  // Event listeners
+  if (cartCloseBtn) {
+    cartCloseBtn.addEventListener('click', () => {
+      if (closeFn) closeFn();
+    });
+  }
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', () => {
+      // Navigate to checkout page
+      window.location.href = '/checkout';
+    });
+  }
+
+  // Close on backdrop click
+  if (cartDrawer) {
+    cartDrawer.addEventListener('click', (e) => {
+      if (e.target === cartDrawer) {
+        if (closeFn) closeFn();
+      }
+    });
+  }
+
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartDrawer?.classList.contains('active')) {
+      if (closeFn) closeFn();
+    }
+  });
+
+  // Clean up subscription when component is removed
+  if (typeof window !== 'undefined') {
+    window.addEventListener('beforeunload', () => {
+      if (unsubscribe) unsubscribe();
+    });
+  }
+</script>

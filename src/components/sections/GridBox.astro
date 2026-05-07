@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import '../sections/GridBox.css';
+import GalleryCarousel from './GalleryCarousel.astro';
+import HeritageCarousel from './HeritageCarousel.astro';
+import talisImage from '../../assets/images/ui/talis.png';
+import heriImage from '../../assets/images/ui/unnamed.png';
+---
+
+<section class="grid-box" aria-label="Featured content with call-to-action">
+    <div class="grid-box__container">
+        <!-- Image container on the left -->
+        <div class="grid-box__image-container">
+            <Image 
+                src={heriImage} 
+                alt="Heritage Collection" 
+                class="grid-box__image"
+                width={1600}
+                height={900}
+                format="webp"
+                quality={90}
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                densities={[1, 1.5, 2]}
+            />
+        </div>
+        <!-- Content on the right -->
+        <div class="grid-box__content">
+            <div class="grid-box__text">
+                <h2 class="grid-box__title">HERITAGE COLLECTION</h2>
+                <p class="grid-box__description">
+                    Discover pieces that carry the weight of tradition and the promise of enduring beauty. Each creation is a testament to timeless craftsmanship and artistic vision.
+                </p>
+                <a href="/collections/heritage" class="grid-box__cta" aria-label="View heritage collection">
+                    <span class="underline-animate">View Heritage</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <HeritageCarousel />
+    
+    <div class="grid-box__container">
+        <!-- Content on the left -->
+        <div class="grid-box__content grid-box__content--heritage">
+            <div class="grid-box__text">
+                <h2 class="grid-box__title">TALISMAN CALIGRAPHY</h2>
+                <p class="grid-box__description">
+                    Discover the artistry of Talisman Caligraphy, where each piece is a masterpiece of precision and artistry.
+                </p>
+                <a href="/collections/talisman" class="grid-box__cta" aria-label="Explore Talisman collection">
+                    <span class="underline-animate">Explore Collection</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <!-- Image container on the right -->
+        <div class="grid-box__image-container grid-box__image-container--heritage">
+            <Image 
+                src={talisImage} 
+                alt="Talisman Caligraphy" 
+                class="grid-box__image"
+                width={1600}
+                height={900}
+                format="webp"
+                quality={90}
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                densities={[1, 1.5, 2]}
+            />
+        </div>
+    </div>
+    <GalleryCarousel />
+    
+</section>

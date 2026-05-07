@@ -1,0 +1,78 @@
+---
+export interface Props {
+  label?: string;
+  required?: boolean;
+  error?: string;
+  hint?: string;
+  class?: string;
+  full?: boolean;
+}
+
+const {
+  label,
+  required = false,
+  error,
+  hint,
+  class: className = '',
+  full = false,
+  ...props
+} = Astro.props;
+
+const classes = [
+  'form-group',
+  full && 'form-group-full',
+  className
+].filter(Boolean).join(' ');
+---
+
+<div class={classes} {...props}>
+  {label && (
+    <label>
+      {label}
+      {required && <span class="form-required" aria-label="required">*</span>}
+    </label>
+  )}
+  
+  <slot />
+  
+  {hint && !error && (
+    <div class="form-hint">{hint}</div>
+  )}
+  
+  {error && (
+    <div class="form-error" role="alert" aria-live="polite">
+      {error}
+    </div>
+  )}
+</div>
+
+<style>
+  .form-group-full {
+    grid-column: 1 / -1;
+  }
+
+  .form-required {
+    color: var(--error);
+    margin-left: var(--spacing-xs);
+  }
+
+  .form-hint {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+  }
+
+  .form-error {
+    color: var(--error);
+    font-size: var(--font-size-xs);
+    margin-top: var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .form-error::before {
+    content: '⚠';
+    flex-shrink: 0;
+  }
+</style>

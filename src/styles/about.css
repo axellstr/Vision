@@ -1,0 +1,814 @@
+/* About Page Specific Styles */
+/* Container defined in global.css */
+
+/* Hero Section removed */
+
+/* Section Titles */
+.section-title {
+	font-family: var(--font-primary);
+	font-size: 2.5rem;
+	font-weight: var(--font-normal);
+	color: var(--text-dark);
+	margin-bottom: 2rem;
+	text-align: left;
+	white-space: nowrap;
+	line-height: 1.2;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+	            transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-title.animate {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Designer Story */
+.designer-story {
+	margin-block: 8rem;
+}
+
+.story-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: 'image content';
+	gap: 4rem;
+	align-items: center;
+}
+
+.story-content { 
+	grid-area: content;
+	opacity: 0;
+	transform: translateX(40px);
+	transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+	            transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.story-content.animate {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.story-image { 
+	grid-area: image;
+	opacity: 0;
+	transform: translateX(-40px);
+	transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+	            transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.story-image.animate {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.story-text {
+	font-family: var(--font-primary);
+	font-size: 1rem;
+	line-height: 1.6;
+	color: var(--text-light);
+	margin-bottom: 1.5rem;
+	max-width: 1400px;
+	text-align: left;
+	font-weight: var(--font-normal);
+	opacity: 0;
+	transform: translateY(15px);
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+	            transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-text.animate {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.story-text:nth-of-type(1) {
+	transition-delay: 0.1s;
+}
+
+.story-text:nth-of-type(2) {
+	transition-delay: 0.2s;
+}
+
+.story-logos {
+	display: flex;
+	gap: 1.5rem;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	max-width: 100%;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	opacity: 0;
+	transform: translateY(15px);
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+	            transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.story-logos.animate {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.story-logo {
+	height: 32px;
+	width: auto;
+	max-width: 100%;
+	opacity: 0.85;
+	flex-shrink: 0;
+	display: block;
+}
+
+.story-logo:hover {
+	opacity: 1;
+}
+
+.story-image {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	width: max-content;
+	margin-inline: auto;
+	z-index: 0;
+}
+
+.designer-img {
+	width: 100%;
+	max-width: 360px;
+	aspect-ratio: 1 / 1;
+	height: auto;
+	object-fit: cover;
+	display: block;
+}
+
+/* Offset border effect */
+
+.story-image::after {
+	content: '';
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.story-image::after {
+	border: 2px solid rgba(0, 0, 0, 0.08);
+	transform: translate(-8px, -8px);
+}
+.story-image::before {
+	content: '';
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.story-image::before {
+	border: 2px solid rgba(0, 0, 0, 0.08);
+	transform: translate(-8px, -8px);
+}
+
+/* Recognition & Exhibitions */
+.recognition {
+	margin-block: 6rem;
+}
+
+.recognition-gallery {
+	display: grid;
+	grid-template-columns: 1fr 1.2fr 1fr;
+	gap: 2rem;
+	margin-top: 3rem;
+	align-items: center;
+	justify-items: center;
+}
+
+.recognition-item {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	position: relative;
+	opacity: 0;
+	transform: translateY(30px) scale(0.95);
+	transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+	            transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.recognition-item.animate {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.recognition-item:nth-child(1) {
+	transition-delay: 0.1s;
+}
+
+.recognition-item:nth-child(3) {
+	transition-delay: 0.3s;
+}
+
+.recognition-item img {
+	aspect-ratio: 4 / 3;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	display: block;
+	background: #fafafa;
+}
+
+/* Fine-tune Amal image crop to show head */
+.recognition-img--amal {
+	object-position: center top;
+}
+
+.recognition-item figcaption {
+	font-family: var(--font-primary);
+	font-size: 0.875rem;
+	font-weight: var(--font-medium);
+	color: var(--text-dark);
+	text-align: center;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin-top: 0.75rem;
+	padding: 0 0.5rem;
+	line-height: 1.4;
+}
+
+/* Center content in recognition gallery */
+.recognition-center-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 2rem 1.5rem;
+	background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+	position: relative;
+	border: 1px solid rgba(44, 44, 44, 0.1);
+	box-sizing: border-box;
+	min-height: 300px;
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+	            transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow: hidden;
+}
+
+.recognition-center-content.animate {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.recognition-center-content::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, 0.8);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 1.5s ease-in-out 0.3s;
+}
+
+.recognition-center-content.animate::before {
+	opacity: 1;
+}
+
+.recognition-center-content::after {
+	content: '';
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: linear-gradient(
+		45deg,
+		transparent 30%,
+		rgba(255, 255, 255, 0.1) 50%,
+		transparent 70%
+	);
+	transform: rotate(45deg);
+	animation: shimmer 8s infinite;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+}
+
+.recognition-center-content.animate::after {
+	opacity: 1;
+}
+
+@keyframes shimmer {
+	0% {
+		transform: translateX(-100%) translateY(-100%) rotate(45deg);
+	}
+	100% {
+		transform: translateX(100%) translateY(100%) rotate(45deg);
+	}
+}
+
+.center-title {
+	font-family: var(--font-primary);
+	font-size: 1.5rem;
+	font-weight: var(--font-medium);
+	color: var(--text-dark);
+	margin-bottom: 1rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	position: relative;
+	z-index: 2;
+	white-space: nowrap;
+	line-height: 1.2;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+	            transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.recognition-center-content.animate .center-title {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.center-text {
+	font-family: var(--font-primary);
+	font-size: 1rem;
+	line-height: 1.6;
+	color: var(--text-light);
+	max-width: 280px;
+	margin-bottom: 1.5rem;
+	position: relative;
+	z-index: 2;
+	font-weight: var(--font-normal);
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s,
+	            transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+}
+
+.recognition-center-content.animate .center-text {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.center-cta {
+	position: relative;
+	z-index: 2;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s,
+	            transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+}
+
+.recognition-center-content.animate .center-cta {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* CTA Button defined in global.css */
+
+.recognition-break {
+	grid-column: 1 / -1;
+	margin: 2rem 0;
+	text-align: center;
+	font-style: italic;
+	color: #666;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Closing Statement */
+.brand-expansion {
+	margin-block: 2rem;
+	max-width: 1400px;
+	margin-inline: auto;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: justify;
+	padding: 2rem 1.5rem;
+	position: relative;
+	border: 1px solid rgba(44, 44, 44, 0.1);
+	box-sizing: border-box;
+	min-height: 300px;
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+	            transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-expansion.animate {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (max-width: 1200px) {
+	.recognition-gallery {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2.5rem;
+	}
+
+	.recognition-center-content {
+		grid-column: 1 / -1;
+		grid-row: 2;
+		margin-top: 1rem;
+		padding: 1.5rem 1rem;
+	}
+
+	.center-text {
+		max-width: 400px;
+	}
+}
+
+@media (max-width: 768px) {
+	.recognition-gallery {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.recognition-center-content {
+		grid-column: 1;
+		grid-row: auto;
+		margin: 1rem 0;
+		padding: 1.5rem 1rem;
+		order: 2;
+	}
+
+	.recognition-item {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+
+	.center-text {
+		max-width: 300px;
+		text-align: justify;
+		font-size: 0.95rem;
+		line-height: 1.7;
+	}
+}
+
+@media (max-width: 520px) {
+	.designer-story {
+		padding: 0 1.25rem;
+	}
+	
+	.recognition {
+		padding: 0 1.25rem;
+	}
+	
+	.recognition-gallery {
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+	}
+
+	.story-text {
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
+
+	.center-text {
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
+
+	.brand-quote {
+		font-size: 1.25rem;
+		letter-spacing: 0.5px;
+		line-height: 1.3;
+	}
+}
+
+@media (max-width: 425px) {
+	/* Designer story section - Mobile M adjustments */
+	.designer-story {
+		padding: 0 1rem;
+	}
+	
+	/* Recognition section - Mobile M adjustments */
+	.recognition {
+		margin-block: 0;
+		padding: 0 1rem;
+	}
+
+	.recognition-gallery {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+		justify-items: stretch;
+		align-items: stretch;
+	}
+
+	.recognition-center-content {
+		grid-column: 1;
+		grid-row: auto;
+		margin: 0 !important;
+		padding: 1.25rem 0.75rem;
+		order: 2;
+		min-height: auto;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.recognition-item {
+		max-width: 100% !important;
+		margin: 0 !important;
+		width: 100%;
+		gap: 0.75rem;
+	}
+
+	.recognition-item img {
+		width: 100%;
+		max-width: 100%;
+		display: block;
+	}
+
+	.recognition-item figcaption {
+		font-size: 0.8rem;
+		padding: 0 !important;
+		margin-top: 0.5rem;
+	}
+
+	.center-title {
+		font-size: 1.25rem;
+		margin-bottom: 0.75rem;
+		white-space: normal;
+	}
+
+	.center-text {
+		max-width: 100% !important;
+		font-size: 0.875rem;
+		line-height: 1.6;
+		text-align: justify;
+		padding: 0 !important;
+		width: 100%;
+	}
+
+	.cta-button {
+		font-size: 0.8rem;
+		padding: 0.625rem 1.25rem;
+	}
+
+	/* Story text in recognition section - match center-content spacing */
+	.recognition .story-text {
+		font-size: 0.875rem;
+		line-height: 1.6;
+		padding: 0;
+		margin-bottom: 1.5rem;
+		text-align: justify;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	/* Section title - match center-title spacing */
+	.recognition .section-title {
+		font-size: 1.25rem;
+		margin-bottom: 0.75rem;
+		white-space: normal;
+		text-align: center;
+		width: 100%;
+	}
+
+	/* Story content adjustments */
+	.story-content {
+		width: 100%;
+		max-width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+
+	/* Center story logos */
+	.story-logos {
+		justify-content: center;
+		width: 100%;
+		max-width: 100%;
+		gap: 1rem;
+		margin-inline: auto;
+		margin-block: 2rem;
+		padding: 0;
+	}
+
+	.story-logo {
+		height: 28px;
+		width: auto;
+		max-width: 100%;
+	}
+
+	.story-text {
+		font-size: 0.95rem;
+		line-height: 1.6;
+		padding: 0;
+		margin-bottom: 1.25rem;
+		text-align: justify;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.section-title {
+		font-size: 1.5rem;
+		margin-bottom: 1.25rem;
+		white-space: normal;
+		text-align: center;
+		width: 100%;
+		line-height: 1.2;
+	}
+
+	/* Ensure no horizontal overflow */
+	.recognition-gallery * {
+		box-sizing: border-box;
+	}
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.designer-story {
+		margin-block: 2rem;
+		padding: 0 1.5rem;
+	}
+	.story-grid {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+
+	.story-grid { grid-template-areas: 'image' 'content'; }
+
+	.section-title {
+		font-size: 1.5rem;
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	.story-text {
+		text-align: justify;
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+
+	.story-logos {
+		margin-block: 2rem;
+	}
+
+	/* Reduce offset on small screens */
+	.story-image::before { transform: translate(-10px, -10px); }
+	.story-image::after { transform: translate(-5px, -5px); }
+}
+
+/* Brand Values Quote Section */
+.brand-values {
+	padding: 3rem 0;
+	text-align: center;
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+	            transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-values.animate {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.quote-container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 0 2rem;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.quote-decoration {
+	width: 24px;
+	height: 24px;
+	opacity: 1;
+	filter: brightness(0) invert(0);
+	flex-shrink: 0;
+}
+
+.quote-left {
+	transform: scaleX(-1);
+	align-self: flex-start;
+	margin-top: -0.5rem;
+}
+
+.quote-right {
+	/* No transform needed - keeps original orientation */
+	align-self: flex-end;
+	margin-bottom: -0.5rem;
+}
+
+.brand-quote {
+	font-family: var(--font-primary);
+	font-size: 1.95rem;
+	font-weight: var(--font-light);
+	color: var(--text-dark);
+	line-height: 1.2;
+	letter-spacing: 1px;
+	margin: 0;
+	text-align: center;
+	white-space: nowrap;
+	flex: 1;
+}
+
+/* Responsive adjustments for quote */
+@media (max-width: 768px) {
+	.brand-values {
+		padding: 2.5rem 0;
+	}
+
+	.quote-container {
+		padding: 0 1.5rem;
+		gap: 0.75rem;
+	}
+
+	.quote-decoration {
+		width: 20px;
+		height: 20px;
+	}
+
+	.brand-quote {
+		font-size: 1.5rem;
+		white-space: normal;
+		line-height: 1.3;
+		text-align: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.brand-values {
+		padding: 2rem 0;
+	}
+
+	.quote-container {
+		padding: 0 1rem;
+		gap: 0.5rem;
+	}
+
+	.quote-decoration {
+		width: 18px;
+		height: 18px;
+	}
+
+	.brand-quote {
+		font-size: 1.05rem;
+		letter-spacing: 0.5px;
+		text-align: center;
+	}
+	.story-logos {
+		justify-content: center;
+		width: 100%;
+		max-width: 100%;
+		gap: 1rem;
+		margin-inline: auto;
+		margin-block: 2rem;
+		padding: 0;
+		overflow: hidden;
+		box-sizing: border-box;
+	}
+
+	.story-logo {
+		max-width: 100%;
+		height: auto;
+		max-height: 32px;
+	}
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		transition-delay: 0ms !important;
+	}
+	
+	/* Ensure elements are visible immediately */
+	.section-title,
+	.story-content,
+	.story-image,
+	.story-text,
+	.story-logos,
+	.recognition-item,
+	.recognition-center-content,
+	.brand-expansion,
+	.brand-values {
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}

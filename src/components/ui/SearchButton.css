@@ -1,0 +1,207 @@
+.search-btn {
+  background: transparent;
+  border: none;
+  padding: 0.75rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--radius);
+}
+
+.search-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Container and dropdown */
+.search-container {
+  position: relative;
+}
+
+.search-dropdown {
+  position: absolute;
+  right: -100px;
+  top: calc(100% + 32px);
+  background: var(--background);
+  border: 1px solid color-mix(in srgb, var(--primary) 10%, transparent 90%);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  width: min(520px, 90vw);
+  overflow: hidden;
+  z-index: var(--z-toast);
+}
+
+/* Portaled variant for mobile/tablet: full-width fixed overlay below navbar */
+.search-dropdown.search-portal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding: 1rem 0;
+  top: calc(var(--navbar-bottom, 64px));
+  width: auto;
+  margin: 0;
+  z-index: var(--z-toast);
+}
+
+.search-input-wrap {
+  padding: 0.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--primary) 8%, transparent 92%);
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, transparent 88%);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  outline: none;
+  background: color-mix(in srgb, var(--background) 98%, white 2%);
+  color: var(--text-dark);
+}
+
+.search-input:focus {
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent 65%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 12%, transparent 88%);
+}
+
+.search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+  max-height: 360px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.search-empty {
+  padding: 0.9rem 1rem 1rem 1rem;
+  color: color-mix(in srgb, var(--text-dark) 60%, transparent 40%);
+  font-size: 0.95rem;
+}
+
+.search-item {
+  margin: 0;
+}
+
+.search-dropdown .search-item-link {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.6rem 0.9rem;
+  text-decoration: none;
+  color: var(--text-dark);
+  text-transform: none;
+  border-radius: var(--radius);
+  margin: 0 0.25rem;
+}
+
+.search-item-link:hover,
+.search-item-link.active {
+  background: color-mix(in srgb, var(--primary) 6%, transparent 94%);
+}
+
+.search-dropdown .search-item-image {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--primary) 4%, transparent 96%);
+  display: block;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  min-width: 56px;
+  min-height: 56px;
+}
+
+
+.search-dropdown .search-item-meta {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.search-item-title {
+  font-size: 1rem;
+  font-weight: 400;
+  display: block;
+  align-self: center;
+  line-height: 1.15;
+  margin: 0;
+  text-transform: none !important;
+  letter-spacing: normal;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.search-item-subtitle {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .search-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.6rem;
+  }
+  .search-dropdown {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    top: calc(var(--navbar-bottom, 64px) + 18px);
+    width: auto;
+    z-index: var(--z-toast);
+  }
+  .search-results {
+    max-height: 60vh;
+  }
+  .search-input-wrap {
+    padding: 0.75rem;
+  }
+  .search-input {
+    padding: 0.75rem 0.9rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.25rem;
+  }
+  .search-dropdown {
+    left: 0.75rem;
+    right: 0.75rem;
+    top: 100%;
+    border-radius: var(--radius);
+  }
+  .search-dropdown .search-item-link {
+    grid-template-columns: 52px 1fr;
+    gap: 0.7rem;
+    padding: 0.55rem 0.75rem;
+  }
+  .search-dropdown .search-item-image {
+    width: 52px;
+    height: 52px;
+  }
+  .search-item-title {
+    font-size: 0.95rem;
+  }
+}
+
+

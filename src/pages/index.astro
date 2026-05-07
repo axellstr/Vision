@@ -1,0 +1,345 @@
+---
+import '../styles/global.css';
+import '../components/navigation/Navbar.css';
+import '../components/ui/Marquee.css';
+import Navbar from '../components/navigation/Navbar.astro';
+import Marquee from '../components/ui/Marquee.astro';
+import Hero from '../components/sections/Hero.astro';
+import '../components/sections/GalleryCarousel.css';
+import GalleryCarousel from '../components/sections/GalleryCarousel.astro';
+import '../components/sections/HeritageCarousel.css';
+import HeritageCarousel from '../components/sections/HeritageCarousel.astro';
+import '../components/sections/GridBox.css';
+import GridBox from '../components/sections/GridBox.astro';
+import '../components/layout/Footer.css';
+import Footer from '../components/layout/Footer.astro';
+import ScrollToTop from '../components/common/ScrollToTop.astro';
+import InfoSection from '../components/sections/InfoSection.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Parisa London | Exquisite Fine Jewellery</title>
+		
+		<!-- SEO Meta Tags -->
+		<meta name="description" content="Discover Parisa London's exquisite collections of fine jewellery. Handcrafted pieces featuring the Forever, Heritage, Talisman, and Kaleidoscope collections. Timeless elegance meets modern craftsmanship." />
+		<link rel="canonical" href="https://parisajewellery.com/" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://parisajewellery.com/" />
+		<meta property="og:title" content="Parisa London | Exquisite Fine Jewellery" />
+		<meta property="og:description" content="Discover Parisa London's exquisite collections of fine jewellery. Handcrafted pieces featuring the Forever, Heritage, Talisman, and Kaleidoscope collections." />
+		<meta property="og:image" content="https://parisajewellery.com/products/hero.jpg" />
+		<meta property="og:site_name" content="Parisa London" />
+		<meta property="og:locale" content="en_GB" />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content="https://parisajewellery.com/" />
+		<meta name="twitter:title" content="Parisa London | Exquisite Fine Jewellery" />
+		<meta name="twitter:description" content="Discover Parisa London's exquisite collections of fine jewellery. Handcrafted pieces featuring the Forever, Heritage, Talisman, and Kaleidoscope collections." />
+		<meta name="twitter:image" content="https://parisajewellery.com/products/hero.jpg" />
+		
+		<!-- Additional SEO -->
+		<meta name="author" content="Parisa London" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#0D1716" />
+		
+		<!-- Google Analytics 4 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-2K38T0Y3XN');
+		</script>
+		
+		<!-- JSON-LD Organization Structured Data -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Parisa London",
+			"url": "https://parisajewellery.com",
+			"logo": "https://parisajewellery.com/favicon.svg",
+			"description": "Luxury fine jewellery featuring handcrafted 18K gold pieces with rare Persian turquoise and gemstones. Ethically made, responsibly sourced — handcrafted in London.",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "London",
+				"addressCountry": "GB"
+			},
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"email": "parisa@parisajewellery.com",
+				"contactType": "customer service"
+			},
+			"sameAs": [
+				"https://www.instagram.com/parisalondon/"
+			]
+		}
+		</script>
+		
+		<!-- JSON-LD WebSite Structured Data -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"name": "Parisa London",
+			"url": "https://parisajewellery.com",
+			"description": "Luxury fine jewellery featuring handcrafted 18K gold pieces with rare Persian turquoise and gemstones.",
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": "https://parisajewellery.com/shop?q={search_term_string}",
+				"query-input": "required name=search_term_string"
+			}
+		}
+		</script>
+		
+		<!-- DNS Prefetch & Preconnect for fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		
+		<!-- Preload critical hero images for LCP optimization -->
+		<link rel="preload" as="image" href="/src/assets/images/ui/final.png" fetchpriority="high">
+		<link rel="preload" as="image" href="/src/assets/images/forever/forever_two.png">
+		<link rel="preload" as="image" href="/src/assets/images/forever/11.png">
+		
+		<!-- Optimized font loading - only weights we use -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+		
+		<!-- Critical CSS for Hero - Inlined for immediate render -->
+		<style>
+			/* Hero Critical CSS - Above the fold */
+			.hero {
+				position: relative;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+				height: 85vh;
+			}
+			/* Initial animation states - prevent flash of unstyled content */
+			.hero-image {
+				opacity: 0;
+				transform: scale(1.05);
+			}
+			.product-card {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			.hero-title {
+				opacity: 0;
+				transform: translateX(30px);
+			}
+			.hero-buttons {
+				opacity: 0;
+				transform: scale(0.95);
+			}
+			.hero-container {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0;
+				width: 100%;
+				height: 100%;
+				align-items: stretch;
+			}
+			.hero-image-box {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+				padding: 0;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				padding: 0;
+				margin: 0;
+			}
+			.hero-text-box {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: clamp(2.5rem, 5vw, 5rem);
+				overflow: visible;
+			}
+			.hero-content-wrapper {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				height: 100%;
+				width: 100%;
+				overflow: visible;
+				gap: clamp(1.25rem, 2vw, 3rem);
+			}
+			.hero-products {
+				display: flex;
+				gap: clamp(1.25rem, 1.5vw, 1.5rem);
+				justify-content: flex-end;
+				align-items: flex-end;
+				width: 100%;
+				flex: 1;
+				min-height: 0;
+			}
+			.product-card {
+				flex: 1;
+				max-width: clamp(200px, 20vw, 300px);
+				width: 100%;
+				aspect-ratio: 1 / 1;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: var(--surface-white);
+				border: 1px solid color-mix(in srgb, var(--text-dark) 10%, transparent 90%);
+				transition: all var(--transition-slow);
+				text-decoration: none;
+			}
+			.product-image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+			.hero-title {
+				font-size: clamp(2rem, 2.5vw + 1rem, 2.25rem);
+				font-weight: 300;
+				margin: 0;
+				color: var(--text-dark);
+				text-align: right;
+				line-height: 1.4;
+			}
+			.hero-title span {
+				display: block;
+				margin-top: 0.25rem;
+			}
+			.hero-title-italic {
+				font-style: italic;
+			}
+			.hero-buttons {
+				display: flex;
+				gap: 1rem;
+				margin-top: clamp(1.75rem, 2vw, 2rem);
+				position: relative;
+				z-index: 10;
+				align-items: center;
+				justify-content: flex-end;
+			}
+			.hero-buttons .cta-button {
+				flex: 1;
+				max-width: clamp(180px, 15vw, 220px);
+				white-space: nowrap;
+				height: 50px;
+			}
+			.hero-buttons .cta-button:not(.cta-square)::before {
+				display: none;
+			}
+			.hero-buttons .cta-button:not(.cta-square) {
+				background-color: var(--text-dark);
+				color: var(--surface-white);
+				border-color: var(--text-dark);
+				transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+			}
+			.hero-buttons .cta-button:not(.cta-square):hover {
+				background-color: transparent;
+				color: var(--text-dark);
+				border-color: color-mix(in srgb, var(--text-dark) 30%, transparent 70%);
+			}
+			.hero-buttons .cta-button.cta-square {
+				flex: 0 0 auto;
+				width: 50px;
+				height: 50px;
+				min-width: 50px;
+				min-height: 50px;
+				padding: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.hero-buttons .cta-button.cta-square svg {
+				width: 22px;
+				height: 22px;
+			}
+			.hero .cta-button {
+				visibility: visible;
+				opacity: 1;
+			}
+			
+			/* Tablet Critical */
+			@media (max-width: 1024px) {
+				.hero {
+					height: auto;
+					min-height: 85vh;
+				}
+				.hero-container {
+					display: flex;
+					flex-direction: column;
+				}
+				.hero-image-box {
+					height: 50vh;
+					min-height: 450px;
+					flex-shrink: 0;
+				}
+				.hero-text-box {
+					padding: 0;
+					margin-top: -2.5rem;
+					position: relative;
+					z-index: 5;
+					flex: 1;
+					display: flex;
+					align-items: flex-start;
+				}
+			}
+			
+			/* Mobile Critical */
+			@media (max-width: 768px) {
+				.hero {
+					height: auto;
+					min-height: 100vh;
+					padding: 0;
+					display: flex;
+					align-items: stretch;
+				}
+				.hero-container {
+					grid-template-columns: 1fr;
+					display: flex;
+					flex-direction: column;
+				}
+				.hero-image-box {
+					height: 55vh;
+					min-height: 400px;
+					flex-shrink: 0;
+				}
+				.hero-text-box {
+					margin-top: -2rem;
+					position: relative;
+					z-index: 5;
+					flex: 1;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Navbar />
+		<Hero />
+		<main class="container">
+			<GridBox />
+		</main>
+		<InfoSection />
+		<Footer />
+		<ScrollToTop />
+	</body>
+</html>

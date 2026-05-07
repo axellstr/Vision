@@ -1,0 +1,434 @@
+---
+export interface Props {
+  item: {
+    id: string;
+    name: string;
+    price: number;
+    formattedPrice: string;
+    image: string;
+    category: string;
+    collection: string;
+    quantity: number;
+    size?: string;
+    variant?: { name: string; optionId?: string; label?: string };
+    sku: string;
+  };
+  context?: 'drawer' | 'checkout';
+}
+
+const { item, context = 'drawer' } = Astro.props;
+
+// Generate optimized image URL with better processing
+function getOptimizedImageUrl(imagePath: string, width: number = 80, height: number = 80): string {
+  if (imagePath.includes('_astro/') || imagePath.startsWith('http')) {
+    return imagePath;
+  }
+
+  if (imagePath.startsWith('/src/assets/')) {
+    return imagePath;
+  }
+
+  // For local image paths, ensure they have proper optimization parameters
+  // Astro will handle the optimization during build
+  return imagePath;
+}
+
+const optimizedImageUrl = getOptimizedImageUrl(item.image, context === 'checkout' ? 50 : 80, context === 'checkout' ? 50 : 80);
+const imageSize = context === 'checkout' ? 50 : 80;
+---
+
+<div 
+  class={`cart-item cart-item--${context}`}
+  data-id={item.id} 
+  data-size={item.size || ''}
+>
+  <div class="cart-item-image-container">
+    <img
+      src={optimizedImageUrl}
+      alt={item.name}
+      class="cart-item-image"
+      width={imageSize}
+      height={imageSize}
+      loading="lazy"
+      decoding="async"
+      sizes={`${imageSize}px`}
+      style={`image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;`}
+      onerror="console.error('Failed to load cart item image:', this.src); this.style.display='none';"
+    />
+  </div>
+
+  <div class="cart-item-details">
+    <div class="cart-item-header">
+      <div class="cart-item-info">
+        <h4 class="cart-item-name">{item.name}</h4>
+        {item.collection && (
+          <div class="cart-item-meta">
+            <span class="cart-item-collection">
+              {item.collection.charAt(0).toUpperCase() + item.collection.slice(1)} Collection
+            </span>
+            {item.size && (
+              <span class="cart-item-size">Size: {item.size}</span>
+            )}
+            {item.variant?.label && (
+              <span class="cart-item-size">{item.variant.name || 'Variant'}: {item.variant.label}</span>
+            )}
+          </div>
+        )}
+      </div>
+      
+      <div class="cart-item-price">
+        {context === 'checkout' && item.quantity > 1 && (
+          <div class="cart-item-price-breakdown">
+            {item.quantity} × £{item.price.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+        )}
+        <div class="cart-item-total-price">
+          £{(item.price * item.quantity).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        </div>
+      </div>
+    </div>
+
+    {context === 'drawer' && (
+      <div class="cart-item-controls">
+        <div class="quantity-controls">
+          <button 
+            class="quantity-btn decrease-btn" 
+            data-id={item.id} 
+            data-size={item.size || ''} 
+            aria-label="Decrease quantity"
+          >
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          
+          <span class="quantity-display">{item.quantity}</span>
+          
+          <button 
+            class="quantity-btn increase-btn" 
+            data-id={item.id} 
+            data-size={item.size || ''} 
+            aria-label="Increase quantity"
+          >
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+        
+        <button 
+          class="remove-btn" 
+          data-id={item.id} 
+          data-size={item.size || ''} 
+          aria-label={`Remove ${item.name}`}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    )}
+
+    {context === 'checkout' && (
+      <button 
+        class="checkout-cart-delete" 
+        data-id={item.id} 
+        data-size={item.size || ''} 
+        aria-label={`Remove ${item.name}`}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    )}
+  </div>
+</div>
+
+<style>
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--hover-overlay);
+    transition: var(--transition-normal);
+    background: var(--surface-white);
+  }
+
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+
+  .cart-item--checkout {
+    padding: var(--spacing-md) 0;
+    gap: var(--spacing-lg);
+  }
+
+  .cart-item-image-container {
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+    background: var(--surface-light);
+    border: 1px solid color-mix(in srgb, var(--primary) 10%, transparent 90%);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cart-item--drawer .cart-item-image-container {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cart-item--checkout .cart-item-image-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .cart-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-width: 0;
+  }
+
+  .cart-item--checkout .cart-item-details {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+  }
+
+  .cart-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+  }
+
+  .cart-item--checkout .cart-item-header {
+    flex: 1;
+    align-items: center;
+  }
+
+  .cart-item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cart-item-name {
+    font-weight: var(--font-semibold);
+    color: var(--text-dark);
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--font-size-base);
+    line-height: 1.3;
+    font-family: var(--font-primary);
+  }
+
+  .cart-item--checkout .cart-item-name {
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cart-item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cart-item-collection {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: capitalize;
+    font-weight: var(--font-medium);
+    font-family: var(--font-primary);
+  }
+
+  .cart-item-size {
+    font-size: var(--font-size-xs);
+    color: color-mix(in srgb, var(--text-dark) 70%, transparent 30%);
+    font-weight: var(--font-medium);
+    font-family: var(--font-primary);
+  }
+
+  .cart-item-price {
+    font-weight: var(--font-bold);
+    color: var(--primary);
+    font-size: var(--font-size-base);
+    white-space: nowrap;
+    font-family: var(--font-primary);
+    text-align: right;
+  }
+
+  .cart-item--checkout .cart-item-price {
+    font-size: var(--font-size-sm);
+    margin-right: var(--spacing-sm);
+  }
+
+  .cart-item-price-breakdown {
+    font-size: var(--font-size-xs);
+    color: var(--text-light);
+    margin-bottom: 2px;
+    font-weight: var(--font-normal);
+  }
+
+  .cart-item-total-price {
+    font-weight: var(--font-semibold);
+  }
+
+  .cart-item-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: var(--surface-light);
+    border: 1px solid color-mix(in srgb, var(--primary) 15%, transparent 85%);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .quantity-btn {
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    color: var(--surface-white);
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-semibold);
+  }
+
+  .quantity-btn:hover {
+    background: color-mix(in srgb, var(--primary) 90%, black 10%);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .quantity-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .quantity-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: var(--surface-light);
+    color: var(--text-dark);
+  }
+
+  .quantity-btn:disabled:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .quantity-display {
+    min-width: 32px;
+    text-align: center;
+    font-weight: var(--font-semibold);
+    color: var(--text-dark);
+    font-size: var(--font-size-sm);
+    padding: 0 var(--spacing-xs);
+    font-family: var(--font-primary);
+  }
+
+  .remove-btn,
+  .checkout-cart-delete {
+    background: transparent;
+    border: 1px solid var(--surface-border);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .checkout-cart-delete {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+  }
+
+  .remove-btn:hover,
+  .checkout-cart-delete:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: var(--error);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cart-item {
+      padding: var(--spacing-md) var(--spacing-lg);
+      gap: var(--spacing-md);
+    }
+
+    .cart-item--drawer .cart-item-image-container {
+      width: 60px;
+      height: 60px;
+    }
+
+    .cart-item--checkout .cart-item-image-container {
+      width: 40px;
+      height: 40px;
+    }
+
+    .cart-item-name {
+      font-size: var(--font-size-sm);
+    }
+
+    .cart-item--checkout .cart-item-name {
+      font-size: var(--font-size-xs);
+    }
+
+    .quantity-btn {
+      width: 24px;
+      height: 24px;
+      font-size: 0.7rem;
+    }
+
+    .remove-btn {
+      width: 32px;
+      height: 32px;
+    }
+
+    .checkout-cart-delete {
+      width: 28px;
+      height: 28px;
+    }
+  }
+</style>

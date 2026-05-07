@@ -1,0 +1,440 @@
+---
+import { Image } from 'astro:assets';
+
+// Import talisman images
+import talisman0 from '../../assets/images/talisman/Talisman_0.jpg';
+import talisman1 from '../../assets/images/talisman/Talisman_1.jpg';
+import talisman2 from '../../assets/images/talisman/Talisman_2.jpg';
+import talisman3 from '../../assets/images/talisman/Talisman_3.jpg';
+import talisman4 from '../../assets/images/talisman/Talisman_4.jpg';
+import talisman5 from '../../assets/images/talisman/Talisman_5.jpg';
+import talisman6 from '../../assets/images/talisman/Talisman_6.jpg';
+import talisman7 from '../../assets/images/talisman/Talisman_7.jpg';
+import talisman8 from '../../assets/images/talisman/Talisman_8.jpg';
+import talisman9 from '../../assets/images/talisman/Talisman_9.jpg';
+import talisman10 from '../../assets/images/talisman/Talisman_10.jpg';
+---
+
+<section class="gallery-carousel" aria-label="Featured products carousel">
+    <header class="gallery-carousel__header">
+        <!-- Navigation Buttons -->
+        <div class="gallery-carousel__nav-container">
+            <button class="gallery-carousel__nav-btn gallery-carousel__nav-btn--left" aria-label="Previous slide">
+                <div class="gallery-carousel__nav-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </button>
+            
+            <button class="gallery-carousel__nav-btn gallery-carousel__nav-btn--right" aria-label="Next slide">
+                <div class="gallery-carousel__nav-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </button>
+        </div>
+    </header>
+    
+    <div class="gallery-carousel__container">
+        <div class="swiper gallery-swiper">
+            <div class="swiper-wrapper">
+                
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman1}
+                                alt="Talisman Collection - Talisman Calligraphy Ring"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Calligraphy Ring">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Calligraphy Ring</span>
+                            <span class="gallery-carousel__description">Gold ring with calligraphy</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman7}
+                                alt="Talisman Collection - Talisman Necklace"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Necklace">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Necklace</span>
+                            <span class="gallery-carousel__description">18K yellow gold necklace</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman2}
+                                alt="Talisman Collection - Talisman Ring"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Ring">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Ring</span>
+                            <span class="gallery-carousel__description">Yellow and white gold band</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman5}
+                                alt="Talisman Collection - Talisman Earrings"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Earrings">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Earrings</span>
+                            <span class="gallery-carousel__description">Two-tone gold earrings</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman3}
+                                alt="Talisman Collection - Talisman Ring"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Ring">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Ring</span>
+                            <span class="gallery-carousel__description">White gold statement ring</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman4}
+                                alt="Talisman Collection - Talisman Ring"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Ring">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Ring</span>
+                            <span class="gallery-carousel__description">White gold with gemstones</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="swiper-slide">
+                    <figure class="gallery-carousel__item" role="listitem">
+                        <div class="gallery-carousel__image-container">
+                            <Image
+                                src={talisman6}
+                                alt="Talisman Collection - Talisman Earrings"
+                                class="gallery-carousel__image"
+                                width={400}
+                                height={400}
+                                format="webp"
+                                quality={90}
+                                loading="lazy"
+                                decoding="async"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                densities={[1, 1.5, 2]}
+                            />
+                            <div class="gallery-carousel__overlay">
+                                <button class="gallery-carousel__quick-view-btn" aria-label="Quick view Talisman Earrings">
+                                    <svg class="gallery-carousel__magnifier" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="gallery-carousel__quick-view-text">Quick View</span>
+                                </button>
+                            </div>
+                        </div>
+                        <figcaption class="gallery-carousel__caption">
+                            <span class="gallery-carousel__name">Talisman Earrings</span>
+                            <span class="gallery-carousel__description">Yellow gold earrings</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Swiper JS -->
+<script>
+    import Swiper from 'swiper';
+    import { Grid, Navigation } from 'swiper/modules';
+    import 'swiper/css';
+    import 'swiper/css/grid';
+    import 'swiper/css/navigation';
+
+    // Initialize Swiper when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const swiper = new Swiper('.gallery-swiper', {
+            // Enable modules
+            modules: [Grid, Navigation],
+            
+            // Navigation configuration
+            navigation: {
+                nextEl: '.gallery-carousel__nav-btn--right',
+                prevEl: '.gallery-carousel__nav-btn--left',
+            },
+            
+            // Responsive breakpoints
+            breakpoints: {
+                // Mobile: 2 slides
+                320: {
+                    slidesPerView: 2,
+                    spaceBetween: 16,
+                    grid: {
+                        rows: 1,
+                    },
+                },
+                // Tablet: 3 slides
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                    grid: {
+                        rows: 1,
+                    },
+                },
+                // Desktop: 4 slides
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                    grid: {
+                        rows: 1,
+                    },
+                },
+            },
+            
+            // Performance optimizations
+            watchSlidesProgress: true,
+            preventClicks: false,
+            preventClicksPropagation: false,
+            
+            // Touch and mouse events
+            touchEventsTarget: 'container',
+            shortSwipes: true,
+            longSwipes: true,
+            longSwipesRatio: 0.5,
+            longSwipesMs: 300,
+            
+            // Auto height
+            autoHeight: false,
+            
+            // Speed
+            speed: 400,
+            
+            // Effect
+            effect: 'slide',
+        });
+
+        // Function to update navigation button states
+        function updateNavigationButtons() {
+            const leftBtn = document.querySelector('.gallery-carousel__nav-btn--left') as HTMLButtonElement;
+            const rightBtn = document.querySelector('.gallery-carousel__nav-btn--right') as HTMLButtonElement;
+            
+            if (leftBtn && rightBtn && swiper) {
+                // Disable left button if at beginning
+                if (swiper.isBeginning) {
+                    leftBtn.disabled = true;
+                    leftBtn.classList.add('gallery-carousel__nav-btn--disabled');
+                } else {
+                    leftBtn.disabled = false;
+                    leftBtn.classList.remove('gallery-carousel__nav-btn--disabled');
+                }
+                
+                // Disable right button if at end
+                if (swiper.isEnd) {
+                    rightBtn.disabled = true;
+                    rightBtn.classList.add('gallery-carousel__nav-btn--disabled');
+                } else {
+                    rightBtn.disabled = false;
+                    rightBtn.classList.remove('gallery-carousel__nav-btn--disabled');
+                }
+            }
+        }
+
+        // Update buttons on all relevant events
+        swiper.on('init', updateNavigationButtons);
+        swiper.on('slideChange', updateNavigationButtons);
+        swiper.on('reachBeginning', updateNavigationButtons);
+        swiper.on('reachEnd', updateNavigationButtons);
+        swiper.on('resize', updateNavigationButtons);
+        swiper.on('breakpoint', updateNavigationButtons);
+
+        // Initial update after a short delay to ensure everything is rendered
+        setTimeout(updateNavigationButtons, 100);
+        
+        // Also update on window resize
+        window.addEventListener('resize', () => {
+            setTimeout(updateNavigationButtons, 100);
+        });
+        
+        // Scroll-triggered animation - move carousel one slide when it enters viewport
+        let hasTriggeredScrollAnimation = false;
+
+        const observerOptions = {
+            threshold: 0.3, // Trigger when 30% of the carousel is visible
+            rootMargin: '0px 0px -50px 0px' // Trigger slightly before fully entering viewport
+        };
+
+        const carouselObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && swiper && !hasTriggeredScrollAnimation) {
+                    // Mark as triggered to prevent multiple animations
+                    hasTriggeredScrollAnimation = true;
+
+                    // Slide to next position after a short delay for smooth effect
+                    setTimeout(() => {
+                        if (swiper && !swiper.isEnd) {
+                            swiper.slideNext();
+                        }
+                    }, 300);
+
+                    // Disconnect observer after first trigger
+                    carouselObserver.disconnect();
+                }
+            });
+        }, observerOptions);
+
+        // Observe the carousel container
+        const carouselElement = document.querySelector('.gallery-carousel');
+        if (carouselElement) {
+            carouselObserver.observe(carouselElement);
+        }
+
+        // Quick view functionality - Product ID mapping
+        const productIdMap = {
+            0: 'talisman-001', // Talisman Calligraphy Ring (talisman1)
+            1: 'talisman-005', // Talisman Necklace (talisman7)
+            2: 'talisman-002', // Talisman Ring (talisman2 - yellow and white gold)
+            3: 'talisman-006', // Talisman Earrings (talisman5 - two-tone gold with diamonds)
+            4: 'talisman-002', // Talisman Ring (talisman3 - yellow and white gold)
+            5: 'talisman-003', // Talisman Ring (talisman4 - white gold with gemstones)
+            6: 'talisman-007'  // Talisman Earrings (talisman6 - yellow gold with rubies)
+        };
+
+        const quickViewButtons = document.querySelectorAll('.gallery-carousel__quick-view-btn');
+        quickViewButtons.forEach((button, index) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Get product ID from mapping
+                const productId = productIdMap[index as keyof typeof productIdMap];
+
+                if (productId) {
+                    // Navigate to product page
+                    window.location.href = `/shop/product/${productId}`;
+                }
+            });
+        });
+    });
+</script>
+
+

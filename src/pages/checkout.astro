@@ -1,0 +1,776 @@
+---
+import '../styles/global.css';
+import '../components/navigation/Navbar.css';
+import '../components/layout/Footer.css';
+import '../components/ui/Marquee.css';
+import './checkout/_checkout.css';
+import Navbar from '../components/navigation/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+import ScrollToTop from '../components/common/ScrollToTop.astro';
+import TermsModal from '../components/ui/TermsModal.astro';
+import PrivacyModal from '../components/ui/PrivacyModal.astro';
+// Import payment icons
+import stripeLogo from '../assets/images/ui/payment/stripe.svg';
+import visaLogo from '../assets/images/ui/payment/visa.svg';
+import mastercardLogo from '../assets/images/ui/payment/mastercard.svg';
+import amexLogo from '../assets/images/ui/payment/amex.svg';
+import appleLogo from '../assets/images/ui/payment/apple.svg';
+import googlePayLogo from '../assets/images/ui/payment/googlepay.svg';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Parisa London</title>
+  <meta name="description" content="Complete your purchase of luxury fine jewellery from Parisa London. Secure checkout with free shipping." />
+  <link rel="canonical" href="https://parisajewellery.com/checkout" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0D1716" />
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2K38T0Y3XN');
+  </script>
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <Navbar />
+  
+  <main class="checkout-page">
+    <div class="container">
+      <!-- Checkout Header -->
+      <div class="checkout-header">
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop">Shop</a></li>
+            <li><span aria-current="page">Checkout</span></li>
+          </ol>
+        </nav>
+        <h1>Checkout</h1>
+        <p class="checkout-subtitle">Confirm your selections and complete your purchase</p>
+      </div>
+
+      <!-- Empty cart state -->
+      <div id="empty-cart-state" class="empty-cart" hidden>
+        <div class="empty-cart-content">
+          <div class="empty-cart-icon">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+          </div>
+          <h2>Your cart is empty</h2>
+          <p>Looks like you haven't added any items to your cart yet.</p>
+          <a href="/shop" class="cta-button">Continue Shopping</a>
+        </div>
+      </div>
+
+      <!-- Order Summary Content -->
+      <div id="checkout-content" class="checkout-content" hidden>
+        <div class="order-summary-wrapper">
+          
+          <!-- Order Items Section -->
+          <section class="order-section order-items-section">
+            <div class="section-header">
+              <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                Shopping Bag
+              </h2>
+              <span class="item-count" id="item-count">0 items</span>
+                  </div>
+            
+            <div id="checkout-cart-items" class="cart-items-list">
+              <!-- Cart items populated by JavaScript -->
+                    </div>
+          </section>
+
+          <!-- Order Summary Breakdown -->
+          <aside class="order-section order-totals-section">
+            <h2>Order Summary</h2>
+            
+            <div class="summary-breakdown">
+              <div class="summary-row">
+                <span class="summary-label">Subtotal</span>
+                <span class="summary-value" id="subtotal">£0.00</span>
+                  </div>
+                  
+              <div class="summary-row shipping-row">
+                <span class="summary-label">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                  Shipping
+                </span>
+                <span class="summary-value shipping-free" id="shipping-cost">
+                  <span class="free-badge">FREE</span>
+                </span>
+              </div>
+              
+              <div class="shipping-estimate">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Delivery: up to 3 weeks</span>
+                  </div>
+
+              <div class="promo-code-section">
+                <label class="promo-code-label sr-only" for="promo-code-input">Promo code</label>
+                <div class="promo-input-wrapper">
+                  <input
+                    type="text"
+                    id="promo-code-input"
+                    placeholder="Promo code"
+                    maxlength="20"
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                  <button type="button" id="apply-promo-btn" class="apply-promo-btn">Apply</button>
+                </div>
+                <div id="promo-status" class="promo-status" hidden></div>
+              </div>
+
+              <div class="summary-row discount-row" id="discount-row" hidden>
+                <span class="summary-label" id="discount-label">Discount</span>
+                <span class="summary-value discount-value" id="discount-amount">-£0.00</span>
+              </div>
+
+              <div class="summary-row tax-row">
+                <span class="summary-label">VAT (Included)</span>
+                <span class="summary-value" id="vat-amount">£0.00</span>
+                  </div>
+            </div>
+  
+            <div class="summary-total">
+              <span class="total-label">Total</span>
+              <span class="total-value" id="total">£0.00</span>
+                </div>
+  
+            <!-- Trust Indicators -->
+            <div class="trust-badges">
+              <div class="trust-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+                <span>Secure Checkout</span>
+                  </div>
+              <div class="trust-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>SSL Encrypted</span>
+                  </div>
+              <div class="trust-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Order Confirmation</span>
+                  </div>
+                </div>
+  
+            <!-- Terms Agreement -->
+            <div class="terms-agreement">
+              <label class="terms-checkbox">
+                <input type="checkbox" id="terms-checkbox" required>
+                <span class="checkmark"></span>
+                <span class="terms-text">
+                  I agree to the <a href="#" data-modal="terms-modal" class="modal-link">Terms of Service</a> and <a href="#" data-modal="privacy-modal" class="modal-link">Privacy Policy</a>
+                </span>
+              </label>
+              <div id="terms-error" class="terms-error" hidden>Please accept the terms to continue</div>
+            </div>
+
+            <!-- Proceed to Payment -->
+            <button type="button" id="stripe-checkout-btn" class="checkout-button btn-disabled" style="opacity: 0.6;">
+              <span class="btn-text">Proceed to Secure Payment</span>
+              <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+
+            <!-- Payment Methods -->
+            <div class="checkout-payment-methods">
+              <span class="checkout-payment-label">Secure payment powered by</span>
+              <div class="checkout-payment-icons">
+                <img src={stripeLogo.src} alt="Stripe" class="checkout-payment-icon">
+                <img src={visaLogo.src} alt="Visa" class="checkout-payment-icon">
+                <img src={mastercardLogo.src} alt="Mastercard" class="checkout-payment-icon">
+                <img src={appleLogo.src} alt="Apple Pay" class="checkout-payment-icon">
+                <img src={googlePayLogo.src} alt="Google Pay" class="checkout-payment-icon">
+                <img src={amexLogo.src} alt="American Express" class="checkout-payment-icon">
+
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <ScrollToTop />
+  <TermsModal />
+  <PrivacyModal />
+
+  <script>
+    // @ts-nocheck
+    import { getCartState, subscribeToCart, removeFromCart, updateCartQuantity } from '../data/cart';
+
+    const CHECKOUT_PROMO_SESSION_KEY = 'checkoutAppliedPromo';
+
+    // Global state
+    let cartState = null;
+    let appliedPromoCode = null;
+    let discountPercent = 0;
+
+    // DOM elements - using type assertions for proper element types
+    let checkoutContent: HTMLElement | null;
+    let emptyCartState: HTMLElement | null;
+    let checkoutBtn: HTMLButtonElement | null;
+    let cartItemsContainer: HTMLElement | null;
+    let subtotalElement: HTMLElement | null;
+    let shippingCostElement: HTMLElement | null;
+    let vatElement: HTMLElement | null;
+    let totalElement: HTMLElement | null;
+    let itemCountElement: HTMLElement | null;
+    let termsCheckbox: HTMLInputElement | null;
+    let termsError: HTMLElement | null;
+
+    // Initialize DOM references
+    function initDOMReferences() {
+      checkoutContent = document.getElementById('checkout-content');
+      emptyCartState = document.getElementById('empty-cart-state');
+      checkoutBtn = document.getElementById('stripe-checkout-btn') as HTMLButtonElement;
+      cartItemsContainer = document.getElementById('checkout-cart-items');
+      subtotalElement = document.getElementById('subtotal');
+      shippingCostElement = document.getElementById('shipping-cost');
+      vatElement = document.getElementById('vat-amount');
+      totalElement = document.getElementById('total');
+      itemCountElement = document.getElementById('item-count');
+      termsCheckbox = document.getElementById('terms-checkbox') as HTMLInputElement;
+      termsError = document.getElementById('terms-error');
+    }
+
+    // Initialize the checkout page
+    async function initializeCheckout() {
+      try {
+        // Initialize DOM references first
+        initDOMReferences();
+        
+        // Get initial cart state
+        cartState = getCartState();
+        
+        restoreAppliedPromoFromSession();
+
+        // Subscribe to cart updates
+        subscribeToCart((state) => {
+          cartState = state;
+          updateOrderSummary();
+          checkCartEmpty();
+          updateCheckoutButton();
+        });
+
+        // Initial setup
+        checkCartEmpty();
+        updateOrderSummary();
+        setupEventListeners();
+        updateCheckoutButton();
+
+      } catch (error) {
+        console.error('Failed to initialize checkout:', error);
+        showEmptyCart();
+      }
+    }
+
+    // Check if cart is empty and show appropriate state
+    function checkCartEmpty() {
+      if (!cartState || cartState.items.length === 0) {
+        showEmptyCart();
+      } else {
+        showCheckoutContent();
+      }
+    }
+
+    function showEmptyCart() {
+      if (emptyCartState) emptyCartState.hidden = false;
+      if (checkoutContent) checkoutContent.hidden = true;
+    }
+
+    function showCheckoutContent() {
+      if (emptyCartState) emptyCartState.hidden = true;
+      if (checkoutContent) checkoutContent.hidden = false;
+    }
+
+    // Generate optimized image URL for checkout items
+    function getOptimizedImageUrl(imagePath, width = 120, height = 120) {
+      try {
+        if (imagePath && typeof imagePath === 'object') {
+          if (typeof imagePath.src === 'string' && imagePath.src.length > 0) {
+            imagePath = imagePath.src;
+          } else if (typeof imagePath.toString === 'function') {
+              imagePath = String(imagePath);
+          }
+        }
+
+        if (typeof imagePath !== 'string') {
+          imagePath = '';
+        }
+
+        if (imagePath.includes('_astro/') || imagePath.startsWith('http')) {
+          return imagePath;
+        }
+
+        return imagePath;
+      } catch (err) {
+        console.warn('Failed to resolve checkout image URL:', err);
+        return '';
+      }
+    }
+
+    // Update order summary with current cart data
+    function updateOrderSummary() {
+      if (!cartState || !cartItemsContainer) return;
+
+      // Update item count
+      const totalItems = cartState.items.reduce((sum, item) => sum + item.quantity, 0);
+      if (itemCountElement) {
+        itemCountElement.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+      }
+
+      // Update cart items with enhanced display
+      cartItemsContainer.innerHTML = cartState.items.map(item => {
+        const optimizedImageUrl = getOptimizedImageUrl(item.image, 120, 120);
+        const itemTotal = item.price * item.quantity;
+        
+        return `
+          <article class="cart-item" data-id="${item.id}" data-size="${item.size || ''}">
+            <div class="item-image">
+              <img 
+                src="${optimizedImageUrl}" 
+                alt="${item.name}"
+                loading="lazy"
+                width="120"
+                height="120"
+                onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');"
+              >
+            </div>
+            
+            <div class="item-details">
+              <h3 class="item-name">${item.name}</h3>
+              ${item.size ? `<span class="item-variant">Size: ${item.size}</span>` : ''}
+              <span class="item-collection">${item.collection.charAt(0).toUpperCase() + item.collection.slice(1)} Collection</span>
+              <span class="total-amount">£${itemTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            </div>
+
+            <div class="item-quantity">
+              <button class="qty-btn qty-decrease" data-id="${item.id}" data-size="${item.size || ''}" aria-label="Decrease quantity" ${item.quantity <= 1 ? 'disabled' : ''}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+              <span class="qty-value">${item.quantity}</span>
+              <button class="qty-btn qty-increase" data-id="${item.id}" data-size="${item.size || ''}" aria-label="Increase quantity">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+
+            <button class="item-remove" data-id="${item.id}" data-size="${item.size || ''}" aria-label="Remove ${item.name}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </article>
+        `;
+      }).join('');
+
+      // Attach event listeners
+      attachCartItemListeners();
+
+      // Update totals
+      updateTotals();
+    }
+
+    // Attach event listeners to cart item controls
+    function attachCartItemListeners() {
+      // Remove buttons
+      document.querySelectorAll('.item-remove').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = btn.getAttribute('data-id');
+          const size = btn.getAttribute('data-size') || undefined;
+          if (id) removeFromCart(id, size);
+        });
+      });
+
+      // Quantity decrease buttons
+      document.querySelectorAll('.qty-decrease').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = btn.getAttribute('data-id');
+          const size = btn.getAttribute('data-size') || undefined;
+          const item = cartState?.items.find(i => i.id === id && (i.size || '') === (size || ''));
+          if (item && item.quantity > 1) {
+            updateCartQuantity(id, item.quantity - 1, size);
+          }
+        });
+      });
+
+      // Quantity increase buttons
+      document.querySelectorAll('.qty-increase').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = btn.getAttribute('data-id');
+          const size = btn.getAttribute('data-size') || undefined;
+          const item = cartState?.items.find(i => i.id === id && (i.size || '') === (size || ''));
+          if (item) {
+            updateCartQuantity(id, item.quantity + 1, size);
+          }
+        });
+      });
+    }
+
+    function persistAppliedPromo() {
+      try {
+        if (appliedPromoCode && discountPercent > 0) {
+          sessionStorage.setItem(
+            CHECKOUT_PROMO_SESSION_KEY,
+            JSON.stringify({ code: appliedPromoCode, percentOff: discountPercent }),
+          );
+        } else {
+          sessionStorage.removeItem(CHECKOUT_PROMO_SESSION_KEY);
+        }
+      } catch {
+        // no-op
+      }
+    }
+
+    function restoreAppliedPromoFromSession() {
+      try {
+        const raw = sessionStorage.getItem(CHECKOUT_PROMO_SESSION_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed.code === 'string' && typeof parsed.percentOff === 'number') {
+          appliedPromoCode = parsed.code;
+          discountPercent = parsed.percentOff;
+          const input = document.getElementById('promo-code-input');
+          const applyBtn = document.getElementById('apply-promo-btn');
+          const status = document.getElementById('promo-status');
+          const discountLabel = document.getElementById('discount-label');
+          if (input) {
+            input.value = parsed.code;
+            input.disabled = true;
+          }
+          if (applyBtn) {
+            applyBtn.textContent = 'Applied';
+            applyBtn.disabled = true;
+          }
+          if (status) {
+            status.textContent = `${parsed.code} applied! ${parsed.percentOff}% off`;
+            status.className = 'promo-status success';
+            status.hidden = false;
+          }
+          if (discountLabel) {
+            discountLabel.textContent = `Discount (${parsed.code})`;
+          }
+          updateTotals();
+        }
+      } catch {
+        sessionStorage.removeItem(CHECKOUT_PROMO_SESSION_KEY);
+      }
+    }
+
+    async function applyPromoCode() {
+      const input = document.getElementById('promo-code-input');
+      const status = document.getElementById('promo-status');
+      const applyBtn = document.getElementById('apply-promo-btn');
+      const discountLabel = document.getElementById('discount-label');
+      const code = input && input.value ? input.value.trim().toUpperCase() : '';
+
+      if (!code || !applyBtn || !status) return;
+
+      applyBtn.disabled = true;
+      applyBtn.textContent = 'Checking...';
+
+      try {
+        const response = await fetch('/api/validate-promo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code }),
+        });
+
+        const result = await response.json();
+
+        if (result.valid) {
+          appliedPromoCode = result.code;
+          discountPercent = result.percentOff;
+          status.textContent = `${result.code} applied! ${result.percentOff}% off`;
+          status.className = 'promo-status success';
+          status.hidden = false;
+          if (input) input.disabled = true;
+          applyBtn.textContent = 'Applied';
+          applyBtn.disabled = true;
+          if (discountLabel) {
+            discountLabel.textContent = `Discount (${result.code})`;
+          }
+          persistAppliedPromo();
+          updateTotals();
+        } else {
+          appliedPromoCode = null;
+          discountPercent = 0;
+          status.textContent = result.error || 'Invalid promo code';
+          status.className = 'promo-status error';
+          status.hidden = false;
+          applyBtn.disabled = false;
+          applyBtn.textContent = 'Apply';
+          if (discountLabel) discountLabel.textContent = 'Discount';
+          persistAppliedPromo();
+          updateTotals();
+        }
+      } catch {
+        status.textContent = 'Failed to validate code';
+        status.className = 'promo-status error';
+        status.hidden = false;
+        applyBtn.disabled = false;
+        applyBtn.textContent = 'Apply';
+      }
+    }
+
+    // Update all totals
+    function updateTotals() {
+      if (!cartState) return;
+
+      const subtotal = cartState.total;
+      const discountAmount = discountPercent > 0 ? subtotal * (discountPercent / 100) : 0;
+      const discountedSubtotal = subtotal - discountAmount;
+      const shipping = 0; // Free shipping
+      const vat = discountedSubtotal * 0.2 / 1.2; // VAT already included in price (20% UK VAT)
+      const total = discountedSubtotal + shipping;
+
+      const discountRow = document.getElementById('discount-row');
+      const discountEl = document.getElementById('discount-amount');
+      if (discountRow && discountEl) {
+        discountRow.hidden = discountAmount <= 0;
+        discountEl.textContent = `-£${discountAmount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      }
+
+      if (subtotalElement) subtotalElement.textContent = `£${subtotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (vatElement) vatElement.textContent = `£${vat.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (totalElement) totalElement.textContent = `£${total.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Re-query elements to ensure we have valid references
+      const checkbox = document.getElementById('terms-checkbox') as HTMLInputElement;
+      const btn = document.getElementById('stripe-checkout-btn') as HTMLButtonElement;
+      
+      // Terms checkbox - listen to multiple events for reliable detection
+      if (checkbox) {
+        ['input', 'change', 'click'].forEach(eventType => {
+          checkbox.addEventListener(eventType, function(this: HTMLInputElement) {
+            termsCheckbox = this;
+            validateTerms();
+            updateCheckoutButton();
+          });
+        });
+      }
+
+      // Checkout button
+      if (btn) {
+        btn.addEventListener('click', handleCheckout);
+      }
+
+      const promoBtn = document.getElementById('apply-promo-btn');
+      const promoInput = document.getElementById('promo-code-input');
+      if (promoBtn) {
+        promoBtn.addEventListener('click', () => applyPromoCode());
+      }
+      if (promoInput) {
+        promoInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            applyPromoCode();
+          }
+        });
+      }
+
+      // Modal links
+      setupModalLinks();
+    }
+
+    // Validate terms acceptance
+    function validateTerms() {
+      const isChecked = termsCheckbox?.checked;
+      if (termsError) {
+        termsError.hidden = isChecked;
+      }
+      return isChecked;
+    }
+
+    // Update checkout button state
+    function updateCheckoutButton() {
+      // Always re-query elements to ensure fresh references
+      const currentCheckbox = document.getElementById('terms-checkbox') as HTMLInputElement;
+      const currentBtn = document.getElementById('stripe-checkout-btn') as HTMLButtonElement;
+      
+      // Update module references
+      if (currentCheckbox) termsCheckbox = currentCheckbox;
+      if (currentBtn) checkoutBtn = currentBtn;
+      
+      if (currentBtn && currentCheckbox) {
+        const hasItems = cartState && cartState.items.length > 0;
+        const termsAccepted = currentCheckbox.checked === true;
+        const shouldEnable = hasItems && termsAccepted;
+        
+        // Update visual state but keep button clickable for better UX
+        if (shouldEnable) {
+          currentBtn.removeAttribute('disabled');
+          currentBtn.classList.remove('btn-disabled');
+          currentBtn.style.opacity = '1';
+          currentBtn.style.cursor = 'pointer';
+        } else {
+          currentBtn.removeAttribute('disabled');
+          currentBtn.classList.add('btn-disabled');
+          currentBtn.style.opacity = '0.6';
+          currentBtn.style.cursor = 'pointer';
+        }
+        // Always allow clicks so we can show validation messages
+        currentBtn.style.pointerEvents = 'auto';
+      }
+    }
+
+    // Handle checkout submission
+    async function handleCheckout() {
+      // Check if cart has items
+      if (!cartState || cartState.items.length === 0) {
+        alert('Your cart is empty. Please add items before checkout.');
+        return;
+      }
+      
+      // Validate terms
+      if (!validateTerms()) {
+        if (termsError) termsError.hidden = false;
+        termsCheckbox?.focus();
+        return;
+      }
+
+      // Disable button and show loading
+      if (checkoutBtn) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.classList.add('loading');
+        checkoutBtn.innerHTML = `
+          <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12a9 9 0 11-6.219-8.56"/>
+            </svg>
+          <span class="btn-text">Processing...</span>
+          `;
+      }
+
+      try {
+        // Build payload
+        const payload = {
+          cart: {
+            items: cartState?.items || [],
+            subtotal: cartState?.total || 0,
+            shipping: 0,
+            total: cartState?.total || 0
+          },
+          promoCode: appliedPromoCode || undefined,
+        };
+
+        // Create Stripe checkout session
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.details || result.error || 'Failed to create checkout session');
+        }
+
+        // Redirect to Stripe checkout
+        if (result.url) {
+          window.location.href = result.url;
+        } else {
+          throw new Error('No checkout URL received');
+        }
+
+      } catch (error) {
+        console.error('Checkout failed:', error);
+        
+        alert(`Payment setup failed: ${error.message}. Please try again or contact support.`);
+        
+        // Reset button
+        if (checkoutBtn) {
+          checkoutBtn.disabled = false;
+          checkoutBtn.classList.remove('loading');
+          checkoutBtn.innerHTML = `
+            <span class="btn-text">Proceed to Secure Payment</span>
+            <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            `;
+        }
+      }
+    }
+
+    // Setup modal link handlers
+    function setupModalLinks() {
+      document.querySelectorAll('[data-modal]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const modalId = link.getAttribute('data-modal');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.add('is-active');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
+    }
+
+    // Initialize when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeCheckout);
+    } else {
+      initializeCheckout();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+/* Product Page Layout Styles */
+
+/* Container defined in global.css */
+
+/* Product Container */
+.product-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--spacing-3xl) 0 var(--spacing-4xl);
+  background: var(--background);
+}
+
+.product-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--spacing-4xl);
+  margin-bottom: var(--spacing-4xl);
+  align-items: start;
+}
+
+/* Additional Product Page Styles */
+.product-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--surface-border) 50%, transparent 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-layout {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3xl);
+  }
+
+  .product-container {
+    padding: var(--spacing-2xl) 0 var(--spacing-3xl);
+  }
+  
+  .product-layout {
+    gap: var(--spacing-2xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-container {
+    padding: var(--spacing-xl) 0 var(--spacing-2xl);
+  }
+}

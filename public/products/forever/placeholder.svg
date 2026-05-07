@@ -1,0 +1,29 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="forever-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e91e63;stop-opacity:0.1"/>
+      <stop offset="50%" style="stop-color:#9c27b0;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#673ab7;stop-opacity:0.1"/>
+    </linearGradient>
+    <pattern id="forever-pattern" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M25,10 C25,15 20,20 15,20 C10,20 5,15 5,10 C5,5 10,0 15,0 C20,0 25,5 25,10 Z" fill="#e91e63" opacity="0.3"/>
+      <path d="M45,30 C45,35 40,40 35,40 C30,40 25,35 25,30 C25,25 30,20 35,20 C40,20 45,25 45,30 Z" fill="#9c27b0" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="400" height="400" fill="url(#forever-bg)"/>
+  <rect width="400" height="400" fill="url(#forever-pattern)"/>
+
+  <!-- Infinity symbol -->
+  <path d="M120,200 C120,180 140,160 160,160 C180,160 200,180 200,200 C200,220 180,240 160,240 C140,240 120,220 120,200 Z M200,200 C200,180 220,160 240,160 C260,160 280,180 280,200 C280,220 260,240 240,240 C220,240 200,220 200,200 Z" fill="none" stroke="#e91e63" stroke-width="6" opacity="0.8"/>
+  <path d="M135,200 C135,185 145,175 155,175 C165,175 175,185 175,200 C175,215 165,225 155,225 C145,225 135,215 135,200 Z M225,200 C225,185 235,175 245,175 C255,175 265,185 265,200 C265,215 255,225 245,225 C235,225 225,215 225,200 Z" fill="#9c27b0" opacity="0.6"/>
+
+  <!-- Decorative hearts -->
+  <path d="M80,120 C80,110 90,100 100,105 C105,100 115,100 115,110 C115,120 100,135 100,135 C100,135 85,120 80,120 Z" fill="#e91e63" opacity="0.4"/>
+  <path d="M320,120 C320,110 330,100 340,105 C345,100 355,100 355,110 C355,120 340,135 340,135 C340,135 325,120 320,120 Z" fill="#e91e63" opacity="0.4"/>
+  <path d="M80,280 C80,270 90,260 100,265 C105,260 115,260 115,270 C115,280 100,295 100,295 C100,295 85,280 80,280 Z" fill="#9c27b0" opacity="0.4"/>
+  <path d="M320,280 C320,270 330,260 340,265 C345,260 355,260 355,270 C355,280 340,295 340,295 C340,295 325,280 320,280 Z" fill="#9c27b0" opacity="0.4"/>
+
+  <text x="200" y="190" text-anchor="middle" font-family="serif" font-size="24" fill="#2d3748" opacity="0.8">Forever</text>
+  <text x="200" y="220" text-anchor="middle" font-family="serif" font-size="16" fill="#4a5568" opacity="0.6">Collection</text>
+</svg>

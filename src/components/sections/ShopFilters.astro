@@ -1,0 +1,264 @@
+---
+import PriceRangeSlider from '../ui/PriceRangeSlider.astro';
+
+export interface Props {
+  categories: string[];
+  collections: string[];
+  minPrice: number;
+  maxPrice: number;
+}
+
+const { categories, collections, minPrice, maxPrice } = Astro.props;
+---
+
+<aside class="shop-filters filters-collapsed">
+  <div class="filters-header" role="button" tabindex="0" aria-label="Toggle filters">
+    <div class="filters-header-left">
+      <h3>Filters</h3>
+      <svg class="filters-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(-180deg);">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </div>
+    <button class="filters-clear">Clear All</button>
+  </div>
+
+  <div class="filters-content">
+    <!-- Category Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title">Category</h4>
+      <div class="filter-options">
+        {categories.map(category => (
+          <label class="filter-option">
+            <input 
+              type="radio" 
+              name="category" 
+              value={category}
+              checked={category === "all"}
+              class="filter-input"
+            />
+            <span class="filter-label">{category.charAt(0).toUpperCase() + category.slice(1)}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Collection Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title">Collection</h4>
+      <div class="filter-options">
+        {collections.map(collection => (
+          <label class="filter-option">
+            <input 
+              type="radio" 
+              name="collection" 
+              value={collection}
+              checked={collection === "all"}
+              class="filter-input"
+            />
+            <span class="filter-label">{collection.charAt(0).toUpperCase() + collection.slice(1)}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Price Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title">Price Range</h4>
+      <div class="filter-options">
+        <PriceRangeSlider 
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          currentMin={minPrice}
+          currentMax={maxPrice}
+        />
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script define:vars={{ minPrice, maxPrice }}>
+  // @ts-nocheck
+  document.addEventListener('DOMContentLoaded', function() {
+    const clearButton = document.querySelector('.filters-clear');
+    const filtersHeader = document.querySelector('.filters-header');
+    const filtersContent = document.querySelector('.filters-content');
+    const toggleIcon = document.querySelector('.filters-toggle-icon');
+    const shopFilters = document.querySelector('.shop-filters');
+    const productCards = document.querySelectorAll('.product-card');
+    const productsCount = document.querySelector('.products-count');
+    const productsTitle = document.querySelector('.products-title');
+    
+    // Current price range state - initialize from props
+    let currentPriceRange = { min: minPrice, max: maxPrice };
+    
+    // Mobile filters toggle functionality
+    function toggleFilters(event) {
+      // Prevent toggle if clicking on clear button
+      if (event.target.closest('.filters-clear')) {
+        return;
+      }
+      
+      if (filtersContent && toggleIcon && shopFilters) {
+        const isCollapsed = shopFilters.classList.contains('filters-collapsed');
+        
+        if (isCollapsed) {
+          shopFilters.classList.remove('filters-collapsed');
+          toggleIcon.style.transform = 'rotate(0deg)';
+        } else {
+          shopFilters.classList.add('filters-collapsed');
+          toggleIcon.style.transform = 'rotate(-180deg)';
+        }
+      }
+    }
+    
+    // Add click event for mobile toggle - entire header is clickable
+    if (filtersHeader) {
+      filtersHeader.addEventListener('click', toggleFilters);
+      // Add keyboard support
+      filtersHeader.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleFilters(event);
+        }
+      });
+    }
+    
+    // Filter functionality
+    function updateProductCount(visibleCount) {
+      if (productsCount) {
+        productsCount.textContent = `${visibleCount} items`;
+      }
+    }
+
+    function filterProducts() {
+      const categoryElement = document.querySelector('input[name="category"]:checked');
+      const collectionElement = document.querySelector('input[name="collection"]:checked');
+      
+      if (!categoryElement || !collectionElement) return;
+      
+      const selectedCategory = categoryElement.value;
+      const selectedCollection = collectionElement.value;
+
+      let visibleCount = 0;
+
+      // Add filtering class for smooth transitions
+      productCards.forEach(card => {
+        card.classList.add('filtering');
+      });
+
+      // Use requestAnimationFrame for smooth animations
+      requestAnimationFrame(() => {
+        productCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const collection = card.getAttribute('data-collection');
+          const price = parseInt(card.getAttribute('data-price') || '0');
+
+          const categoryMatch = selectedCategory === 'all' || category === selectedCategory;
+          const collectionMatch = selectedCollection === 'all' || collection === selectedCollection;
+          const priceMatch = price >= currentPriceRange.min && price <= currentPriceRange.max;
+
+          if (categoryMatch && collectionMatch && priceMatch) {
+            // Fade in with slight delay
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            card.style.display = 'block';
+            
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            });
+            
+            visibleCount++;
+          } else {
+            // Fade out smoothly
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            
+            // Hide after transition completes
+            setTimeout(() => {
+              if (card.style.opacity === '0') {
+                card.style.display = 'none';
+              }
+            }, 400);
+          }
+        });
+
+        updateProductCount(visibleCount);
+        
+        // Update products title based on filters
+        if (productsTitle) {
+          if (selectedCategory !== 'all') {
+            productsTitle.textContent = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
+          } else if (selectedCollection !== 'all') {
+            productsTitle.textContent = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1) + ' Collection';
+          } else {
+            productsTitle.textContent = 'All Products';
+          }
+        }
+      });
+
+      // Remove filtering class after animations complete
+      setTimeout(() => {
+        productCards.forEach(card => {
+          card.classList.remove('filtering');
+        });
+      }, 450);
+    }
+
+    function clearFilters() {
+      const categoryAll = document.querySelector('input[name="category"][value="all"]');
+      const collectionAll = document.querySelector('input[name="collection"][value="all"]');
+      const minRange = document.getElementById('min-range');
+      const maxRange = document.getElementById('max-range');
+      const minInput = document.getElementById('min-price');
+      const maxInput = document.getElementById('max-price');
+      
+      if (categoryAll) categoryAll.checked = true;
+      if (collectionAll) collectionAll.checked = true;
+      
+      // Reset price range to full range
+      if (minRange && maxRange && minInput && maxInput) {
+        const fullMin = parseInt(minRange.min);
+        const fullMax = parseInt(minRange.max);
+        
+        minRange.value = fullMin;
+        maxRange.value = fullMax;
+        minInput.value = fullMin;
+        maxInput.value = fullMax;
+        
+        currentPriceRange = { min: fullMin, max: fullMax };
+        
+        // Trigger range update
+        const event = new Event('input');
+        minRange.dispatchEvent(event);
+      }
+      
+      filterProducts();
+    }
+
+    // Event listeners for filtering
+    const categoryFilters = document.querySelectorAll('input[name="category"]');
+    const collectionFilters = document.querySelectorAll('input[name="collection"]');
+
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('change', filterProducts);
+    });
+
+    collectionFilters.forEach(filter => {
+      filter.addEventListener('change', filterProducts);
+    });
+
+    // Listen for price range changes from the slider component
+    document.addEventListener('priceRangeChange', function(event) {
+      currentPriceRange = event.detail;
+      filterProducts();
+    });
+    
+    if (clearButton) {
+      clearButton.addEventListener('click', clearFilters);
+    }
+
+    // Initial count
+    updateProductCount(productCards.length);
+  });
+</script>

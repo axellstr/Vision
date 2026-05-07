@@ -1,0 +1,134 @@
+---
+import '../../styles/global.css';
+import '../../components/navigation/Navbar.css';
+import '../../components/layout/Footer.css';
+import './_bespoke.css';
+import { Image } from 'astro:assets';
+import Navbar from '../../components/navigation/Navbar.astro';
+import Footer from '../../components/layout/Footer.astro';
+import ScrollToTop from '../../components/common/ScrollToTop.astro';
+import { getAllBespokeProducts } from '../../data/products/bespoke';
+
+const bespokeProducts = getAllBespokeProducts();
+import heroImage from '../../assets/images/bespoke/28a.png';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Bespoke Custom Jewellery | Parisa London</title>
+    <meta name="description" content="Create one-of-a-kind pieces with our Bespoke service. Custom jewellery designs handcrafted in London to tell your unique story. Consultation available." />
+    <link rel="canonical" href="https://parisajewellery.com/collections/bespoke" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parisajewellery.com/collections/bespoke" />
+    <meta property="og:title" content="Bespoke Custom Jewellery | Parisa London" />
+    <meta property="og:description" content="Create one-of-a-kind pieces with our Bespoke service — custom designs handcrafted to your story." />
+    <meta property="og:image" content="https://parisajewellery.com/products/hero.jpg" />
+    <meta property="og:site_name" content="Parisa London" />
+    <meta property="og:locale" content="en_GB" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bespoke Custom Jewellery | Parisa London" />
+    <meta name="twitter:description" content="Create one-of-a-kind pieces with our Bespoke service — custom designs handcrafted to your story." />
+    <meta name="twitter:image" content="https://parisajewellery.com/products/hero.jpg" />
+    
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0D1716" />
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2K38T0Y3XN');
+    </script>
+    
+    <!-- DNS Prefetch & Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="/cart-manager.js" is:inline></script>
+  </head>
+  <body>
+    <Navbar />
+
+    <main class="collection-page">
+      <section class="collection-hero">
+        <div class="collection-hero-content">
+          <div class="hero-container">
+            <div class="hero-image">
+              <Image src={heroImage} alt="Bespoke Collection" width={600} height={500} format="webp" quality={90} loading="eager" />
+            </div>
+            <div class="hero-text">
+              <h1 class="hero-title">Bespoke Collection</h1>
+              <div class="hero-description">
+                <p>Transform your vision into wearable art. Our Bespoke Collection is crafted around your story — materials, gemstones, and design tailored to you.</p>
+                <p>Work with our artisans to create meaningful pieces that celebrate milestones, memories, and personal symbols with exceptional craftsmanship.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="collection-intro">
+        <div class="container">
+
+        </div>
+      </section>
+
+      <section class="collection-grid container">
+        <div class="products-grid">
+          {bespokeProducts.map((product) => (
+            <article class="product-card">
+              <a href={`/shop/product/${product.id}`} class="product-link" aria-label={product.name}>
+                <div class="product-image">
+                  {typeof product.images.main === 'string' ? (
+                    <img
+                      src={product.images.main}
+                      alt={product.name}
+                      width="500"
+                      height="500"
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <Image
+                      src={product.images.main}
+                      alt={product.name}
+                      width={500}
+                      height={500}
+                      format="webp"
+                      quality={90}
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      densities={[1, 1.5, 2]}
+                    />
+                  )}
+                </div>
+                <div class="product-info">
+                  <h3 class="product-name">{product.name}</h3>
+                  <p class="product-price bespoke-price">*Price Upon Request</p>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+    <ScrollToTop />
+  </body>
+  </html>
+
+

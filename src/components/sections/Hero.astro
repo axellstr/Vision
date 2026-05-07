@@ -1,0 +1,178 @@
+---
+import { Image } from 'astro:assets';
+import finalImage from '../../assets/images/ui/oner.png';
+import productFirst from '../../assets/images/ui/onerr.png';
+import productThird from '../../assets/images/ui/onerrr.png';
+import './Hero.css';
+---
+
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-image-box">
+      <Image 
+        src={finalImage} 
+        alt="Parisa London luxury jewelry" 
+        class="hero-image"
+        loading="eager"
+        fetchpriority="high"
+        quality={85}
+        widths={[768, 1024, 1440, 1920]}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        decoding="async"
+      />
+    </div>
+    <div class="hero-text-box">
+      <div class="hero-content-wrapper">
+        <div class="hero-products">
+          <a href="/shop/product/kaleidoscope-021" class="product-card">
+            <Image 
+              src={productThird} 
+              alt="Kaleidoscope Emerald Tennis Necklace" 
+              class="product-image"
+              loading="eager"
+              fetchpriority="high"
+              quality={85}
+              widths={[200, 300, 400]}
+              sizes="(max-width: 768px) 160px, (max-width: 1024px) 220px, 300px"
+              decoding="async"
+            />
+          </a>
+          <a href="/shop/product/kaleidoscope-021" class="product-card">
+            <Image 
+              src={productFirst} 
+              alt="Kaleidoscope Emerald Tennis Necklace - Detail View" 
+              class="product-image"
+              loading="eager"
+              fetchpriority="high"
+              quality={85}
+              widths={[200, 300, 400]}
+              sizes="(max-width: 768px) 160px, (max-width: 1024px) 220px, 300px"
+              decoding="async"
+            />
+          </a>
+        </div>
+        <div class="hero-title">
+          Ethically made, responsibly sourced
+          <span class="hero-title-italic">— handcrafted in London.</span>
+        </div>
+        <div class="hero-buttons">
+          <a href="/shop" class="cta-button">Explore Collections</a>
+          <a href="/about" class="cta-button cta-square" aria-label="Our Story">
+            <svg width="24" height="24" viewBox="0 0 66 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.584 52.032C5.344 52.032 3.68 51.712 2.592 51.072C1.504 50.368 0.799997 49.6 0.479997 48.768C0.16 47.936 0 47.296 0 46.848C0 46.016 0.287997 45.312 0.863997 44.736C1.44 44.16 2.24 43.872 3.264 43.872C3.776 43.872 4.256 44.032 4.704 44.352C5.088 44.608 5.28 45.024 5.28 45.6C5.28 46.24 5.056 46.72 4.608 47.04C4.16 47.296 3.648 47.424 3.072 47.424C2.624 47.424 2.24 47.392 1.92 47.328C1.6 47.2 1.44 47.136 1.44 47.136C1.44 47.968 1.856 48.832 2.688 49.728C3.52 50.56 4.928 50.976 6.912 50.976C9.85598 50.976 12.544 50.144 14.976 48.48C17.408 46.752 19.712 44.544 21.888 41.856C24.064 39.168 26.208 36.288 28.32 33.216C30.432 30.144 32.64 27.2 34.944 24.384C38.016 20.608 41.152 17.088 44.352 13.824C47.552 10.496 50.816 7.64801 54.144 5.28C57.472 2.84801 60.864 1.15201 64.32 0.192005C64.832 0.064001 65.12 0.160002 65.184 0.480005C65.248 0.800005 65.024 1.024 64.512 1.152C61.76 1.92 59.072 3.392 56.448 5.56801C53.824 7.74401 51.232 10.4 48.672 13.536C46.176 16.608 43.648 19.904 41.088 23.424C38.592 26.88 36.032 30.304 33.408 33.696C30.848 37.088 28.192 40.16 25.44 42.912C22.688 45.664 19.84 47.872 16.896 49.536C13.952 51.2 10.848 52.032 7.584 52.032ZM41.568 31.008C37.792 31.008 34.848 30.496 32.736 29.472C30.624 28.448 29.568 27.072 29.568 25.344C29.568 24.448 29.856 23.744 30.432 23.232C31.008 22.656 31.648 22.272 32.352 22.08C33.12 21.824 33.728 21.696 34.176 21.696C34.56 21.696 34.752 21.824 34.752 22.08C34.752 22.272 34.592 22.4 34.272 22.464C33.44 22.592 32.672 23.008 31.968 23.712C31.328 24.352 31.008 24.96 31.008 25.536C31.008 26.368 31.808 27.328 33.408 28.416C35.072 29.504 37.632 30.048 41.088 30.048C42.816 30.048 44.8 29.664 47.04 28.896C49.28 28.064 51.424 26.848 53.472 25.248C55.584 23.584 57.312 21.568 58.656 19.2C60 16.768 60.672 13.952 60.672 10.752C60.672 7.168 59.072 4.64 55.872 3.168C52.736 1.632 48.416 0.864005 42.912 0.864005C38.368 0.864005 34.048 1.536 29.952 2.88C25.856 4.224 22.208 5.952 19.008 8.064C15.872 10.176 13.376 12.448 11.52 14.88C9.72798 17.312 8.832 19.616 8.832 21.792C8.832 23.968 9.34398 25.536 10.368 26.496C11.456 27.456 12.736 27.936 14.208 27.936C16 27.936 17.792 27.392 19.584 26.304C21.44 25.152 23.168 23.712 24.768 21.984C26.368 20.192 27.808 18.336 29.088 16.416C30.368 14.432 31.392 12.608 32.16 10.944C32.928 9.28 33.344 8 33.408 7.104C33.472 6.464 33.6 6.144 33.792 6.144C34.048 6.144 34.208 6.368 34.272 6.816C34.464 8.8 34.112 11.072 33.216 13.632C32.384 16.128 31.072 18.56 29.28 20.928C27.552 23.232 25.408 25.152 22.848 26.688C20.288 28.224 17.44 28.992 14.304 28.992C12.32 28.992 10.72 28.384 9.50398 27.168C8.288 25.888 7.68 24.064 7.68 21.696C7.68 19.392 8.608 16.992 10.464 14.496C12.32 11.936 14.88 9.56801 18.144 7.392C21.408 5.216 25.152 3.456 29.376 2.112C33.664 0.704005 38.176 0 42.912 0C48.48 0 52.864 0.640005 56.064 1.92001C59.328 3.20001 61.632 4.89601 62.976 7.00801C64.384 9.05601 65.088 11.232 65.088 13.536C65.088 15.328 64.48 17.248 63.264 19.296C62.112 21.344 60.48 23.264 58.368 25.056C56.256 26.784 53.76 28.224 50.88 29.376C48.064 30.464 44.96 31.008 41.568 31.008Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Smooth hero animations on every page load
+  function startHeroAnimation(hero: Element) {
+    // Force reflow to ensure initial state is applied
+    void (hero as HTMLElement).offsetHeight;
+    
+    // Use requestAnimationFrame for smooth animation start
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        hero.classList.add('hero-animate');
+      });
+    });
+    
+    // Clean up will-change after animations complete (longest animation is 1s + 0.6s delay)
+    setTimeout(() => {
+      const elements = hero.querySelectorAll('.hero-image, .product-card, .hero-title, .hero-buttons');
+      elements.forEach(el => {
+        (el as HTMLElement).style.willChange = 'auto';
+      });
+    }, 1800);
+  }
+  
+  function initHeroAnimations() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    // Get the main hero image (first priority for LCP)
+    const heroImage = hero.querySelector('.hero-image') as HTMLImageElement;
+    
+    if (!heroImage) {
+      // No hero image, start animation immediately
+      startHeroAnimation(hero);
+      return;
+    }
+    
+    // Check if image is already loaded and decoded
+    if (heroImage.complete && heroImage.naturalHeight !== 0) {
+      // Image already in cache or loaded - decode it if needed, then animate
+      if ('decode' in heroImage) {
+        heroImage.decode()
+          .then(() => startHeroAnimation(hero))
+          .catch(() => startHeroAnimation(hero)); // Start anyway on error
+      } else {
+        startHeroAnimation(hero);
+      }
+    } else {
+      // Image not loaded yet - wait for it
+      let hasStarted = false;
+      
+      const handleImageReady = () => {
+        if (hasStarted) return;
+        hasStarted = true;
+        
+        // Decode the image for smooth rendering
+        if ('decode' in heroImage) {
+          heroImage.decode()
+            .then(() => startHeroAnimation(hero))
+            .catch(() => startHeroAnimation(hero)); // Start anyway on error
+        } else {
+          startHeroAnimation(hero);
+        }
+      };
+      
+      // Listen for load event
+      heroImage.addEventListener('load', handleImageReady, { once: true });
+      
+      // Also listen for error (don't block animation forever)
+      heroImage.addEventListener('error', () => {
+        if (!hasStarted) {
+          hasStarted = true;
+          startHeroAnimation(hero);
+        }
+      }, { once: true });
+      
+      // Safety timeout: start animation after 1 second max
+      setTimeout(() => {
+        if (!hasStarted) {
+          hasStarted = true;
+          startHeroAnimation(hero);
+        }
+      }, 1000);
+    }
+  }
+  
+  // Start animations as soon as DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroAnimations);
+  } else {
+    // DOM already loaded
+    initHeroAnimations();
+  }
+  
+  // Re-trigger animations on page show (e.g., back/forward navigation)
+  window.addEventListener('pageshow', (event) => {
+    // Check if page was restored from bfcache
+    if (event.persisted) {
+      const hero = document.querySelector('.hero');
+      if (hero) {
+        // Remove animation class
+        hero.classList.remove('hero-animate');
+        void (hero as HTMLElement).offsetHeight; // Force reflow
+        
+        // Image is already loaded from cache, so start immediately
+        startHeroAnimation(hero);
+      }
+    }
+  });
+</script>

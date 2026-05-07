@@ -1,0 +1,449 @@
+---
+import '../styles/global.css';
+import '../components/navigation/Navbar.css';
+import '../components/ui/Marquee.css';
+import Navbar from '../components/navigation/Navbar.astro';
+import Marquee from '../components/ui/Marquee.astro';
+import '../components/layout/Footer.css';
+import Footer from '../components/layout/Footer.astro';
+import '../components/sections/InfoSection.css';
+import InfoSection from '../components/sections/InfoSection.astro';
+import FAQ from '../components/ui/FAQ.astro';
+import ScrollToTop from '../components/common/ScrollToTop.astro';
+const sent = Astro.url.searchParams.get('sent') === '1';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Contact Us | Parisa London</title>
+		<meta name="description" content="Get in touch with Parisa London. We're here to help with your jewellery needs, custom orders, and any questions you may have." />
+		<link rel="canonical" href="https://parisajewellery.com/contact" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://parisajewellery.com/contact" />
+		<meta property="og:title" content="Contact Us | Parisa London" />
+		<meta property="og:description" content="Get in touch with Parisa London. We're here to help with your jewellery needs, custom orders, and any questions you may have." />
+		<meta property="og:image" content="https://parisajewellery.com/products/hero.jpg" />
+		<meta property="og:site_name" content="Parisa London" />
+		<meta property="og:locale" content="en_GB" />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Contact Us | Parisa London" />
+		<meta name="twitter:description" content="Get in touch with Parisa London for jewellery inquiries, custom orders, and support." />
+		<meta name="twitter:image" content="https://parisajewellery.com/products/hero.jpg" />
+		
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#0D1716" />
+		
+		<!-- Google Analytics 4 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-2K38T0Y3XN');
+		</script>
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Navbar />
+		<main class="container">
+			<section class="contact-hero" aria-label="Contact page hero">
+				<div class="contact-hero__content">
+					<h1 class="contact-hero__title">Get in Touch</h1>
+					<p class="contact-hero__subtitle">We'd love to hear from you. Whether you have a question about our collections, need assistance with an order, or want to discuss a custom piece, our team is here to help.</p>
+				</div>
+			</section>
+
+			<section class="contact-content">
+				<div class="contact-grid">
+					<!-- Contact Form -->
+					<div class="contact-form-section">
+						<h2 class="contact-section-title">Send us a Message</h2>
+						<form class="contact-form" action="/api/contact" method="POST">
+							<input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+							<div class="form-group">
+								<label for="name" class="form-label">Full Name *</label>
+								<input type="text" id="name" name="name" class="form-input" required>
+							</div>
+							
+							<div class="form-group">
+								<label for="email" class="form-label">Email Address *</label>
+								<input type="email" id="email" name="email" class="form-input" required>
+							</div>
+							
+							<div class="form-group">
+								<label for="subject" class="form-label">Subject *</label>
+								<select id="subject" name="subject" class="form-select" required>
+									<option value="">Select a subject</option>
+									<option value="general">General Inquiry</option>
+									<option value="order">Order Status</option>
+									<option value="custom">Custom Order</option>
+									<option value="returns">Returns & Exchanges</option>
+									<option value="wholesale">Wholesale Inquiry</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="message" class="form-label">Message *</label>
+								<textarea id="message" name="message" class="form-textarea" rows="6" required></textarea>
+							</div>
+							
+							<button type="submit" class="btn btn--primary" data-default-label="Send Message">Send Message</button>
+						</form>
+					</div>
+
+					<!-- Contact Information -->
+					<div class="contact-info-section">
+						<h2 class="contact-section-title">Contact Information</h2>
+						
+						<div class="contact-info-grid">
+							<div class="contact-info-item">
+								<div class="contact-info-icon">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M3 5h18v14H3z"/>
+										<path d="M3 7l9 6 9-6"/>
+									</svg>
+								</div>
+								<div class="contact-info-content">
+									<h3 class="contact-info-title">Email</h3>
+                                    <p class="contact-info-text">parisa@parisajewellery.com</p>
+									<p class="contact-info-note">We typically respond within 24 hours</p>
+								</div>
+							</div>
+
+							<div class="contact-info-item">
+								<div class="contact-info-icon">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+									</svg>
+								</div>
+								<div class="contact-info-content">
+									<h3 class="contact-info-title">Phone</h3>
+									<p class="contact-info-text">+44 (0)771 118 7965</p>
+									<p class="contact-info-note">Mon-Fri, 9am-6pm GMT</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<FAQ />
+
+		</main>
+		<InfoSection />
+		<Footer />
+		<ScrollToTop />
+	</body>
+</html>
+
+<style>
+	/* Mobile container margins for contact page */
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 1.5rem;
+		}
+	}
+	/* Contact Hero Section */
+	.contact-hero {
+		padding: 4rem 0;
+		text-align: center;
+		border-bottom: 1px solid color-mix(in srgb, var(--primary) 10%, transparent 90%);
+	}
+
+	.contact-hero__title {
+		font-size: 3rem;
+		font-weight: 300;
+		color: var(--text-dark);
+		margin-bottom: 1rem;
+		letter-spacing: -0.02em;
+	}
+
+	.contact-hero__subtitle {
+		font-size: 1.125rem;
+		color: color-mix(in srgb, var(--text-dark) 70%, transparent 30%);
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: 1.6;
+	}
+
+	/* Contact Content */
+	.contact-content {
+		padding: 4rem 2rem;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		max-width: 1600px;
+		margin: 0 auto;
+	}
+
+	.contact-section-title {
+		font-size: 1.75rem;
+		font-weight: 400;
+		color: var(--text-dark);
+		margin-bottom: 2rem;
+		letter-spacing: -0.01em;
+	}
+
+	/* Contact Form */
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.form-label {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--text-dark);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.form-input,
+	.form-select,
+	.form-textarea {
+		padding: 0.875rem 1rem;
+		border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent 80%);
+		border-radius: var(--radius);
+		font-size: 1rem;
+		font-family: var(--font-primary);
+		background: var(--background);
+		color: var(--text-dark);
+		transition: all 0.2s ease;
+	}
+
+	.form-input:focus,
+	.form-select:focus,
+	.form-textarea:focus {
+		outline: none;
+		border-color: var(--primary);
+		background: white;
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent 90%);
+	}
+
+	.form-textarea {
+		resize: vertical;
+		min-height: 120px;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem 2rem;
+		border: 2px solid var(--primary);
+		border-radius: var(--radius);
+		font-size: 0.875rem;
+		font-weight: 500;
+		text-decoration: none;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		font-family: var(--font-primary);
+		min-height: 52px;
+	}
+
+	.btn--primary {
+		background: var(--primary);
+		color: white;
+	}
+
+	.btn--primary:hover {
+		background: color-mix(in srgb, var(--primary) 90%, white 10%);
+		transform: translateY(-1px);
+		box-shadow: 0 8px 24px rgba(13, 23, 22, 0.2);
+	}
+
+	.btn--secondary {
+		background: transparent;
+		color: var(--primary);
+	}
+
+	.btn--secondary:hover {
+		background: var(--primary);
+		color: white;
+	}
+
+	/* Inline success banner (unused with JS-submit, kept for no-JS fallback) */
+	.contact-success {
+		margin-bottom: 1rem;
+		padding: 0.75rem 1rem;
+		border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent 80%);
+		border-radius: var(--radius);
+		background: color-mix(in srgb, var(--primary) 6%, white 94%);
+		color: var(--text-dark);
+	}
+
+	/* Contact Info */
+	.contact-info-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		margin-bottom: 3rem;
+	}
+
+	.contact-info-item {
+		display: flex;
+		gap: 1rem;
+		padding: 1.5rem;
+		border: 1px solid color-mix(in srgb, var(--primary) 8%, transparent 92%);
+		border-radius: var(--radius);
+		background: color-mix(in srgb, var(--background) 95%, white 5%);
+		transition: all 0.2s ease;
+	}
+
+	.contact-info-item:hover {
+		border-color: color-mix(in srgb, var(--primary) 15%, transparent 85%);
+		background: color-mix(in srgb, var(--background) 98%, white 2%);
+	}
+
+	.contact-info-icon {
+		color: var(--primary);
+		flex-shrink: 0;
+		margin-top: 0.25rem;
+	}
+
+	.contact-info-content {
+		flex: 1;
+	}
+
+	.contact-info-title {
+		font-size: 1rem;
+		font-weight: 500;
+		color: var(--text-dark);
+		margin-bottom: 0.5rem;
+	}
+
+	.contact-info-text {
+		font-size: 0.95rem;
+		color: var(--text-dark);
+		line-height: 1.5;
+		margin-bottom: 0.25rem;
+	}
+
+	.contact-info-note {
+		font-size: 0.8rem;
+		color: color-mix(in srgb, var(--text-dark) 60%, transparent 40%);
+		font-style: italic;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 880px) {
+		.contact-hero {
+			padding: 3rem 0;
+		}
+
+		.contact-hero__title {
+			font-size: 2.5rem;
+		}
+
+		.contact-hero__subtitle {
+			font-size: 1rem;
+		}
+
+		.contact-content {
+			padding: 3rem 0;
+		}
+
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.contact-section-title {
+			font-size: 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.contact-hero {
+			padding: 2rem 0;
+		}
+
+		.contact-hero__title {
+			font-size: 2rem;
+		}
+
+		.contact-content {
+			padding: 2rem 0;
+		}
+
+		.contact-info-item {
+			padding: 1rem;
+		}
+
+		.btn {
+			padding: 0.875rem 1.5rem;
+			font-size: 0.8rem;
+		}
+	}
+</style>
+
+<script>
+  const formEl = document.querySelector('.contact-form');
+  if (formEl instanceof HTMLFormElement) {
+    const submitBtn = formEl.querySelector('button[type="submit"]');
+    const defaultLabel = (submitBtn && submitBtn.getAttribute('data-default-label')) || 'Send Message';
+
+    formEl.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        if (!(submitBtn instanceof HTMLButtonElement)) {
+          formEl.submit();
+          return;
+        }
+
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        const formData = new FormData(formEl);
+        const res = await fetch(formEl.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          submitBtn.textContent = 'Thank you! Your message has been sent.';
+          formEl.reset();
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Please try again';
+          setTimeout(() => {
+            submitBtn.textContent = defaultLabel;
+          }, 3000);
+        }
+      } catch (_err) {
+        if (submitBtn instanceof HTMLButtonElement) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Please try again';
+          setTimeout(() => {
+            submitBtn.textContent = defaultLabel;
+          }, 3000);
+        }
+      }
+    });
+  }
+</script>

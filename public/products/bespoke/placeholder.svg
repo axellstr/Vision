@@ -1,0 +1,8 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple gray background -->
+  <rect width="400" height="400" fill="#f5f5f5"/>
+  
+  <!-- Center text -->
+  <text x="200" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#999999">Bespoke</text>
+  <text x="200" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#cccccc">Collection</text>
+</svg>

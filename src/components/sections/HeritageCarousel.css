@@ -1,0 +1,347 @@
+.heritage-carousel {
+	margin-top: 3rem;
+	width: 100%;
+	display: block;
+	min-height: 220px;
+	
+}
+
+/* Container for carousel and navigation */
+.heritage-carousel__container {
+	position: relative;
+	width: 100%;
+	padding-top: 0;
+	cursor: grab;
+}
+
+/* Header with title and navigation */
+.heritage-carousel__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 3rem;
+}
+
+.heritage-carousel__title {
+	margin: 0;
+	font-size: clamp(1.25rem, 0.9vw + 1.25rem, 1.75rem);
+	font-weight: 400;
+	color: var(--text-dark);
+}
+
+.heritage-carousel__nav-container {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-left: auto;
+}
+
+/* Navigation Buttons */
+.heritage-carousel__nav-btn {
+	width: 38px;
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--radius);
+	background-color: var(--background);
+	border: 1px solid var(--text-dark);
+	transition: opacity 0.2s ease;
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+.heritage-carousel__nav-btn--disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.heritage-carousel__nav-arrow {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-dark);
+	opacity: 1;
+}
+
+/* Swiper container styles */
+.heritage-swiper {
+	position: relative;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+/* Swiper wrapper */
+.swiper-wrapper {
+	align-items: stretch;
+}
+
+/* Swiper slide */
+.swiper-slide {
+	height: auto;
+	display: flex;
+}
+
+/* Gallery item styles */
+.heritage-carousel__item {
+	position: relative;
+	border-radius: var(--radius);
+	overflow: hidden;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Image container for overlay positioning */
+.heritage-carousel__image-container {
+	position: relative;
+	width: 100%;
+	flex: 0 0 auto;
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+	border-radius: var(--radius);
+}
+
+.heritage-carousel__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: var(--radius);
+	transition: transform 0.3s ease;
+}
+
+/* Quick view overlay */
+.heritage-carousel__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+	border-radius: var(--radius);
+}
+
+/* Quick view button */
+.heritage-carousel__quick-view-btn {
+	background: rgba(255, 255, 255, 0.95);
+	border: none;
+	border-radius: 50px;
+	padding: 12px 20px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.heritage-carousel__quick-view-btn:hover {
+	transform: translateY(0);
+	box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Magnifier icon */
+.heritage-carousel__magnifier {
+	color: var(--text-dark);
+	transition: transform 0.2s ease;
+}
+
+.heritage-carousel__quick-view-btn:hover .heritage-carousel__magnifier {
+	transform: scale(1.1);
+}
+
+/* Quick view text */
+.heritage-carousel__quick-view-text {
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: var(--text-dark);
+	white-space: nowrap;
+}
+
+/* Hover effects */
+.heritage-carousel__image-container:hover .heritage-carousel__overlay {
+	opacity: 1;
+	visibility: visible;
+}
+
+.heritage-carousel__image-container:hover .heritage-carousel__image {
+	transform: scale(1.05);
+}
+
+.heritage-carousel__caption {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.25rem;
+	padding: 0.75rem 0.5rem;
+	flex: 1 1 auto;
+	min-height: 75px;
+	text-align: center;
+}
+
+.heritage-carousel__name {
+	font-size: 0.95rem;
+	font-weight: 300;
+	color: var(--text-dark);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	height: 1.2em;
+	line-height: 1.2;
+}
+
+.heritage-carousel__description {
+	font-size: 0.8rem;
+	color: color-mix(in srgb, var(--text-dark) 70%, transparent 30%);
+	line-height: 1.3;
+	text-align: center;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	height: 2.6em;
+	max-height: 2.6em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+	.heritage-carousel__item {
+		min-height: 280px;
+	}
+	
+	.heritage-carousel__caption {
+		min-height: 70px;
+	}
+	
+	.heritage-carousel__description {
+		font-size: 0.75rem;
+		height: 2.4em;
+		max-height: 2.4em;
+	}
+	
+	.heritage-carousel__nav-btn {
+		width: 36px;
+		height: 36px;
+	}
+	
+	.heritage-carousel__quick-view-btn {
+		padding: 10px 16px;
+	}
+	
+	.heritage-carousel__quick-view-text {
+		font-size: 0.8rem;
+	}
+	
+	.heritage-carousel__magnifier {
+		width: 18px;
+		height: 18px;
+	}
+}
+
+@media (max-width: 768px) {
+	.heritage-carousel__item {
+		min-height: 250px;
+	}
+	
+	.heritage-carousel__caption {
+		min-height: 65px;
+		gap: 0.2rem;
+	}
+	
+	.heritage-carousel__name {
+		font-size: 0.9rem;
+	}
+	
+	.heritage-carousel__description {
+		font-size: 0.7rem;
+		height: 2.2em;
+		max-height: 2.2em;
+	}
+	
+	.heritage-carousel__nav-btn {
+		width: 34px;
+		height: 34px;
+	}
+	
+	.heritage-carousel__nav-arrow svg {
+		width: 14px;
+		height: 14px;
+	}
+	
+	.heritage-carousel__quick-view-btn {
+		padding: 8px 14px;
+	}
+	
+	.heritage-carousel__quick-view-text {
+		font-size: 0.75rem;
+	}
+	
+	.heritage-carousel__magnifier {
+		width: 16px;
+		height: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.heritage-carousel {
+		margin-top: 0rem;
+		padding: 1rem;
+	}
+	
+	.heritage-carousel__item {
+		min-height: 220px;
+	}
+	
+	.heritage-carousel__caption {
+		min-height: 60px;
+		gap: 0.15rem;
+		padding: 0.5rem 0.25rem;
+	}
+	
+	.heritage-carousel__name {
+		font-size: 0.85rem;
+	}
+	
+	.heritage-carousel__description {
+		font-size: 0.65rem;
+		height: 3em;
+		max-height: 3em;
+	}
+	
+	.heritage-carousel__nav-btn {
+		width: 32px;
+		height: 32px;
+	}
+	
+	.heritage-carousel__nav-arrow svg {
+		width: 12px;
+		height: 12px;
+	}
+	
+	.heritage-carousel__quick-view-btn {
+		padding: 6px 12px;
+	}
+	
+	.heritage-carousel__quick-view-text {
+		font-size: 0.7rem;
+	}
+	
+	.heritage-carousel__magnifier {
+		width: 14px;
+		height: 14px;
+	}
+}

@@ -1,0 +1,831 @@
+---
+import { Image } from 'astro:assets';
+import type { Product } from '../../data/types';
+import type { ImageMetadata } from 'astro';
+import Button from '../ui/Button.astro';
+
+
+export interface Props {
+  product: Product;
+  variantImagesMap?: Record<string, ImageMetadata> | null;
+}
+
+const { product, variantImagesMap } = Astro.props;
+---
+
+<div class="product-info">
+  <div class="product-header">
+    <h1 class="product-title">{product.name.toUpperCase()}</h1>
+    <div class="product-description">
+      <p>{product.description.short}</p>
+    </div>
+  </div>
+
+  {product.variants && (
+    <div class="variant-selection" id="initial-selector" data-variant-name={product.variants.name} data-affects-price={product.variants.affectsPrice ? 'true' : 'false'}>
+      <label class="selection-label">SELECT {product.variants.name.toUpperCase()}</label>
+      <div class="variant-grid">
+        {product.variants.options.map(opt => {
+          // Get the image src from variantImagesMap if available
+          const imageSrc = variantImagesMap && variantImagesMap[opt.id] 
+            ? (typeof variantImagesMap[opt.id] === 'string' ? variantImagesMap[opt.id] : variantImagesMap[opt.id].src)
+            : (opt.image && typeof opt.image === 'object' && 'src' in opt.image ? opt.image.src : null);
+          
+          return (
+            <button 
+              class="variant-chip" 
+              data-option-id={opt.id}
+              data-image-src={imageSrc}
+              data-price={opt.price}
+              data-price-formatted={opt.priceFormatted}
+              aria-pressed={product.variants?.defaultOptionId === opt.id ? 'true' : 'false'}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  )}
+
+  <!-- Service Information -->
+  <div class="service-info">
+    <div class="service-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span>COMPLIMENTARY SHIPPING</span>
+    </div>
+    <div class="service-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+      </svg>
+      <span>COMPLIMENTARY RETURNS AND EXCHANGES</span>
+    </div>
+  </div>
+
+
+  <!-- Price and Add to Cart -->
+  <div class="price-section">
+    {product.collection === 'bespoke' ? (
+      <div class="price-on-request">
+        <span class="request-text">PRICE UPON REQUEST</span>
+      </div>
+    ) : !product.inventory.inStock || product.inventory.stockStatus === 'out-of-stock' ? (
+      <div class="sold-out-notice">
+        <span class="sold-out-text">ITEM SOLD OUT</span>
+      </div>
+    ) : (
+      <div class="current-price" id="product-price">{product.price.formatted}</div>
+    )}
+  </div>
+  
+  <div class="add-to-cart-section">
+    <div class="primary-action">
+      {product.collection === 'bespoke' ? (
+        <a href="/contact" class="add-to-bag-btn enquire-btn">
+          <span>ENQUIRE NOW</span>
+        </a>
+      ) : !product.inventory.inStock || product.inventory.stockStatus === 'out-of-stock' ? (
+        <button class="add-to-bag-btn sold-out-btn" disabled>
+          <span>SOLD OUT</span>
+        </button>
+      ) : (
+        <button class="add-to-bag-btn">
+          <span>ADD TO BAG</span>
+        </button>
+      )}
+      <button class="wishlist-btn-icon" aria-label="Add to wishlist">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Contact Options -->
+  <div class="contact-options">
+    <div class="contact-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <span>FIND IN BOUTIQUE</span>
+    </div>
+    <div class="contact-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+      </svg>
+      <span>CONTACT AN AMBASSADOR</span>
+    </div>
+    <div class="contact-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span>BOOK AN APPOINTMENT</span>
+    </div>
+  </div>
+  
+  <!-- Share and Reference -->
+  <div class="share-section">
+    <div class="share-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/>
+      </svg>
+      <span>SHARE</span>
+    </div>
+    <div class="reference-number">
+      <span>Ref. {product.sku}</span>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ product }}>
+  // Variant selection handling (A–Z initials, gemstones, etc.)
+  const variantContainer = document.getElementById('initial-selector');
+  if (variantContainer) {
+    const chips = Array.from(variantContainer.querySelectorAll('.variant-chip'));
+    const defaultId = variantContainer.getAttribute('data-default') || (product.variants?.defaultOptionId || (chips[0]?.getAttribute('data-option-id') || ''));
+    const affectsPrice = variantContainer.getAttribute('data-affects-price') === 'true';
+    
+    const setActive = (id) => {
+      chips.forEach((c) => {
+        const isActive = c.getAttribute('data-option-id') === id;
+        c.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      
+      // Find the clicked chip to get its image URL and price
+      const activeChip = chips.find(c => c.getAttribute('data-option-id') === id);
+      const imageSrc = activeChip?.getAttribute('data-image-src');
+      
+      // Update price if variant affects price
+      if (affectsPrice && activeChip) {
+        const priceFormatted = activeChip.getAttribute('data-price-formatted');
+        const price = activeChip.getAttribute('data-price');
+        const priceElement = document.getElementById('product-price');
+        
+        if (priceElement && priceFormatted) {
+          priceElement.textContent = priceFormatted;
+          
+          // Update the product price in the product object for cart
+          if (price) {
+            product.price.current = parseFloat(price);
+            product.price.formatted = priceFormatted;
+          }
+          
+        }
+      }
+      
+      // Update gallery image for this variant (if image is available)
+      if (imageSrc) {
+        
+        // Get the main gallery image wrapper
+        const mainImageWrapper = document.querySelector('.gallery-image-wrapper[data-index="0"]');
+        if (mainImageWrapper) {
+          // Check if there's a picture element (Astro Image component)
+          const pictureElement = mainImageWrapper.querySelector('picture');
+          
+          if (pictureElement) {
+            // Update all source elements in the picture
+            const sources = pictureElement.querySelectorAll('source');
+            sources.forEach(source => {
+              source.srcset = imageSrc;
+            });
+            
+            // Update the img element inside picture
+            const imgElement = pictureElement.querySelector('img');
+            if (imgElement) {
+              imgElement.src = imageSrc;
+              imgElement.srcset = imageSrc;
+              imgElement.alt = `${product.name} - ${id.toUpperCase()}`;
+            }
+          } else {
+            // Regular img element (not Astro Image component)
+            const imgElement = mainImageWrapper.querySelector('img');
+            if (imgElement) {
+              imgElement.src = imageSrc;
+              imgElement.srcset = imageSrc;
+              imgElement.alt = `${product.name} - ${id.toUpperCase()}`;
+            }
+          }
+          
+        }
+        
+        // Update thumbnail if it exists
+        const firstThumbnail = document.querySelector('.thumbnail[data-index="0"]');
+        if (firstThumbnail) {
+          const thumbPicture = firstThumbnail.querySelector('picture');
+          
+          if (thumbPicture) {
+            // Update picture element sources
+            const sources = thumbPicture.querySelectorAll('source');
+            sources.forEach(source => {
+              source.srcset = imageSrc;
+            });
+            
+            const imgElement = thumbPicture.querySelector('img');
+            if (imgElement) {
+              imgElement.src = imageSrc;
+              imgElement.srcset = imageSrc;
+              imgElement.alt = `${product.name} - ${id.toUpperCase()} thumbnail`;
+            }
+          } else {
+            // Regular img element
+            const imgElement = firstThumbnail.querySelector('img');
+            if (imgElement) {
+              imgElement.src = imageSrc;
+              imgElement.srcset = imageSrc;
+              imgElement.alt = `${product.name} - ${id.toUpperCase()} thumbnail`;
+            }
+          }
+          
+        }
+      }
+      
+      try {
+        window.dispatchEvent(new CustomEvent('product:variantChanged', { detail: { productId: product.id, variantName: product.variants?.name, optionId: id } }));
+      } catch {}
+    };
+    
+    // Initialize
+    if (defaultId) setActive(defaultId);
+    
+    chips.forEach((chip) => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = chip.getAttribute('data-option-id');
+        if (id) setActive(id);
+      });
+    });
+  }
+  
+
+  // Read more functionality
+  const readMoreBtn = document.querySelector('.read-more-btn');
+  if (readMoreBtn) {
+    readMoreBtn.addEventListener('click', function() {
+      // Expand description or open modal
+    });
+  }
+
+  // Contact options functionality
+  const contactItems = document.querySelectorAll('.contact-item');
+  contactItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const text = this.querySelector('span').textContent;
+      if (text.includes('PHONE')) {
+        window.location.href = 'tel:1-800-227-8437';
+      } else if (text.includes('BOUTIQUE')) {
+        // Redirect to store locator
+      } else if (text.includes('AMBASSADOR')) {
+        // Open contact form
+      } else if (text.includes('APPOINTMENT')) {
+        // Open booking system
+      }
+    });
+  });
+
+  // Add to cart functionality - enhanced version with fallback
+  document.addEventListener('DOMContentLoaded', async function() {
+    let addToCart, openCartDrawer;
+    
+    try {
+      // Prefer global manager first to avoid dynamic import in browser
+      if (window.globalCartManager) {
+        addToCart = (item, quantity) => window.globalCartManager.addToCart(item, quantity);
+        openCartDrawer = () => window.globalCartManager.openCartDrawer();
+      } else {
+        // Fallback to module import only if global is not available
+        const cartModule = await import('/src/data/cart.ts');
+        addToCart = cartModule.addToCart;
+        openCartDrawer = cartModule.openCartDrawer;
+      }
+    } catch (importError) {
+      if (window.globalCartManager) {
+        addToCart = (item, quantity) => window.globalCartManager.addToCart(item, quantity);
+        openCartDrawer = () => window.globalCartManager.openCartDrawer();
+      } else {
+        return;
+      }
+    }
+    
+    const addToCartBtn = document.querySelector('.add-to-bag-btn');
+    
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', function(e) {
+        // For bespoke items, let the link handle navigation
+        if (product.collection === 'bespoke') {
+          return; // Let the <a> tag handle navigation to contact page
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const button = this;
+        if (!button.disabled) {
+          // Resolve selected variant (if any)
+          let selectedVariantOptionId = undefined;
+          let selectedVariantLabel = undefined;
+          if (product.variants) {
+            // Read active from selector grid
+            const chips = Array.from(document.querySelectorAll('#initial-selector .variant-chip'));
+            const activeChip = chips.find(c => c.getAttribute('aria-pressed') === 'true');
+            selectedVariantOptionId = (activeChip && activeChip.getAttribute('data-option-id')) || product.variants.defaultOptionId || product.variants.options[0]?.id;
+            try {
+              const opt = product.variants.options.find(o => o.id === selectedVariantOptionId) || product.variants.options[0];
+              selectedVariantLabel = opt ? opt.label : undefined;
+            } catch {}
+          }
+
+          // Get product data - using same approach as shop page
+          const productName = product.name;
+          const productPrice = product.price.current;
+          // Prefer selected variant image for the cart if available
+          let productImage = typeof product.images.main === 'string' ? product.images.main : (product.images.main?.src || '');
+          if (product.variants && selectedVariantOptionId) {
+            try {
+              const opt = product.variants.options.find(o => o.id === selectedVariantOptionId);
+              const variantSrc = opt && (opt.image?.src || '');
+              if (variantSrc) productImage = variantSrc;
+            } catch {}
+          }
+          
+          if (!product.id || !productName || !productPrice) {
+            return;
+          }
+          // Create cart item - matching shop page format
+          const cartItem = {
+            id: (product.variants && selectedVariantOptionId) ? `${product.id}::${selectedVariantOptionId}` : product.id,
+            name: productName,
+            price: productPrice,
+            formattedPrice: `£${productPrice.toLocaleString('en-GB')}`,
+            image: productImage,
+            category: product.category,
+            collection: product.collection,
+            sku: product.sku,
+            variant: product.variants ? { name: product.variants.name, optionId: selectedVariantOptionId, label: selectedVariantLabel } : undefined
+          };
+          
+          try {
+            // Add to cart
+            const result = addToCart(cartItem, 1);
+
+            // Immediately update navbar via global manager if present to avoid module instance drift
+            try {
+              if (window.globalCartManager) {
+                const s = window.globalCartManager.getCartState();
+                const el = document.getElementById('cart-count');
+                if (el) {
+                  el.textContent = s.itemCount.toString();
+                  el.style.display = s.itemCount > 0 ? 'inline-flex' : 'none';
+                }
+              }
+            } catch {}
+            
+            // Visual feedback - matching shop page
+            const originalText = button.textContent;
+            button.textContent = 'ADDED TO BAG';
+            button.style.background = 'var(--text-dark)';
+            button.style.color = 'var(--surface-white)';
+            
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.style.background = '';
+              button.style.color = '';
+            }, 2000);
+            
+            // Open cart drawer after adding - matching shop page timing
+            setTimeout(() => {
+              openCartDrawer();
+            }, 500);
+
+            // Ensure navbar cart-count updates immediately
+            try {
+              // Dispatch a global event so the navbar (or any listener) updates immediately
+              if (typeof window !== 'undefined' && typeof CustomEvent !== 'undefined') {
+                // The cart store already dispatches 'cart:updated'. As a belt-and-braces,
+                // emit a tick later to catch any race conditions with module imports.
+                setTimeout(() => {
+                  try {
+                    // best-effort: read state and emit
+                    import('../../data/cart').then(({ getCartState }) => {
+                      const detail = getCartState();
+                      window.dispatchEvent(new CustomEvent('cart:updated', { detail }));
+                    });
+                  } catch {}
+                }, 0);
+              }
+            } catch (e) {
+              // no-op
+            }
+            
+          } catch (cartError) {
+            console.error('Error adding to cart:', cartError);
+          }
+        }
+      });
+    }
+  });
+
+  // Wishlist functionality
+  const wishlistBtn = document.querySelector('.wishlist-btn-icon');
+  if (wishlistBtn) {
+    let isWishlisted = false;
+    
+    wishlistBtn.addEventListener('click', function() {
+      isWishlisted = !isWishlisted;
+      
+      // Toggle active class for styling
+      this.classList.toggle('active', isWishlisted);
+      
+      // Add pop animation
+      this.classList.add('pop');
+      setTimeout(() => this.classList.remove('pop'), 300);
+      
+    });
+  }
+
+  // Share functionality
+  const shareBtn = document.querySelector('.share-item');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function() {
+      if (navigator.share) {
+        navigator.share({
+          title: product.name,
+          text: product.description.short,
+          url: window.location.href
+        });
+      } else {
+        // Fallback to copying URL
+        navigator.clipboard.writeText(window.location.href);
+        alert('Product URL copied to clipboard!');
+      }
+    });
+  }
+</script>
+
+<style>
+  /* Product Information */
+  .product-info {
+    padding-left: var(--spacing-3xl);
+    max-width: 500px;
+    font-family: var(--font-primary);
+  }
+
+  .product-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .product-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-normal);
+    color: var(--text-dark);
+    margin: 0 0 var(--spacing-2xl) 0;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .product-description {
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .product-description p {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin: 0 0 var(--spacing-md) 0;
+  }
+
+  .read-more-btn {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-size: var(--font-size-sm);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+  }
+
+  /* Service Information */
+  .service-info {
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-medium);
+    color: var(--text-dark);
+    letter-spacing: 0.05em;
+  }
+
+  .service-item svg {
+    flex-shrink: 0;
+    stroke-width: 1;
+  }
+
+
+  .selection-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-semibold);
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.05em;
+  }
+
+  /* Variant Selection */
+  .variant-selection {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .variant-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .variant-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 1px solid var(--text-dark);
+    background: var(--surface-white);
+    color: var(--text-dark);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition-normal);
+  }
+
+  .variant-chip[aria-pressed="true"] {
+    background: var(--text-dark);
+    color: var(--surface-white);
+  }
+
+  @media (max-width: 768px) {
+    .variant-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .variant-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+
+  /* Price Section */
+  .price-section {
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .current-price {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-normal);
+    color: var(--text-dark);
+    letter-spacing: 0.02em;
+  }
+
+  .price-on-request {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .request-text {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-medium);
+    color: var(--text-dark);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .sold-out-notice {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .sold-out-text {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-medium);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .enquire-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  /* Add to Cart Section */
+  .add-to-cart-section {
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .primary-action {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+
+  .add-to-bag-btn {
+    flex: 1;
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    background: var(--surface-light);
+    border: 1px solid var(--text-dark);
+    color: var(--text-dark);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-semibold);
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    min-height: 48px;
+  }
+
+  .add-to-bag-btn:hover:not(:disabled) {
+    background: var(--text-dark);
+    color: var(--surface-white);
+  }
+
+  .add-to-bag-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .sold-out-btn {
+    background: var(--surface-light) !important;
+    color: var(--text-dark) !important;
+    opacity: 0.6;
+    cursor: not-allowed !important;
+  }
+
+  .sold-out-btn:hover {
+    background: var(--surface-light) !important;
+    color: var(--text-dark) !important;
+  }
+
+  .wishlist-btn-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--text-dark);
+    background: var(--surface-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+  }
+
+  .wishlist-btn-icon svg {
+    stroke: var(--text-dark);
+    fill: transparent;
+    transition: fill 0.25s ease, stroke 0.25s ease, transform 0.25s ease;
+  }
+
+  .wishlist-btn-icon:hover {
+    background: var(--surface-light);
+  }
+
+  .wishlist-btn-icon:hover svg {
+    transform: scale(1.1);
+  }
+
+  /* Active (wishlisted) state - :global needed for JS-added classes */
+  .wishlist-btn-icon:global(.active) svg {
+    fill: var(--text-dark);
+    stroke: var(--text-dark);
+  }
+
+  /* Pop animation on click */
+  .wishlist-btn-icon:global(.pop) svg {
+    animation: heartPop 0.3s ease;
+  }
+
+  @keyframes heartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+
+
+  /* Contact Options */
+  .contact-options {
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-medium);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--surface-border);
+  }
+
+  .contact-item:hover {
+    color: var(--primary);
+  }
+
+  .contact-item svg {
+    flex-shrink: 0;
+    stroke-width: 1;
+  }
+
+  /* Share Section */
+  .share-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-lg);
+  }
+
+  .share-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-medium);
+    color: var(--text-dark);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+
+  .share-item svg {
+    stroke-width: 1;
+  }
+
+  .reference-number {
+    font-size: var(--font-size-xs);
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .product-info {
+      padding-left: 0;
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-info {
+      padding-left: var(--spacing-lg);
+      padding-right: var(--spacing-lg);
+    }
+
+    .product-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .current-price {
+      font-size: var(--font-size-xl);
+    }
+
+
+    .contact-options {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .contact-item {
+      padding: var(--spacing-md) 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-info {
+      padding-left: var(--spacing-md);
+      padding-right: var(--spacing-md);
+    }
+
+    .product-title {
+      font-size: var(--font-size-lg);
+    }
+
+
+    .share-section {
+      flex-direction: row;
+      gap: var(--spacing-md);
+      align-items: flex-start;
+    }
+  }
+</style>

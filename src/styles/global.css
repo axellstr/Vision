@@ -1,0 +1,363 @@
+/* Google Fonts loaded in HTML <head> for optimal performance with preconnect */
+
+/* Global CSS Variables and Base Styles */
+:root {
+  /* Colors */
+  --primary: #0D1716;
+  --secondary: #1d1d1d;
+  --background: #ffffff;
+  --text-dark: #0d1716;
+  --text-light: #6b7280;
+  --text-muted: color-mix(in srgb, var(--text-dark) 60%, transparent 40%);
+  
+  /* Status colors */
+  --success: #28a745;
+  --error: #dc2626;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  
+  /* Surface colors */
+  --surface-white: #ffffff;
+  --surface-light: #f8f9fa;
+  --surface-dark: #1a2423;
+  --surface-border: #dddddd;
+  --surface-overlay: rgba(13, 23, 22, 0.4);
+  
+  /* Interactive states */
+  --hover-overlay: color-mix(in srgb, var(--primary) 8%, transparent 92%);
+  --focus-ring: rgba(54, 143, 139, 0.1);
+  --disabled: #9ca3af;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 4rem;
+
+  
+  /* Layout */
+  --radius: 0;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --container-max: 1600px;
+  --container-padding: 1rem;
+  --navbar-height: 80px;
+  
+  /* Typography */
+  --font-primary: 'Montserrat', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  
+  /* Font weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 600; /* Mapped to semibold - 700 not loaded for performance */
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index scale */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-header: 1000;
+  --z-overlay: 2000;
+  --z-modal: 3000;
+  --z-toast: 4000;
+}
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color: var(--text-dark);
+  scroll-behavior: smooth;
+  font-family: var(--font-primary);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  background-color: var(--background);
+  font-family: var(--font-primary);
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  /* Account for fixed navbar */
+  padding-top: var(--navbar-height);
+}
+
+/* Note: Body already has padding-top for fixed navbar.
+   If you need additional spacing on specific pages, 
+   add it to the page container instead of using .main-content */
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  line-height: 1.2;
+  font-family: var(--font-primary);
+}
+
+/* Utility Classes */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+
+
+/* Common form styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group label {
+  font-weight: var(--font-medium);
+  color: var(--primary);
+  font-size: var(--font-size-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--spacing-md);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  background: var(--surface-white);
+  color: var(--text-dark);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  transition: var(--transition-normal);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--secondary);
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: var(--error);
+  color: var(--text-dark);
+}
+
+/* Ensure autocomplete styles don't override text color */
+.form-group input.error:-webkit-autofill,
+.form-group input.error:-webkit-autofill:hover,
+.form-group input.error:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-dark) !important;
+  color: var(--text-dark) !important;
+}
+
+/* Error messages */
+.error-message {
+  display: none;
+  color: var(--error);
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.error-message[style*="block"] {
+  display: block;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Animated Underline Effect - Reusable */
+.underline-animate {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  transition: color var(--transition-slow);
+}
+
+.underline-animate::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary);
+  transition: width var(--transition-slow);
+}
+
+.underline-animate:hover {
+  color: var(--primary);
+}
+
+.underline-animate:hover::after {
+  width: 100%;
+}
+
+/* Variant with custom positioning */
+.underline-animate-padded {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  transition: color var(--transition-slow);
+}
+
+.underline-animate-padded::after {
+  content: '';
+  position: absolute;
+  bottom: 0.3rem;
+  left: 0.75rem;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary);
+  transition: width var(--transition-slow);
+}
+
+.underline-animate-padded:hover {
+  color: var(--primary);
+}
+
+.underline-animate-padded:hover::after {
+  width: calc(100% - 1.5rem);
+}
+
+/* CTA Button - Primary Action Button Component */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-dark);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.0625em;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--text-dark) 30%, transparent 70%);
+  transition: all var(--transition-slow);
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--text-dark);
+  transition: left var(--transition-slow);
+  z-index: -1;
+}
+
+.cta-button:hover::before {
+  left: 0;
+}
+
+.cta-button:hover {
+  color: var(--surface-white);
+  border-color: var(--text-dark);
+}
+
+/* Disabled state */
+.cta-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cta-button:disabled:hover {
+  color: var(--text-dark);
+  border-color: color-mix(in srgb, var(--text-dark) 30%, transparent 70%);
+}
+
+.cta-button:disabled:hover::before {
+  left: -100%;
+}
+
+/* Primary variant - filled background */
+.cta-button.cta-primary {
+  background: var(--primary);
+  color: var(--surface-white);
+  border-color: var(--primary);
+}
+
+.cta-button.cta-primary::before {
+  background: var(--surface-white);
+}
+
+.cta-button.cta-primary:hover {
+  color: var(--primary);
+  border-color: var(--surface-white);
+}
+
+.cta-button.cta-primary:disabled {
+  background: var(--primary);
+  color: var(--surface-white);
+  border-color: var(--primary);
+}
+
+.cta-button.cta-primary:disabled:hover::before {
+  left: -100%;
+}
+
+/* Button content and icon wrapper */
+.cta-button .btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-button .btn-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}

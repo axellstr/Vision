@@ -1,0 +1,25 @@
+---
+// Marquee component props
+export interface Props {
+  text?: string;
+  speed?: number;
+}
+
+const { 
+  text = "Free Shipping Worldwide — A Luxury That Travels With You", 
+  speed = 15 
+} = Astro.props;
+---
+
+<div class="marquee">
+  <div class="marquee-content" style={`animation-duration: ${speed}s`}>
+    <span>{text}</span>
+    <span>{text}</span>
+    <span>{text}</span>
+    <span>{text}</span>
+  </div>
+</div>
+
+<style>
+  @import './Marquee.css';
+</style>

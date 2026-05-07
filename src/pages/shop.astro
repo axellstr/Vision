@@ -1,0 +1,458 @@
+---
+import '../styles/global.css';
+import '../components/navigation/Navbar.css';
+import '../components/ui/Marquee.css';
+import '../components/layout/Footer.css';
+import '../components/sections/ShopFilters.css';
+import './shop/_shop.css';
+import { Image } from 'astro:assets';
+import Navbar from '../components/navigation/Navbar.astro';
+import Marquee from '../components/ui/Marquee.astro';
+import Footer from '../components/layout/Footer.astro';
+import ScrollToTop from '../components/common/ScrollToTop.astro';
+import ShopFilters from '../components/sections/ShopFilters.astro';
+import CartDrawer from '../components/ui/CartDrawer.astro';
+import { getAllProducts, getAllCollections, getAllCategories } from '../data/products';
+import type { Product } from '../data/types';
+import foreverParisa from '../assets/images/forever/forever_parisa.png';
+
+// Get all products from the master registry
+const allProducts = getAllProducts();
+
+// Convert products to simple format for shop display
+const sampleProducts = allProducts.map(product => ({
+  id: product.id,
+  name: product.name,
+  price: product.price.current,
+  category: product.category,
+  collection: product.collection,
+  image: product.id === 'forever-initial-necklace' ? (foreverParisa as any) : product.images.main,
+  hoverImage: product.images.gallery && product.images.gallery.length > 0 ? product.images.gallery[0] : null,
+  isNew: product.badges.isNew,
+  inStock: product.inventory.inStock,
+  stockStatus: product.inventory.stockStatus,
+  hasVariations: product.variants !== undefined,
+  variationsAffectPrice: product.variants?.affectsPrice === true
+}));
+
+// Filter options - dynamically generated from the data
+const categories = ['all', ...getAllCategories()];
+const collections = ['all', ...getAllCollections()];
+
+// Calculate min and max prices from products
+const prices = sampleProducts.map(product => product.price);
+const minPrice = Math.min(...prices);
+const maxPrice = Math.max(...prices);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Shop | Parisa London | Luxury Fine Jewellery</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Shop Parisa London's complete collection of handcrafted fine jewellery. Discover rings, necklaces, bracelets, and earrings from our Talisman, Heritage, Kaleidoscope, and Forever collections." />
+    <link rel="canonical" href="https://parisajewellery.com/shop" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parisajewellery.com/shop" />
+    <meta property="og:title" content="Shop | Parisa London | Luxury Fine Jewellery" />
+    <meta property="og:description" content="Shop Parisa London's complete collection of handcrafted fine jewellery. Discover rings, necklaces, bracelets, and earrings." />
+    <meta property="og:image" content="https://parisajewellery.com/products/hero.jpg" />
+    <meta property="og:site_name" content="Parisa London" />
+    <meta property="og:locale" content="en_GB" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shop | Parisa London | Luxury Fine Jewellery" />
+    <meta name="twitter:description" content="Shop Parisa London's complete collection of handcrafted fine jewellery." />
+    <meta name="twitter:image" content="https://parisajewellery.com/products/hero.jpg" />
+    
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0D1716" />
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K38T0Y3XN"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2K38T0Y3XN');
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Load global cart manager for fallback support -->
+    <script src="/cart-manager.js" is:inline></script>
+  </head>
+  <body>
+    <Navbar />
+    
+    <!-- Shop Hero Section -->
+    <section class="shop-hero">
+      <div class="shop-hero-content">
+        <h1 class="shop-hero-title">Shop Collection</h1>
+        <p class="shop-hero-subtitle">Discover our handcrafted jewelry pieces, each designed with passion and precision. Ethically made, responsibly sourced — handcrafted in London.</p>
+      </div>
+    </section>
+
+    <!-- Shop Content -->
+    <main class="shop-container">
+      <div class="shop-layout">
+        <!-- Filters Sidebar -->
+        <ShopFilters 
+          categories={categories}
+          collections={collections}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+        />
+
+        <!-- Products Grid -->
+        <section class="shop-products">
+          <div class="products-header">
+            <h2 class="products-title">All Products</h2>
+            <p class="products-count">{sampleProducts.length} items</p>
+          </div>
+
+          <div class="products-grid" id="products-grid">
+            {sampleProducts.map(product => (
+              <article class="product-card" data-id={product.id} data-category={product.category} data-collection={product.collection} data-price={product.price} data-has-variations={product.hasVariations ? 'true' : 'false'} data-variations-affect-price={product.variationsAffectPrice ? 'true' : 'false'}>
+                <a href={`/shop/product/${product.id}`} class="product-link">
+                  <div class="product-image">
+                    {typeof product.image === 'string' ? (
+                      <>
+                        <img 
+                          src={product.image}
+                          alt={product.name}
+                          loading="lazy"
+                          width={400}
+                          height={400}
+                          class="product-image-main"
+                        />
+                        {product.hoverImage && typeof product.hoverImage === 'string' && (
+                          <img 
+                            src={product.hoverImage}
+                            alt={`${product.name} - alternate view`}
+                            loading="lazy"
+                            width={400}
+                            height={400}
+                            class="product-image-hover"
+                          />
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <Image 
+                          src={product.image}
+                          alt={product.name}
+                          width={400}
+                          height={400}
+                          format="webp"
+                          quality={90}
+                          loading="lazy"
+                          decoding="async"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          densities={[1, 1.5, 2]}
+                          class="product-image-main"
+                        />
+                        {product.hoverImage && typeof product.hoverImage !== 'string' && (
+                          <Image 
+                            src={product.hoverImage}
+                            alt={`${product.name} - alternate view`}
+                            width={400}
+                            height={400}
+                            format="webp"
+                            quality={90}
+                            loading="lazy"
+                            decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            densities={[1, 1.5, 2]}
+                            class="product-image-hover"
+                          />
+                        )}
+                      </>
+                    )}
+                    <div class="product-image-placeholder" style="display: none;">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21,15 16,10 5,21"/>
+                      </svg>
+                    </div>
+                    {product.isNew && (
+                      <span class="product-badge">New</span>
+                    )}
+                    <div class="product-overlay">
+                      {product.collection === 'bespoke' ? (
+                        <a href="/contact" class="product-add-cart enquire-btn-shop">ENQUIRE NOW</a>
+                      ) : !product.inStock || product.stockStatus === 'out-of-stock' ? (
+                        <button class="product-add-cart sold-out-btn-shop" disabled>SOLD OUT</button>
+                      ) : product.variationsAffectPrice ? (
+                        <button class="product-add-cart select-options-btn">SELECT OPTIONS</button>
+                      ) : (
+                        <button class="product-add-cart">ADD TO BAG</button>
+                      )}
+                    </div>
+                  </div>
+                </a>
+                <div class="product-info">
+                  <h3 class="product-name">{product.name}</h3>
+                  <p class="product-collection">{product.collection.charAt(0).toUpperCase() + product.collection.slice(1)} Collection</p>
+                  <p class={`product-price ${product.collection === 'bespoke' || (!product.inStock || product.stockStatus === 'out-of-stock') ? 'bespoke-price' : ''}`}>
+                    {product.collection === 'bespoke' ? '*Price Upon Request' : (!product.inStock || product.stockStatus === 'out-of-stock') ? '*Sold Out' : `£${product.price.toLocaleString('en-GB')}`}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <Footer />
+    <ScrollToTop />
+    
+    <!-- Cart Drawer rendered globally in Navbar to avoid duplicates -->
+
+    <style>
+      /* Responsive Design */
+      @media (max-width: 1400px) {
+        .products-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .shop-layout {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+
+        .products-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .shop-hero-title {
+          font-size: 2.5rem;
+        }
+
+        .shop-container {
+          padding: 2rem 1rem;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+
+        .product-info {
+          padding: 1rem;
+        }
+
+        .products-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .shop-hero {
+          height: 25vh;
+          min-height: 250px;
+        }
+
+        .shop-hero-title {
+          font-size: 2rem;
+        }
+
+        .shop-hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+      }
+    </style>
+
+    <script>
+      // @ts-nocheck
+      // Shop page animations and interactions
+      document.addEventListener('DOMContentLoaded', async function() {
+        // ============================================
+        // PRODUCT CARD ANIMATIONS
+        // ============================================
+        
+        // Set up Intersection Observer for scroll-based animations
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px 0px -100px 0px', // Trigger slightly before entering viewport
+          threshold: 0.1
+        };
+
+        const productCards = document.querySelectorAll('.product-card');
+        
+        // Determine which cards should animate on scroll (beyond the first row)
+        const cardsPerRow = window.innerWidth > 1400 ? 4 : window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 3 : 2;
+        const initialCards = cardsPerRow * 2; // First 2 rows animate immediately
+        
+        productCards.forEach((card, index) => {
+          if (index >= initialCards) {
+            // Cards beyond initial view use scroll-based animation
+            card.classList.add('animate-on-scroll');
+          }
+        });
+
+        // Intersection Observer callback
+        const observerCallback = (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              // Unobserve after animation to improve performance
+              observer.unobserve(entry.target);
+              // Remove will-change after animation completes
+              setTimeout(() => {
+                entry.target.classList.add('animation-complete');
+              }, 600);
+            }
+          });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        // Observe all scroll-animated cards
+        document.querySelectorAll('.product-card.animate-on-scroll').forEach(card => {
+          observer.observe(card);
+        });
+
+        // Clean up will-change for initially animated cards after animation completes
+        setTimeout(() => {
+          productCards.forEach((card, index) => {
+            if (index < initialCards) {
+              card.classList.add('animation-complete');
+            }
+          });
+        }, 800); // After all initial animations complete
+
+        // ============================================
+        // CART FUNCTIONALITY
+        // ============================================
+        try {
+          // Import cart functions and prefer the global manager to avoid multiple instances
+          let addToCartFn, openCartDrawerFn;
+          try {
+            if (window.globalCartManager) {
+              addToCartFn = (item, qty) => window.globalCartManager.addToCart(item, qty);
+              openCartDrawerFn = () => window.globalCartManager.openCartDrawer();
+            }
+          } catch {}
+
+          if (!addToCartFn || !openCartDrawerFn) {
+            const mod = await import('../data/cart');
+            addToCartFn = mod.addToCart;
+            openCartDrawerFn = mod.openCartDrawer;
+          }
+          
+          const addToCartButtons = document.querySelectorAll('.product-add-cart');
+          
+          addToCartButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              // Get product data from the product card
+              const productCard = this.closest('.product-card');
+              if (!productCard) return;
+              
+              const productCollection = productCard.getAttribute('data-collection') || 'unknown';
+              
+              // For bespoke items, redirect to contact page
+              if (productCollection === 'bespoke') {
+                window.location.href = '/contact';
+                return;
+              }
+              
+              // For products with variations that affect price, redirect to product page
+              const hasVariationsAffectingPrice = productCard.getAttribute('data-variations-affect-price') === 'true';
+              if (hasVariationsAffectingPrice) {
+                const productId = productCard.getAttribute('data-id');
+                if (productId) {
+                  window.location.href = `/shop/product/${productId}`;
+                }
+                return;
+              }
+              
+              const productId = productCard.getAttribute('data-id') || productCard.querySelector('.product-link')?.getAttribute('href')?.split('/').pop();
+              const productName = productCard.querySelector('.product-name')?.textContent?.trim();
+              const productPrice = parseFloat(productCard.getAttribute('data-price') || '0');
+              const productCategory = productCard.getAttribute('data-category') || 'unknown';
+              const productImage = productCard.querySelector('.product-image img')?.getAttribute('src') || '';
+              
+              if (!productId || !productName || !productPrice) {
+                return;
+              }
+              
+              // Create cart item
+              const cartItem = {
+                id: productId,
+                name: productName,
+                price: productPrice,
+                formattedPrice: `£${productPrice.toLocaleString('en-GB')}`,
+                image: productImage,
+                category: productCategory,
+                collection: productCollection,
+                sku: `SKU-${productId.toUpperCase()}`
+              };
+              
+              // Add to cart
+              addToCartFn(cartItem, 1);
+              
+              // Visual feedback
+              if (button instanceof HTMLElement) {
+                const originalText = button.textContent;
+                button.textContent = 'ADDED TO BAG';
+                button.style.background = 'var(--text-dark)';
+                button.style.color = 'var(--surface-white)';
+                
+                setTimeout(() => {
+                  button.textContent = originalText;
+                  button.style.background = '';
+                  button.style.color = '';
+                }, 2000);
+              }
+              
+              // Optional: Open cart drawer after adding
+              setTimeout(() => {
+                try {
+                  if (window.globalCartManager) {
+                    window.globalCartManager.openCartDrawer();
+                  } else {
+                    openCartDrawerFn();
+                  }
+                } catch {
+                  openCartDrawerFn();
+                }
+              }, 500);
+            });
+          });
+        } catch (error) {
+          console.error('Failed to initialize cart functionality:', error);
+        }
+      });
+    </script>
+
+  </body>
+</html>
